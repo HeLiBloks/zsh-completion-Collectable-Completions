@@ -1,0 +1,7 @@
+#compdef entr
+
+_arguments -S '-c[Execute /usr/bin/clear before invoking the utility specified on the command line.]'\
+  '-d[Track the directories of regular files provided as input and exit if a new file is added.  This option also enables]'\
+  '-p[Postpone the first execution of the utility until a file is modified.]'\
+  '-r[Reload a persistent child process.  SIGTERM is used to terminate the utility before it is restarted. A process group]'\
+  '*:filename:_files'

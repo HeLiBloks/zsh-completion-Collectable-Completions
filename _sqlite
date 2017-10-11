@@ -1,0 +1,105 @@
+#compdef sqlite sqlite3
+
+local ret opt display_opt sqlite3
+local -a options output_modes exclusive dashes
+
+[[ $service = sqlite3 ]] && sqlite3=true || unset sqlite3
+
+# sqlite options require a single hyphen, but
+# sqlite3 allows options with one or two
+dashes=( '' )
+(( $+sqlite3 )) && dashes+=( - )
+
+options=(
+  '(-init --init)'$^dashes'-init[startup file]:file containing SQLite cmd:_files'
+  $^dashes'-echo[echo commands]'
+)
+
+exclusive=( {,-}-{no,}header )
+options+=(
+  "($exclusive)"$^dashes'-header[turn headers on]'
+  "($exclusive)"$^dashes'-noheader[turn headers off]'
+)
+
+output_modes=( column HTML line list )
+(( $+sqlite3 )) && output_modes+=( csv )
+exclusive=( $^dashes-${^output_modes:l} )
+for display_opt in $output_modes ; do
+  # finagle the description to match the way SQLite's -help formats them
+  opt=$display_opt:l
+  [[ $opt = $display_opt ]] && display_opt="'$display_opt'"
+  options+=( "($exclusive)"$^dashes"-${opt}[set output mode to $display_opt]" )
+done
+
+options+=(
+$^dashes'-separator[set output field separator]:string to separate output fields:( "|" ";" "," "\t" )'
+  $^dashes'-nullvalue[set null value string]:string for NULL values:'
+  '(- :)'$^dashes'-version[show SQLite version]'
+  '(- :)'$^dashes'-help[show help]'
+  '1:SQLite database file:_files'
+  # '(- :)2:SQL to run:sql:->sqlcode'
+)
+
+(( $+sqlite3 )) && options+=(
+  $^dashes'-bail[stop after hitting an error]'
+  '(-*batch -*interactive)'$^dashes'-batch[force batch I/O]'
+  '(-*batch -*interactive)'$^dashes'-interactive[force interactive I/O]'
+  $^dashes'-stats[print memory stats before each finalize]'
+  $^dashes'-mmap[ Set default mmap size to N]'
+  $^dashes'-vfs[Use name as the default VFS]'
+  $^dashes'-cmd[run command before reading stdin]:cmd:->cmds'
+)
+
+_arguments $options "::cmd:->cmds"
+
+case "$state" in
+  cmds)
+   _values -S " " 'command' \
+    '\.backup[ Backup DB default "main" to FILE]:file:_files'\
+    '\.bail[Stop after hitting an error. Default OFF]:onoff:( on off )'\
+    '\.clone[Clone data into NEWDB from the existing database]'\
+    '\.databases[List names and files of attached databases]'\
+    '\.dump[Dump the database in an SQL text format If TABLE specified, only dump tables matching LIKE pattern TABLE]'\
+    '\.echo[Turn command echo on or off]:onoff:( on off )'\
+    '\.eqp[Enable or disable automatic EXPLAIN QUERY PLAN]:onoff:( on off )'\
+    '\.exit[Exit this program]'\
+    '\.explain[Turn output mode suitable for EXPLAIN on or off With no args, it turns EXPLAIN on]:onoff:( on off )'\
+    '\.fullschema[Show schema and the content of sqlite_stat tables]'\
+    '\.headers[Turn display of headers on or off]:onoff:( on off )'\
+    '\.help[Show this message]'\
+    '\.import[Import data from FILE into TABLE]:file:_files'\
+    '\.indices[Show names of all indices If TABLE specified, only show indices for tables matching LIKE pattern TABLE]'\
+    '\.load[Load an extension library]:file:_files'\
+    '\.log[Turn logging on or off. FILE can be stderr/stdout]:file:_files'\
+    '\.mode[Set output mode where MODE is one of]:mode:(( csv\:"Comma-separated values" column\:"Left-aligned columns. See .width" html\:"HTML table code" insert\:"SQL insert statements for TABLE" line\:"One value per line" list\:"Values delimited by .separator string" tabs\:"Tab-separated values" tcl\:"TCL list elements" ))'\
+    '\.nullvalue[Use STRING in place of NULL values]'\
+    '\.once[Output for the next SQL command only to FILENAME]:file:_files'\
+    '\.open[Close existing database and reopen NAME]:file:_files'\
+    '\.output[Send output to NAME or stdout]:file:_files'\
+    '\.print[Print literal STRING]'\
+    '\.prompt[Replace the standard prompts]'\
+    '\.quit[Exit this program]'\
+    '\.read[Execute SQL in FILENAME]:file:_files'\
+    '\.restore[Restore content of DB (default "main") from FILE]:file:_files'\
+    '\.save[Write in-memory database into FILE]:file:_files'\
+    '\.schema[Show the CREATE statements If TABLE specified, only show tables matching LIKE pattern TABLE]:table:'\
+    '\.separator[Change separator used by output mode and .import NL is the end-of-line mark for CSV]:sep:( \, \; \\t )'\
+    '\.shell[Run CMD ARGS... in a system shell]'\
+    '\.show[Show the current values for various settings]'\
+    '\.stats[Turn stats on or off]:onoff:( on off )'\
+    '\.system[Run CMD ARGS... in a system shell]'\
+    '\.tables[List names of tables If TABLE specified, only list tables matching LIKE pattern TABLE]'\
+    '\.timeout[MS Try opening locked tables for MS milliseconds]'\
+    '\.timer[Turn SQL timer on or off]:onoff:( on off )'\
+    '\.trace[Output each SQL statement as it is run]:( off 1\:file\:_files )'\
+    '\.vfsname[Print the name of the VFS stack]'\
+    '\.width[Set column widths for "column" mode Negative values right-justify]:num:( 12 10 )'\
+    'ALTER TABLE[]:columns:( \* )'\
+    'CREATE TABLE[]:columns:( \* )'\
+    'SELECT[]:columns:( \* )'
+  ;;
+  sql)
+    local -a sqlite
+    _alternative ':sql:(SELECT FROM WHERE)'
+  ;;
+esac

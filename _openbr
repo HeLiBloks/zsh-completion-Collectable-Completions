@@ -1,0 +1,42 @@
+#compdef br
+
+_arguments '-train[... <gallery> \[{model}\]]'\
+  '-enroll[... <input_gallery> {output_gallery}]'\
+  '-compare[<query_gallery> \[{output}\]]'\
+  '-eval[\[<mask>\] \[{csv}\] \[{matches}\]]'\
+  '-plot[... <csv> {destination}]'\
+  '-fuse[... <simmat> (None|MinMax|ZScore|WScore) (Min|Max|Sum\[W1:W2:...:Wn\]|Replace|Difference|None) {simmat}]'\
+  '-cluster[... <simmat> <aggressiveness> {csv}]'\
+  '-makeMask[<query_gallery> {mask}]'\
+  '-makePairwiseMask[<query_gallery> {mask}]'\
+  '-combineMasks[... <mask> {mask} (And|Or)]'\
+  '-cat[... <gallery> {gallery}]'\
+  '-convert[) <input_file> {output_file}]'\
+  '-evalClassification[<truth_gallery> <predicted property name> <ground truth proprty name>]'\
+  '-evalClustering[<truth_gallery> \[truth_property \[cluster_csv \[cluster_property\]\]\]]'\
+  '-evalDetection[<truth_gallery> \[{csv}\] \[{normalize}\] \[{minSize}\] \[{maxSize}\]]'\
+  '-evalLandmarking[<truth_gallery> \[{csv} \[<normalization_index_a> <normalization_index_b>\] \[sample_index\] \[total_examples\]\]]'\
+  '-evalRegression[<truth_gallery> <predicted property name> <ground truth property name>]'\
+  '-evalKNN[<knn_truth> \[{csv}\]]'\
+  '-pairwiseCompare[<query_gallery> \[{output}\]]'\
+  '-inplaceEval[<target> <query> \[{csv}\]]'\
+  '-assertEval[<mask> <accuracy>]'\
+  '-plotDetection[... <file> {destination}]'\
+  '-plotLandmarking[... <file> {destination}]'\
+  '-plotMetadata[... <file> <columns>]'\
+  '-plotKNN[... <file> {destination}]'\
+  '-project[{output_gallery}]'\
+  '-deduplicate[<output_gallery> <threshold>]'\
+  '-likely[<output_type> <output_likely_source>]'\
+  '-getHeader[]'\
+  '-setHeader[} <target_gallery> <query_gallery>]'\
+  '-help[]'\
+  '-gui[]'\
+  '-objects[\[implementation\]\]]'\
+  '-about[]'\
+  '-version[]'\
+  '-daemon[]'\
+  '-slave[]'\
+  '-exit[]'\
+  '*:filename:_files'
+

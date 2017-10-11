@@ -1,0 +1,15 @@
+#compdef ccat
+
+
+_arguments '--bg[set background to "light" or "dark" depending on the terminals background]:background:(dark light)'\
+  {-C,--color=-}'[": colorize the output; value can be "never", "always" or "auto"]:color:( never always auto)'\
+  '*'{-G,--color-code=-}'[set color codes]:colorcode:->color'\
+  '(1 - :)'{-h,--help}'[help for ccat]'\
+  '--html[output html]'\
+  '(1 - :)--palette[show color palettes]'\
+  '(1 - :)'{-v,--version}'[show version]'\
+  '*:filename:_files'
+
+if [[ $state == 'color' ]]; then
+    _sep_parts '( String Keyword Comment Type Literal Punctuation Plaintext Tag HTMLTag HTMLAttrName HTMLAttrValue Decimal )' = '(black blink mblue bold brown darkblue darkgray darkgreen darkred darkteal darkyellow faint fuchsia fuscia green lightgray overline purple red reset standout teal turquoise underline white yellow)'
+fi

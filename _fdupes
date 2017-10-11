@@ -1,0 +1,20 @@
+#compdef fdupes
+
+
+_arguments -s {--delete,-d}'[prompt user for files to preserve and delete all]'\
+  {--hardlinks,-H}'[normally, when two or more files point to the same]'\
+  '(: 1 -)'{--help,-h}'[display this help message]'\
+  {--noempty,-n}'[exclude zero-length files from consideration]'\
+  {--nohidden,-A}'[exclude hidden files from consideration]'\
+  {--noprompt,-N}'[together with --delete, preserve the first file in set]'\
+  {--omitfirst,-f}'[omit the first file in each set of matches]'\
+  {--quiet,-q}'[hide progress indicator]'\
+  {--recurse,-r}'[for every directory given follow subdirectories]'\
+  {--recurse\\:,-R}'[for each directory given after this option follow]'\
+  {--sameline,-1}'[list each set of matches on a single line]'\
+  {--size,-S}'[show size of duplicate files]'\
+  {--summarize,-m}'[summarize dupe information]'\
+  {--symlinks,-s}'[follow symlinks]'\
+  '(: 1 -)'{--version,-v}'[display fdupes version]'\
+  '*:filename:_files'
+

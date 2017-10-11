@@ -1,0 +1,88 @@
+#compdef 7z 7za 7zr
+
+local arguments
+#has p7zip-rar
+#7zr only handles 7z archives
+#(ARJ GZIP BZIP2 TAR CPIO RPM ISO)
+arguments=(
+    '--[Disables switch parsing after "--" on the command line. Allows use of file names starting with "-"]'
+    '(a b d l t)-o[Set Output directory]:dir:{_files -/ }'
+    '(a b d l u)-ao-[Overwrite mode]:mode:(( a\:"Overwrite All existing files without prompt" s\:"Skip extracting of existing files" u\:"aUto rename extracting file" t\:"auto rename existing file" ))'
+    '(a b d u)-an[Disable parsing of archive_name]'
+    '(a b e t u x)-slt[Show technical information]'
+    '(b d e l t)-sfx[Create SFX archive]'
+    '(b d l t)-y[Assume Yes on all queries]'
+    '(b d l)-si[Read data from StdIn \(eg\: tar cf - directory | 7z a -si directory.tar.7z\)]'
+    '(b d l)-so[Write data to StdOut \(eg\: % echo foo | 7z a dummy -tgzip -si -so > /dev/null\)]'
+    '(b d l)-u-[Update options \[-\]\[p#\]\[q#\]\[r#\]\[x#\]\[y#\]\[z#\]\[!newArchiveName\]]:state:->state'
+    '(b d u)-ax[Exclude archives]'
+    '(b e l t x)-m0=-[method]:method'
+    '(b e l t x)-m=-[Set Compression Method]'
+    '(b e l t x)-md=-[dictionary size ]'
+    '(b e l t x)-mfb[number of fast bytes for LZMA = @ ]'
+    '(b e l t x)-mhe=-[7z format only \: enables or disables archive header encryption \(Default \: off\)]:onoff:( on off )'
+    '(b e l t x)-ms=-[solid archive = on]:onoff:(on off)'
+    '(b e l t x)-mx0[No compression]'
+    '(b e l t x)-mx=-[level of compression = 9 \(Ultra\)]:level:(( 0\:"No compression" 1\:"" 2\:"" 3\:"" 4\:"" 5\:"" 6\:"" 7\:"" 8\:"" 9\:"Ultra" ))'
+    '(b e l t x)-v=-[Create volumes {Size}\[b|k|m|g\]]:size:( b g k m )'
+    '(b e l t x)-w[Set Working directory]:dir:_files -\'
+    '(b l)-p-[Set Password]'
+    '(b l)-slp-[Sets Large Pages mode]:disable:(( \-\:"Disable" ))'
+    '-bd[Disable percentage indicator]'
+    '-l[dont store symlinks\; store the files/directories they point to \(CAUTION \: the scanning stage can never end]'
+)
+
+setopt EXTENDED_GLOB
+
+case $word[1] in
+  ^b)
+    arguments+=(
+      '-ai[Include archives]'
+      '-i[Include filenames]'
+      '-r-[Recurse subdirectories]:recurse:(( \-\:"Disable recurse subdirectories" 0\:"Enable recurse subdirectories only for wildcard names"))'
+      '-ssc-[Set Sensitive Case mode]:case:(( \-\:"Set caseinsensitive mode default for Windows systems" ))'
+      '-t-[Type of archive \(7z, zip, gzip, bzip2 or tar. 7z format is default\)]:type:(7z arj bzip2 cpio gzip iso rpm tar zip)'
+      '-x[Exclude filenames \[r\[-|0\]\]]'
+    )
+  ;;
+
+esac
+_arguments -C '1:function letter:->function' $arguments '*:filename:_files'
+
+case "$state" in
+    function)
+        local -a kind
+        kind=(
+            'a:Add'
+            'b:Benchmark'
+            'd:Delete'
+            'e:Extract'
+            'l:List'
+            't:Test'
+            'u:Update'
+            'x:eXtract with full paths'
+            )
+        _describe 'functions' kind
+        ;;
+    state)
+        local -a state stateaction
+        stateaction=(
+            0:'Ignore file \(dont create item in new archive for this file\)'
+            1:'Copy file \(copy from old archive to new\)'
+            2:'Compress \(compress file from disk to new archive\)'
+            3:'Create Anti-item \(item that will delete file or directory during extracting\). This feature is supported only in 7z format\.'
+        )
+        state=(
+           "p[File exists in archive, but is not matched with wildcard]:action:$stateaction"
+           "q[File exists in archive, but doesnt exist on disk]:action:$stateaction"
+           "r[File doesnt exist in archive, but exists on disk]:action:$stateaction"
+           "x[File in archive is newer than the file on disk]:action:$stateaction"
+           "y[File in archive is older than the file on disk]:action:$stateaction"
+           "z[File in archive is same as the file on disk]:action:$stateaction"
+           "w[Can not be detected what file is newer ]:action:$stateaction"
+            )
+        _values -S '' 'state' $state
+        ;;
+esac
+
+#  vim: set ts=2 sw=2 tw=0 expandtab foldenable foldmethod=manual foldclose=all :

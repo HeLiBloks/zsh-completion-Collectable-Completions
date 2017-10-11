@@ -1,0 +1,41 @@
+#compdef arecord
+
+
+_arguments  '--buffer-size[buffer duration is # frames]'\
+  '--disable-channels[disable automatic channel conversions]'\
+  '--disable-format[disable automatic format conversions]'\
+  '--disable-resample[disable automatic rate resample]'\
+  '--disable-softvol[disable software volume control (softvol)]'\
+  '--dump-hw-params[dump hw_params ofdevice]'\
+  '--fatal-errors[treat all errors as fatal]'\
+  '--max-file-time[start another output file whenold file has recorded]'\
+  '--period-size[distance between interrupts is # frames]'\
+  '--process-id-file[writeprocess ID here]:pid:'\
+  '--test-coef[test coefficient for ring buffer position (default 8)]'\
+  '--test-nowait[do not wait for ring buffer - eats whole CPU]'\
+  '--test-position[test ring buffer position]'\
+  '--use-strftime[applystrftime facility tooutput file name]'\
+  '--version[print current version]'\
+  {-A,--avail-min}'[min available space for wakeup is # microseconds]'\
+  {-B,--buffer-time}'[buffer duration is # microseconds]'\
+  {-D,--device}'[select PCM by name]'\
+  {-F,--period-time}'[distance between interrupts is microseconds]'\
+  {-I,--separate-channels}'[file for each channel]'\
+  {-L,--list-pcms}'[list device names]'\
+  {-M,--mmap}'[mmap stream]'\
+  {-N,--nonblock}'[nonblocking mode]'\
+  {-R,--start-delay}'[delay for automatic PCM start is # microseconds]:ms:'\
+  {-T,--stop-delay}'[delay for automatic PCM stop is # microseconds from xrun]:ms:'\
+  {-V,--vumeter}'[enable VU meter (TYPE: mono or stereo)]'\
+  {-c,--channels=}'[channels]'\
+  {-d,--duration=}'[interrupt after seconds]:time:'\
+  {-f,--format=}'[sample format]:format:(S8 U8 S16_LE S16_BE U16_LE U16_BE S24_LE S24_BE U24_LE U24_BE S32_LE S32_BE U32_LE U32_BE FLOAT_LE FLOAT_BE FLOAT64_LE FLOAT64_BE IEC958_SUBFRAME_LE IEC958_SUBFRAME_BE MU_LAW A_LAW IMA_ADPCM MPEG GSM SPECIAL S24_3LE S24_3BE U24_3LE U24_3BE S20_3LE S20_3BE U20_3LE U20_3BE S18_3LE S18_3BE U18_3LE U18_3BE G723_24 G723_24_1B G723_40 G723_40_1B DSD_U8 DSD_U16_LE DSD_U32_LE DSD_U16_BE DSD_U32_BE)'\
+  {-h,--help}'[help]'\
+  {-i,--interactive}'[allow interactive operation from stdin]'\
+  {-l,--list-devices}'[list all soundcards and digital audio devices]'\
+  {-m,--chmap}'[1,ch2,..  Givechannel map to override or follow]'\
+  {-q,--quiet}'[quiet mode]'\
+  {-r,--rate}'[sample rate]'\
+  {-t,--file-type}'[file type ]:file type:(voc wav raw au)'\
+  {-v,--verbose}'[show PCM structure and setup (accumulative)]'\
+  '*:filename:_files'

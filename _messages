@@ -1,0 +1,16 @@
+#compdef messages
+
+
+_arguments {-q,-s,--quiet,--silent}'[only display number of messages]'\
+  {--config-file,--rcfile}'[load this configuration file]'\
+  '--config-help[show configuration file summary]'\
+  {--config-lint,--rcfile-lint}'[check configuration file syntax and exit]'\
+  {--config-verbose,--rcfile-verbose}'[verbosely log parsing of the configuration files]'\
+  {--no-site-config,--no-site-rcfile}'[do not load site configuration file]'\
+  {--no-user-config,--no-user-rcfile}'[do not load user configuration file]'\
+  '--set[VALUE set configuration parameter]'\
+  '--show-config-options[show compilation options]'\
+  '--debug-level[set Mailutils debugging level]'\
+  '--debug-line-info[show source info with debugging messages]'\
+  '(1 * :)--usage[give a short usage message]'\
+  '(1 * :)'{-V,--version}'[print program version]'

@@ -1,0 +1,58 @@
+#compdef checkinstall
+
+
+_arguments -s {-A,--arch,--pkgarch}'[Set package architecture.]'\
+  '--addso[Search for any shared libs and add them to /etc/ld.so.conf]'\
+  '--autodoinst[Toggle creation of a doinst.sh script.]'\
+  '--backup[Toggle backup]'\
+  '--bk[Backup any overwritten files]'\
+  '--copyright[Show Copyright information]'\
+  '-D[Create a Debian package.]'\
+  '-d[Set debug level. Must be one of 0, 1 and 2]'\
+  '--deldesc[deletion of description-pak upon termination.]'\
+  '--deldoc[Toggle deletion of doc-pak upon termination.]'\
+  '--delspec[deletion of spec file upon termination.]'\
+  '--docdir[Where to put documentation files.]'\
+  '--dpkgflags[Pass this flags to the dpkg installer]'\
+  '--exclude[these files/directories from the package.]'\
+  '--fstrans[/disable filesystem translation. Filesystem translation enabled causes the install to proceed in a temporary]'\
+  '--gzman[Compress any man pages found inside the package.]'\
+  {-h,--help}'[Show summary of options.]'\
+  '--include[the inclusion in the package of the files/dirs listed in the argument (a file).]'\
+  '--inspect[the packages file list]'\
+  '--install[installation of the created package.]'\
+  '--maintainer[Set the package maintainer. Be careful to correctly quote/escape the name, to prevent shell expansion]'\
+  '--newslack[Use the new (8.1+) Slackware description format ("--newslack" implies "-S")]'\
+  '--nodoc[Do not include documentation files]'\
+  '--pakdir[Where to save the new package.]'\
+  '--pkgaltsource[Set alternate source location]'\
+  '--pkggroup[Set the package group.]'\
+  '--pkglicense[Set package license.]'\
+  '--pkgname[the package name.]'\
+  '--pkgrelease[Set the package release.]'\
+  '--pkgsource[Set source location]'\
+  '--pkgversion[Set package version.]'\
+  '--provides[Features provided by this package (currently only on RPM and Deb)]'\
+  '-R[Create a RPM package.]'\
+  '--requires[Dependencies required by this package]'\
+  '--reset-uids[Reset perms for all files/dirs to 755 and the owner/group for all dirs to root.root]'\
+  '--review-control[Review the control file before creating a .deb.]'\
+  '--review-spec[Review the spec file before creating a .rpm.]'\
+  '--rpmflags[Pass this flags to the rpm installer]'\
+  '--rpmi[Use the -i flag when installing a rpm]'\
+  '--rpmu[Use the -U flag when installing a rpm]'\
+  '-S[Create a Slackware Package.]'\
+  '--showinstall[Toggle interactive install command.]'\
+  '--showslack[Toggle interactive Slackware installation script.]'\
+  '-si[Run an interactive install command]'\
+  '--spec[Where the .spec file is located]'\
+  '-ss[Run an interactive Slackware installation script.]'\
+  '--strip[Toggle stripping any ELF binaries found inside the package.]'\
+  '--stripso[stripping any ELF libraries (.so) found inside the package.]'\
+  '--type[Choose packaging system. Can be one of slackware, debian or rpm.]'\
+  '--umask[Set the umask value.]'\
+  '--version[version information.]'\
+  '--with-tar[Manually set the path to the tar binary.]'\
+  {-y,--default}'[Accept default answers to all questions.]'\
+  '*:filename:_files'
+

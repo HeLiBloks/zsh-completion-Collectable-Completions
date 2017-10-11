@@ -1,0 +1,21 @@
+#compdef bleachbit
+
+
+_arguments -s {-c,--clean}'[run cleaners to delete files and make other permanent]:cleaners:->clean'\
+  '--debug-log[log debug messages to file]'\
+  '--gui[launch the graphical interface]'\
+  {-l,--list-cleaners}'[list cleaners]'\
+  {-o,--overwrite}'[overwrite files to hide contents]'\
+  {-p,--preview}'[preview files to be deleted and other changes]'\
+  '--preset[use options set in the graphical interface]'\
+  {-s,--shred}'[shred specific files or folders]:files:_files'\
+  '--sysinfo[show system information]'\
+  {-v,--version}'[output version information and exit]'\
+  '*:filename:_files'
+
+
+if [[ "$state" = clean ]]; then
+  local -a cleaners
+  cleaners=( $( _call_program bleachbit --list-cleaners ) )
+  compadd 'cleaners' -a $cleaners
+fi

@@ -1,0 +1,20 @@
+#compdef zathura
+
+
+_arguments -s '(: 1 *)'{-h,--help}'[Show help options]'\
+    {-e,--reparent}'[Reparents to window specified by xid]:xid:'\
+    {-c,--config-dir}'[Path to the config directory]:dir:{_files /-}'\
+    {-d,--data-dir}'[Path to the data directory]:dir:{_files /-}'\
+    '--cache-dir[Path to the cache directory]:dir:{_files /-}'\
+    {-p,--plugins-dir}'[Path to the directories containing plugins]:dir:{_files /-}'\
+    '--fork[Fork into the background]'\
+    {-w,--password}'[Document password]:pw:'\
+    {-P,--page}'[Page number to go to]:nr:'\
+    {-l,--debug}'[Log level]:level:(debug, info, warning, error)'\
+    '(: 1 *)'{-v,--version}'[Print version information]'\
+    {-x,--synctex-editor-command}'[Synctex editor (forwarded to the synctex command)]:cmd:'\
+    '--synctex-forward[Move to given synctex position]:pos:'\
+    '--synctex-pid[Highlight given position in the given process]:pid:_pids'\
+    '--mode[Start in a non-default mode]'\
+    '*:filename:_files'
+

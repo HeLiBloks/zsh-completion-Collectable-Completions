@@ -1,0 +1,32 @@
+#compdef iwlist
+        # /* '::[scanning] [essid NNN] [last] */
+
+# if (( CURRENT == 2 )); then
+  local curcontext="$curcontext" expl state line args ret=1 interface
+  interface=( ${${${${(f)"$(_call_program 'interface' netstat -i )"}%% *}##Kernel}##Iface} )
+
+  _arguments "1:interface:( $interface )"\
+    '2:[command]:command:((\
+      frequency\:"Give the list of available frequencies in the device and the number of defined channels"\
+      channel\:"Give the list of available frequencies in the device and the number of defined channels"\
+      bitrate\:"List the bit-rates supported by the device"\
+      rate\:"List the bit-rates supported by the device"\
+      encryption\:"List the encryption key sizes supported and list all the encryption keys set in the device"
+      keys\:"List the encryption key sizes supported and list all the encryption keys set in the device"
+      power\:"power List the various Power Management attributes and modes of the device"\
+      txpower\:"List the various Transmit Powers available on the device"\
+      retry\:"retry List the transmit retry limits and retry lifetime on the device"
+      ap\:"Give the list of Access Points in range, and optionally the quality of link to them"\
+      accesspoints\:"Give the list of Access Points in range, and optionally the quality of link to them"\
+      peers\:"Give the list of Access Points in range, and optionally the quality of link to them"\
+      event\:"List the wireless events supported by the device"\
+      auth\:"List the WPA authentication parametes curently set"\
+      wpakeys\:"List all the WPA encryption keys set in the device"\
+      genie\:"List the Generic Information Elements set in the device"\
+      modulation\:"List the modulations supported by the device and the modulations currently enabled"\
+    ))'
+
+# else
+
+# fi
+#  vim: set ts=2 sw=2 tw=0 expandtab foldenable foldmethod=manual foldclose= :

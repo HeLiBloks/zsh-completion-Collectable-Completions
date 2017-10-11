@@ -1,0 +1,12 @@
+#compdef immo[Kk]rabbler
+
+_arguments '--csv[write csv to stdout]'\
+  '--database[SqlAlchemy connection string, defaults to \[sqlite:///immobilien.db\]]'\
+  '--debug[toggle debugging]'\
+  {-h,--help}'[show this help message and exit]'\
+  '--json[write json to stdout]'\
+  '--outfile[write \[csv|json\] to file]:outfile:_files'\
+  '--photos[save photos to dir]:dir:_files -/'\
+  '--update-db[update search results in db]'#\
+  # '--url[Immobilienscout search urls (space delimited)]:urls:( "$(xclip -o 2>/dev/null | grep -o https)" )'
+

@@ -1,0 +1,11 @@
+#compdef ppa-purge
+
+
+_arguments -s '-d[Override the default distribution choice]'\
+  '-h[Display this help text]'\
+  '-i[Reverse preference of apt-get upon aptitude]'\
+  '-o[PPA owner]'\
+  '-p[PPA name to be disabled (default: ppa)]'\
+  '-s[Repository server (default: ppa.launchpad.net)]'\
+  '-y[Pass -y --force-yes to apt-get or -y to aptitude]'\
+  '*:filename:_files'

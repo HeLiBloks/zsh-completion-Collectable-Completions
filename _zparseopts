@@ -1,0 +1,10 @@
+#compdef zparseopts
+
+_arguments -s  '-a[As described above, this names the default array in which to store the recognised options.]'\
+  '-A[Options and their values are put into an associative array with option names as keys the arguments as values]'\
+  '-D[All options found are removed from positional parameters of calling shell or shell function, up to but not]'\
+  '-K[With this option,arrays specified with -a option and with`=array forms are kept unchanged when none ofspecs for them  is]'\
+  '-A[are preserved by -K. This allows assignment of default values to arrays before calling zparseopts]'\
+  '-M[This changesassignment rules to implement a map among equivalent option names.  If any spec uses`=array form,string array is]'\
+  '-E[This  changesparsing rules to not stop atfirst string that isnt described by one ofspecs. It can be used to test for or if]'\
+  '*:filename:_files'

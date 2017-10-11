@@ -1,0 +1,101 @@
+#compdef psad
+
+# psad completion (C) by Henrik Lindgren henrikprojekt at gmail.com
+#
+# It is free software; you can redistribute it and/or modify it under the terms of either:
+#
+# a) the GNU General Public License as published by the Free Software Foundation;
+#    either external linkversion 1, or (at your option) any later versionexternal link, or
+#
+# b) the "Artistic License".
+
+_arguments -s '(1 : -)'{-h,--help}'[Display usage on STDOUT and exit]'\
+  '(1 : -)'{-V,--Version}'[Print the psad version and exit]'\
+  '--analysis-fields[restrict analysis to iptables log messages with values for particular fields]:search fields:( DST TTL SRC LEN )'\
+  '--analysis-write-data[Write data to filesystem from -A mode]'\
+  {--Analyze-msgs,-A}'[Analyze iptables logfile and exit]'\
+  '--Analyze[is unlimited) or]'\
+  '--auto-dl[Import auto-danger level file for]:file:'\
+  {--Benchmark,-B}'[Run psad in benchmark mode]'\
+  '--Benchmark[is 10,000) modes]'\
+  {--config,-c}'[use config file instead of the normal]:config file:_files'\
+  '--CSV-end-line[Ending line within iptables log file]'\
+  '--CSV-fields[Restrict --CSV output to a list of]'\
+  '--CSV-max-lines[Specify the maximum number of CSV output]'\
+  '--CSV-neg-regex[Require iptables log messages to]'\
+  '--CSV-regex[Require iptables log messages to match]'\
+  '--CSV-start-line[Starting line within iptables log file]'\
+  '--CSV-unique-lines[Only print unique lines in CSV output]'\
+  '--CSV[Parse iptables log messages and dump]'\
+  '--debug-sid[Debug a specific Snort rule]'\
+  '--debug[Run psad in debugging mode]'\
+  '--dns-analysis[Enable reverse DNS lookups in]'\
+  {--Dump-conf,-D}'[Dump psad configuration on STDOUT and]'\
+  {--email-analysis,-e}'[Send emails for scans detected]'\
+  {--Flush,-F}'[Remove any auto-generated firewall]'\
+  '--fw-analyze[Analyze the local iptables ruleset and]'\
+  '--fw-block-ip[Add an IP/network to the auto-blocking]:ip:_url'\
+  {--fw-del-chains,-X}'[Delete iptables chains used by psad for]'\
+  '--fw-dump[Dump a sanitized version of the local]'\
+  '--fw-file[Analyze the iptables ruleset contained]:file:_files'\
+  '--fw-include-ips[Include all IPs/nets in iptables dump]'\
+  {--fw-list-auto,--List}'[List the contents of any iptables chains]'\
+  '--fw-rm-block-ip[<ip>        - Remove an IP/network from the auto-]'\
+  '--get-next-rule-id[Display the next available rule ID and]'\
+  '--gnuplot-3D[Create three-dimensional Gnuplot graph]'\
+  '--gnuplot-dat-file[Specify path to .dat output file]:file:_files'\
+  '--gnuplot-file-prefix[Use a prefix for the .gnu, .dat, and]:prefix:'\
+  '--gnuplot-graph-style[Set the Gnuplot graph style]:style:'\
+  '--gnuplot-grayscale[Only use grayscale colors]'\
+  '--gnuplot-interactive[Do not add the terminal directive to the]'\
+  '--gnuplot-legend-title[Set the Gnuplot legend title]'\
+  '--gnuplot-plot-file[Specify path to .gnu output file]'\
+  '--gnuplot-png-file[Specify path to .png output file]'\
+  '--gnuplot-sort-style[Set the psad sorting style to either]'\
+  '--gnuplot-template[Use a template file for all Gnuplot]:file:'\
+  '--gnuplot-title[Set the Gnuplot graph title]:title:'\
+  '--gnuplot-view[Set the viewing angle]:angle:'\
+  '--gnuplot-x-label[Set the x-axis label]'\
+  '--gnuplot-x-range[Set the x-axis range]'\
+  '--gnuplot-y-label[Set the y-axis label]'\
+  '--gnuplot-y-range[Set the y-axis range]'\
+  '--gnuplot-z-label[Set the z-axis label]'\
+  '--gnuplot-z-range[Set the z-axis range]'\
+  '--gnuplot[Parse iptables log data and produce a]'\
+  {--HUP,-H}'[Send all psad daemons a HUP signal to]'\
+  {--interface,-i}'[Restrict detection to IN interface]:interface:'\
+  {--Interval,-I}'[Configure the check interval for packets]:seconds:'\
+  {--Kill,-K}'[Kill all running psad processes]'\
+  {--log-server,-l}'[psad is being run on a syslog logging]'\
+  {--messages-file,-m}'[Specify the path to the iptables logfile]:file:_files'\
+  '--no-auto-dl[Disable auto danger level assignment]'\
+  '--no-daemon[Do not run as a daemon]'\
+  '--no-fwcheck[Disable firewall rules verification]'\
+  '--no-icmp-types[Disable icmp type/code validation]'\
+  '--no-ipt-errors[Do not write errors to the error log]'\
+  '--no-kmsgsd[Disable startup of kmsgsd (useful for]'\
+  '--no-netstat[Disable local port lookups for scan]'\
+  '--no-rdns[Disable name resolution against scanning]'\
+  '--no-signatures[Disable psad signature processing]'\
+  '--no-snort-sids[Disable examination for snort sids]'\
+  '--no-whois[Disable whois lookups]'\
+  {--Override-config,-O}'[Allow config variables from the normal]'\
+  '--packets[Specify number of packets to use in]'\
+  '--passive-os-sigs[Manually specify the path to the passive]:file:'\
+  '--plot-separator[Specify a separator string between plot]'\
+  {--Restart,-R}'[Restart all running psad processes]'\
+  '--restrict-ip[Only process packets that have this IP]'\
+  '--sig-update[Download the latest set of psad]'\
+  '--signatures[Manually specify the path to the psad]'\
+  '--snort-rdir[Path to snort rules directory]'\
+  '--snort-type[Restrict psad to look for specific Snort]'\
+  {--Status,-S}'[Displays the status of any currently]'\
+  '--status-dl[Display status information for only]'\
+  '--status-ip[View status for a specific IP]'\
+  '--status-summary[Only display summary status output in]'\
+  '--stdin[acquire iptables log data from stdin]'\
+  {--USR1,-U}'[Send a running psad process a USR1]'\
+  {--verbose,-v}'[Run in verbose mode]'\
+  {--whois-analysis,-w}'[Enable whois lookups when running in]'\
+  '*:filename:_files'
+

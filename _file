@@ -1,0 +1,31 @@
+#compdef file
+
+_arguments -s '*:filename:_files'\
+  '--apple[output the Apple CREATOR/TYPE]'\
+  {-b,--brief}'[do not prepend filenames to output lines]'\
+  {-c,--checking-printout}'[print the parsed form of the magic file]'\
+  {-C,--compile}'[compile file specified by -m]'\
+  {-d,--debug}'[print debugging messages]'\
+  '--extension[output a slash-separated list of extensions]'\
+  {-e,--exclude}'[exclude TEST from the list of test to be]:testname:'\
+  {-f,--files-from}'[read the filenames to be examined from FILE]:namefile:_files'\
+  '(- 1 :)--help[display this help and exit]'\
+  {-k,--keep-going}'[dont stop at the first match]'\
+  {-L,--dereference}'[follow symlinks (default if POSIXLY_CORRECT is set)]'\
+  {-l,--list}'[list magic strength]'\
+  {-m,--magic-file}'[use LIST as a colon-separated list of magic]:magicfiles:'\
+  {-i,--mime}'[output MIME type strings (--mime-type and]'\
+  '--mime-encoding[output the MIME encoding]'\
+  '--mime-type[output the MIME type]'\
+  {-n,--no-buffer}'[do not buffer output]'\
+  {-h,--no-dereference}'[dont follow symlinks (default if POSIXLY_CORRECT is not set)]'\
+  {-N,--no-pad}'[do not pad output]'\
+  {-P,--parameter}'[set file engine parameter limits]:param:'\
+  {-p,--preserve-date}'[preserve access times on files]'\
+  {-0,--print0}'[terminate filenames with ASCII NUL]'\
+  {-r,--raw}'[dont translate unprintable chars to \ooo]'\
+  {-F,--separator}'[use string as separator instead of]:separator:'\
+  {-s,--special-files}'[treat special (block/char devices) files as]:dev:'\
+  {-Z,--uncompress-noreport}'[only print the contents of compressed files]'\
+  {-z,--uncompress}'[try to look inside compressed files]'\
+  {-v,--version}'[output version information and exit]'

@@ -1,0 +1,22 @@
+#compdef smbtree
+
+
+_arguments -s {-A,--authentication-file}'[Get the credentials from a file]'\
+  {-b,--broadcast}'[Use broadcast instead of using the master]'\
+  {-C,--use-ccache}'[Use the winbind ccache for authentication]'\
+  {-d,--debuglevel}'[Set debug level]:nr:'\
+  {-D,--domains}'[List only domains (workgroups) of tree]'\
+  {-e,--encrypt}'[Encrypt SMB transport (UNIX extended)]'\
+  {-k,--kerberos}'[Use kerberos (active directory)]'\
+  {-l,--log-basename}'[Base name for log files]:basename:'\
+  {-N,--no-pass}'[Dont ask for a password]'\
+  '--option[Set smb.conf option from command line]:smb.conf option:'\
+  {-P,--machine-pass}'[Use stored machine account password]'\
+  '--pw-nt-hash[The supplied password is the NT hash]'\
+  {-s,--configfile}'[Use alternate configuration file]'\
+  {-S,--servers}'[List domains(workgroups) and servers of]'\
+  {-S,--signing}'[Set the client signing state]'\
+  {-U,--user}'[Set the network username]'\
+  '--usage[Display brief usage message]'\
+  {-V,--version}'[Print version]'\
+  '*:filename:_files'

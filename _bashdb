@@ -1,0 +1,18 @@
+#compdef bashdb
+
+
+_arguments -s {-A,--annotate}'[LEVEL  Set the annotation level.]'\
+  {-B,--basename}'[Show basename only on source file listings.]'\
+  {-c,--command}'[Run STRING instead of a script file]'\
+  {-h,--help}'[Print this help.]'\
+  {--highlight,--no-highlight}'[Use or dont use ANSI terminal sequences for syntax]'\
+  '--init-file[Source script file FILE. Similar to bashs]'\
+  {-L,--library}'[Set the directory location of library helper file: /usr/share/bashdb/dbg-main.sh]'\
+  {-n,--nx,--no-init}'[Dont run initialization files.]'\
+  {-q,--quiet}'[Do not print introductory and quiet messages.]'\
+  {-T,--tempdir}'[Use DIRECTORY to store temporary files]'\
+  {--tty,--terminal}'[Set to terminal in debugger output to DEV]'\
+  {-V,--version}'[Print the debugger version number.]'\
+  {-x,--eval-command}'[Execute debugger commands from CMDFILE.]'\
+  {-X,--trace}'[Set line tracing similar to set -x]'\
+  '*:filename:_files'

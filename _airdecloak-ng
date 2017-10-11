@@ -1,0 +1,19 @@
+#compdef airdecloak-ng
+
+# zsh completions for 'airdecloak-ng'
+# automatically generated with http://github.com/RobSis/zsh-completion-generator
+local arguments
+
+arguments=(
+    '-i[: Input capture file]'
+    '--ssid[: ESSID of the network to filter]'
+    '--bssid[: BSSID of the network to filter]'
+    '--filters[: Apply filters (separated by a comma). Filters:]'
+    '--null-packets[: Assume that null packets can be cloaked.]'
+    '--disable-base[_filter : Do not apply base filter.]'
+    '--drop-frag[: Drop fragmented packets]'
+    '--help[: Displays this usage screen]'
+    '*:filename:_files'
+)
+
+_arguments -s $arguments

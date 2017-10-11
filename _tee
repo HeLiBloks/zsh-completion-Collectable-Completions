@@ -1,0 +1,16 @@
+#compdef tee
+
+_arguments -s  '1:append to file:_files'\
+  {-a,--append}'[append togiven FILEs, do not overwrite]'\
+  {-i,--ignore-interrupts}'[ignore interrupt signals]'\
+  '-p[diagnose errors writing to non pipes]'\
+  '--output-error[set behavior on write error]:error mode:((\
+    warn\:diagnose\ errors\ writing\ to\ any\ output\
+    warn-nopipe\:diagnose\ errors\ writing\ to\ any\ output\ not\ a\ pipe\
+    exit\:exit\ on\ error\ writing\ to\ any\ output\
+    exit-nopipe\:exit\ on\ error\ writing\ to\ any\ output\ not\ a\ pipe\
+  ))'\
+  '--help[display this help and exit]'\
+  '--version[output version information and exit]'
+
+

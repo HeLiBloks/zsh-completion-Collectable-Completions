@@ -1,0 +1,21 @@
+#compdef _chromium-browser
+
+_arguments -s '(1 - :)--ppapi-flash-version[]'\
+  '(1 - :)'{-h,--help}'[Show help screen]'\
+  '(1 - :)--version[Show version information]'\
+  '--app[Runs URL in "app mode": with no browser toolbars]'\
+  '--display[.  See the GTK documentation for more:]'\
+  '--incognito[Open in incognito mode]'\
+  '--no-proxy-server[Disables the proxy server. Overrides any environment variables or settings picked via the options dialog]'\
+  '--no-touch-pinch[Disable pinch gestures.]'\
+  '--password-store[Set the password store to use. The default is to automatically detect based on the desktop environment]:password store:'\
+  '--ppapi-flash-path[/lib/adobe-flashplugin/libpepflashplayer.so]'\
+  '--proxy-auto-detect[Autodetect proxy configuration. Overrides any environment variables or settings picked via the options dialog]'\
+  '--proxy-pac-url[Specify proxy autoconfiguration URL. Overrides any environment variables or settings picked via the options dialog]:url:_url'\
+  '--proxy-server[Specify the HTTP/SOCKS4/SOCKS5 proxy server to use for requests. This overrides any environment  variables  or  set‐]:url:_url'\
+  '--temp-profile[Start with a new and temporary profile]'\
+  '--user-data-dir[Specifies the directory that user data (your "profile") is kept  in]:files:_files /-'\
+  '--verbose[Events logged to stderr.]'\
+  {-g,--debug}'[Start within /usr/bin/gdb]'\
+  '*:filename:_files'
+

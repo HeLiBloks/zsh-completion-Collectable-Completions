@@ -1,0 +1,6 @@
+#compdef airmon-ng
+
+#usage: airmon-ng <start|stop|check> <interface> [channel or frequency]
+local interface
+interface=( ${${${${(f)"$(_call_program 'interface' netstat -i )"}%% *}##Kernel}##Iface} )
+_arguments ':command:( start stop check )' ":interface:( $interface )" ":channel or frequency:( {1..12} )"

@@ -1,0 +1,16 @@
+#compdef scanadf
+
+
+_arguments -s {-d,--device-name}'[\]   use a given scanner device.]'\
+  {-e,--end-count}'[last page number to scan.]'\
+  {-h,--help}'[display this help message and exit.]'\
+  {-L,--list-devices}'[show available scanner devices.]'\
+  {-N,--no-overwrite}'[dont overwrite existing files.]'\
+  {-o,--output-file}'[name of file to write image data]'\
+  {-r,--raw}'[write raw image data to file.]'\
+  {-S,--scan-script}'[name of script to run after every scan.]'\
+  {-s,--start-count}'[page count of first scanned image.]'\
+  '--script-wait[wait for scripts to finish before exit]'\
+  {-v,--verbose}'[give even more status messages.]'\
+  {-V,--version}'[print version information.]'\
+  '*:filename:_files'

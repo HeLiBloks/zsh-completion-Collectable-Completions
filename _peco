@@ -1,0 +1,13 @@
+#compdef peco
+
+
+_arguments {-b,--buffer-size}'[number of lines to keep in search buffer]'\
+  {-h,--help}'[show this help message and exit]'\
+  '--initial-index[position of the initial index of the selection (0 base)]'\
+  '--no-ignore-case[start in case-sensitive mode]'\
+  '--null[expect NUL (\0) as separator for target/output (EXPERIMENTAL)]'\
+  '--prompt[specify prompt]'\
+  '--query[pre-input query]'\
+  '--rcfile[path to the settings file]'\
+  '--version[print the version and exit]'\
+  '*:filename:_files'

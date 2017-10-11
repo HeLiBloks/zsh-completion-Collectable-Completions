@@ -1,0 +1,21 @@
+#compdef pdfimages
+
+_arguments -s  '-f[first page to convert]:page nr:'\
+  '-l[last page to convert]:page nr:'\
+  '-png[change default output format to PNG]'\
+  '-tiff[change default output format to TIFF]'\
+  '-j[write JPEG images as JPEG files]'\
+  '-jp2[write JPEG2000 images as JP2 files]'\
+  '-jbig2[write JBIG2 images as JBIG2 files]'\
+  '-ccitt[write CCITT images as CCITT files]'\
+  '-all[equivalent to -png -tiff -j -jp2 -jbig2 -ccitt]'\
+  '-list[print list of images instead of saving]'\
+  '-opw[owner password (for encrypted files)]:password:'\
+  '-upw[user password (for encrypted files)]:password:'\
+  '-p[include page numbers in output file names]'\
+  '-q[dont print any messages or errors]'\
+  '-v[print copyright and version info]'\
+  '-h[print usage information]'\
+  '-help[print usage information]'\
+  '--help[print usage information]'\
+  '*:filename:_files'

@@ -1,0 +1,16 @@
+#compdef gtags-cscope
+
+_arguments -s '(- 1 :)'{--help,-h}'[View the long usage help display.]'\
+  '(- 1 :)'{-V,--version}'[Print the version number of gtags-cscope.]'\
+  '-a[Print absolute path names]'\
+  '-b[Build the cross-reference only]'\
+  '-C[Ignore letter case when searching]'\
+  '-d[Do not update the cross-reference]'\
+  '-e[Suppress the ´^e´ command prompt between files]'\
+  '-F[Read symbol reference lines from file.  (A symbol reference file is created by > and >>]'\
+  '-i[Ignore SIGINT signal in line-oriented mode]'\
+  '-L[Do a single search with line-oriented output when used with the -num pattern option]'\
+  '-l[Line-oriented interface. This option implies the -d option]'\
+  '-p[Display last n file path components instead of the default (1). Use 0 to not display file name at all]:nr:'\
+  '-v[Be more verbose in line-oriented mode]'\
+  '*:filename:_files'

@@ -1,0 +1,31 @@
+#compdef pdftotext
+
+local arguments
+
+arguments=(
+    '-f[Specifies the first page to convert]'
+    '-l[Specifies the last page to convert]'
+    '-r[Specifies the resolution, in DPI. The default is 72 DPI]'
+    '-x[Specifies the x-coordinate of the crop area top left corner]'
+    '-y[Specifies the y-coordinate of the crop area top left corner]'
+    '-W[Specifies the width of crop area in pixels \(default is 0\)]'
+    '-H[Specifies the height of crop area in pixels \(default is 0\)]'
+    '-layout[Maintain \(as best as possible\) the original physical layout of the text. The default is to ´undo physical layout]'
+    '-fixed[Assume fixed-pitch \(or tabular\) text, with the specified character width \(in points\). This forces physical layout]'
+    '-raw[Keep the text in content stream order. This is a hack which often "undoes" column formatting, etc. Use of raw mode]'
+    '-htmlmeta[Generate a simple HTML file, including the meta information. This simply wraps the text in \<pre\> and \</pre\> and]'
+    '-bbox[Generate an XHTML file containing bounding box information for each word in the file]'
+    '-bbox-layout[Generate an XHTML file containing bounding box information for each block, line, and word in the file]'
+    '-enc[Sets the encoding to use for text output. This defaults to "UTF-8"]'
+    '-listenc[Lits the available encodings]'
+    '-eol[nix | dos | mac]:end of line:( unix dos mac )'
+    '-nopgbrk[Dont insert page breaks \(form feed characters\) between pages]'
+    '-opw[Specify the owner password for the PDF file. Providing this will bypass all security restrictions]'
+    '-upw[Specify the user password for the PDF file]'
+    '-q[Dont print any messages or errors]'
+    '-v[Print copyright and version information]'
+    '-h[Print usage information. \(-help and --help are equivalent.\)]'
+    '*:filename:_files'
+)
+
+_arguments -s $arguments

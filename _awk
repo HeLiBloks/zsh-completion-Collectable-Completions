@@ -1,0 +1,32 @@
+#compdef awk hawk gawk
+
+_arguments '*'{-v,--assign=}'[assign val to variable]:variable:( FS= OFS= IFS= RS= ORS= FPAT= )'\
+  {-M,--bignum}'[Force arbitrary precision arithmetic on numbers]'\
+  {-b,--characters-as-bytes}'[Treat all input data as single-byte characters ignore locale information]'\
+  '(- 1 :)'{-C,--copyright}'[Print the copyright standard output]'\
+  {-D,--debug}'[Enable debugging of AWK programs]'\
+  {-d,--dump-variables}'[Print a sorted list of global variables, their types and final values to file. If no file is provided, gawk uses a]:files:_files'\
+  {-E+,--exec=}'[Similar to -f, however, this is option is the last one processed. This should be used with #! scripts, particularly]'\
+  {-F+,--field-separator=}'[Use fs for the input field separator \(the value of the FS predefined variable\).]'\
+  '(1)*'{-f+,--file=}'[Read the AWK program source from the file program-file, instead of from the first command line argument]:files:_files'\
+  {-g,--gen-pot}'[Scan and parse the AWK program, and generate a GNU .pot \(Portable Object Template\) format file on standard output]'\
+  {-h,--help}'[a relatively short summary of the available options on the standard output. \(Per the GNU Coding Standards]'\
+  {-i,--include}'[Load an awk source library. This searches for the library using the AWKPATH environment variable. If the initial]'\
+  {-t,--lint-old}'[Provide warnings about constructs that are not portable to the original version of UNIX awk.]'\
+  {-L,--lint=-}'[Provide warnings about constructs that are dubious or non-portable to other AWK implementations. With an optional]:lint:(fatal)'\
+  {-l,--load}'[Load a shared library from file or \$AWKPATH]:libfile:->libfiles'\
+  {-n,--non-decimal-data}'[Recognize octal and hexadecimal values in input data. Use this option with great caution!]'\
+  {-O,--optimize}'[Enable optimizations]'\
+  {-P,--posix}'[This turns on compatibility mode]'\
+  {-o,--pretty-print}'[Pretty print program to file]:outfile:_files'\
+  {-p,--profile}'[Start a profiling session, send the profiling data to prof-file]:file:_files'\
+  {-r,--re-interval}'[Enable the use of interval expressions in regular expression matching]'\
+  {-S,--sandbox}'[Run gawk in sandbox mode, disabling system\(\) function, input redirection with getline, output redirection]'\
+  {-e,--source}'[Use program-text as AWK program source code. Allows the easy intermixing of library functions]'\
+  {-c,--traditional}'[Run in compatibility mode]'\
+  {-N,--use-lc-numeric}'[use the locales decimal point character when parsing input data]'\
+  {-V,--version}'[Print version information to standard output]'\
+  '*:input files:_files'\
+  '1: :_guard "^-*" "program text"'
+
+

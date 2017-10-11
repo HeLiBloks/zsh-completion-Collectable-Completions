@@ -1,0 +1,43 @@
+#compdef jsonlint
+
+_arguments -s  {-v,--verbose}'[Show details of lint checking]'\
+  {-q,--quiet}'[Dont show any output (except for reformatting)]'\
+  {-W,--tolerant}'[Be tolerant, but warn about non-conformance (default)]'\
+  {-s,--strict}'[Be strict in what is considered conforming JSON]'\
+  {-S,--nonstrict}'[Be tolerant in what is considered conforming JSON]'\
+  '--allow[..      -\]'\
+  '--warn[..         |-- These options let you pick specific behaviors]'\
+  '--forbid[..     -/      Use --help-behaviors for more]'\
+  '--stats[Show statistics about JSON document]'\
+  {-f,--format}'[ReformatJSON text (if conforming) to stdout]'\
+  {-F,--format-compactly}'[Reformat the JSON simlar to -f, but do so compactly by]'\
+  '-o[--output filename]'\
+  '--html-safe[Escape characters that are not safe to embed in HTML/XML]'\
+  '--sort[How to sort object/dictionary keys, <kind> is one of:]'\
+  '--indent[<nnn>   Number of spaces to use per indentation level]'\
+  '-e[--encoding=codec     Set both input and output encodings]'\
+  '--input-encoding[Setinput encoding]'\
+  '--output-encoding[Setoutput encoding]'\
+  '--recursion-limit[SetPython recursion limit to number]'\
+  '--leading-zero-radix[10radix to use for numbers with leading]'\
+  {-v,--verbose}'[Show details of lint checking]'\
+  {-q,--quiet}'[Dont show any output (except for reformatting)]'\
+  {-W,--tolerant}'[Be tolerant, but warn about non-conformance (default)]'\
+  {-s,--strict}'[Be strict in what is considered conforming JSON]'\
+  {-S,--nonstrict}'[Be tolerant in what is considered conforming JSON]'\
+  '--allow[..      -\]'\
+  '--warn[..         |-- These options let you pick specific behaviors]'\
+  '--forbid[..     -/      Use --help-behaviors for more]'\
+  '--stats[Show statistics about JSON document]'\
+  {-f,--format}'[ReformatJSON text (if conforming) to stdout]'\
+  {-F,--format-compactly}'[Reformat the JSON simlar to -f, but do so compactly by]'\
+  '-o[--output filename]'\
+  '--html-safe[Escape characters that are not safe to embed in HTML/XML]'\
+  '--sort[How to sort object/dictionary keys, <kind> is one of:]'\
+  '--indent[<nnn>   Number of spaces to use per indentation level]'\
+  '-e[--encoding=codec     Set both input and output encodings]'\
+  '--input-encoding[Setinput encoding]'\
+  '--output-encoding[Setoutput encoding]'\
+  '--recursion-limit[SetPython recursion limit to number]'\
+  '--leading-zero-radix[10radix to use for numbers with leading]'\
+  '*:filename:_files'

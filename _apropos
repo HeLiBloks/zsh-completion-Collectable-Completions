@@ -1,0 +1,18 @@
+#compdef apropos
+
+
+_arguments -s {-a,--and}'[require all keywords to match]'\
+  {-C,--config-file}'[use this user configuration file]'\
+  {-d,--debug}'[emit debugging messages]'\
+  {-e,--exact}'[search each keyword for exact match]'\
+  {-L,--locale}'[define the locale for this search]'\
+  {-l,--long}'[do not trim output to terminal width]'\
+  {-M,--manpath}'[set search path for manual pages to PATH]'\
+  {-m,--systems}'[use manual pages from other systems]'\
+  {-r,--regex}'[interpret each keyword as a regex]'\
+  {-s,--sections,--section}'[search only these sections (colon-separated)]'\
+  '--usage[give a short usage message]'\
+  {-v,--verbose}'[print verbose warning messages]'\
+  {-V,--version}'[print program version]'\
+  {-w,--wildcard}'[the keyword(s) contain wildcards]'\
+  '*:filename:_files'

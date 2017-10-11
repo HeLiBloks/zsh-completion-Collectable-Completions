@@ -1,0 +1,38 @@
+#compdef pdfsandwich
+
+
+_arguments -s {-convert,-convert}'[ name of convert binary \(default convert\)]'\
+  {-coo,-coo}'[ additional convert options make sure to quote]'\
+  '-debug[keep all temporary files in /tmp \(for debugging\)]'\
+  '-enforcehocr2pdf[use hocr2pdf even if tesseract >= 3.03]'\
+  '-first_page[first_page number  number of page to start OCR from \(default 1\)]'\
+  '-grayfilter[enable unpapers gray filter further options can be set by -unpo]'\
+  {-gs,-gs}'[ name of gs binary \(default gs\) optional, only required for resizing]'\
+  {-help,--help}'[Display list of options]'\
+  {-hocr2pdf,-hocr2pdf}'[ name of hocr2pdf binary \(default hocr2pdf\)]'\
+  {-hoo,-hoo}'[ additional hocr2pdf options make sure to quote]'\
+  {-identify,-identify}'[ name of identify binary \(default identify\)]'\
+  {-lang,-lang}'[language of the text option to tesseract \(defaut eng\)]:lang:( ger swe eng osd equ )'\
+  '-last_page[last_page number  number of page up to which to process OCR \(default number of pages in inputfile\)]'\
+  {-layout,-layout}'[\[single | double | none \]  layout of the scanned pages requires unpaper]:layout:( single double none)'\
+  '-list_langs[list currently available languages and exit]'\
+  {-maxpixels,-maxpixels}'[ maximal number of pixels allowed for input file]'\
+  '-noimage[do not place the image over the text \(requires hocr2pdf ignored without -enforcehocr2pdf option\)]'\
+  '-nopreproc[do not preprocess with unpaper]'\
+  {-nthreads,-nthreads}'[ number of parallel threads \(default guessed number of CPUs if guessing fails 1\)]'\
+  {-o,-o}'[ output file default inputfile_ocr.pdf \(if extension is different\)]'\
+  {-pagesize,-pagesize}'[\[original | NUMxNUM \]  set page size of output pdf \(requires ghostscript\)]'\
+  {-pdfinfo,-pdfinfo}'[ name of pdfinfo binary \(default pdfinfo\)]'\
+  {-pdfunite,-pdfunite}'[ name of pdfunite binary \(default pdfunite\)]'\
+  '-quiet[suppress output]'\
+  {-resolution,-resolution}'[ resolution \(dpi\) used for OCR \(default 300\)]'\
+  '-rgb[use RGB color space for images \(default black and white\)]'\
+  '-sloppy_text[  sloppily place text, group words, do not draw single glyphs]'\
+  {-tesseract,-tesseract}'[ name of tesseract binary \(default tesseract\)]'\
+  {-tesso,-tesso}'[ additional tesseract options make sure to quote]'\
+  {-unpaper,-unpaper}'[ name of unpaper binary \(default unpaper\)]'\
+  {-unpo,-unpo}'[ additional unpaper options make sure to quote]'\
+  '-unpo[further options for unpapers gray filter]'\
+  '-verbose[produce more output]'\
+  '-version[print version and quit]'\
+  '*:filename:_files'

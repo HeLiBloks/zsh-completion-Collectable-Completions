@@ -1,0 +1,39 @@
+#compdef aircrack-ng
+
+
+_arguments '-a[force attack mode ]:attackmode:(( 1\:"WEP" 2\:"WPA-PSK" ))'\
+  '-e[target selection: network identifier]:essid:'\
+  '-b[target selection: access points MAC]:bssid:'\
+  '-p[nr: of CPU to use  (default: all CPUs)]:nr of cpus:'\
+  '-q[enable quiet mode (no status output)]'\
+  '-C[merge the given APs to a virtual one]:macs:'\
+  '-l[write key to file]:file:_files'\
+  '-c[search alpha-numeric characters only]'\
+  '-t[search binary coded decimal chr only]'\
+  '-h[search the numeric key for Fritz!BOX]'\
+  '-d[use masking of the key (A1:XX:CF:YY)]:mask:'\
+  '-m[MAC address to filter usable packets]:MAC address:'\
+  '-n[WEP key length :  64/128/152/256/512]:keylength:(64 128 152 256 512)'\
+  '-i[WEP key index (1 to 4), default: any]:index:( 1 2 3 4 )'\
+  '-f[bruteforce fudge factor,  default: 2]:nr:'\
+  '-k[disable one attack method  (1 to 17)]:attack method:(1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 )'\
+  {-x,0}'[: disable bruteforce for last keybytes]'\
+  '-x1[last keybyte bruteforcing  (default)]'\
+  '-x2[enable last  2 keybytes bruteforcing]'\
+  '-X[disable  bruteforce   multithreading]'\
+  '-y[experimental  single bruteforce mode]'\
+  '-K[use only old KoreK attacks (pre-PTW)]'\
+  '-s[show the key in ASCII while cracking]'\
+  '-M[specify maximum number of IVs to use]:number of IVs:'\
+  '-D[WEP decloak, skips broken keystreams]'\
+  '-P[PTW debug:  1: disable Klein, 2: PTW]:debug:(( 1\:"disable Klein" 2\:"PTW"))'\
+  '-1[run only 1 try to crack key with PTW]'\
+  '-w[path to wordlist(s) filename(s)]:file:_files'\
+  '-E[create EWSA Project file v3]'\
+  '-J[create Hashcat Capture file]'\
+  '-S[WPA cracking speed test]'\
+  '-r[path to airolib-ng database]'\
+  '-u[Displays # of CPUs & MMX/SSE support]'\
+  '(1 : -)--help[: Displays this usage screen]'\
+  '*:filename:_files'
+

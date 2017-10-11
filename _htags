@@ -1,0 +1,49 @@
+#compdef htags
+
+
+_arguments -s {-a,--alphabet}'[Make an alphabetical index suitable for a large project.]'\
+    '--auto-completion[Enable auto-completion facility for the input form.]'\
+    '--call-tree[Add a call tree by cflow(1); callfile must be posix format.]'\
+    '--callee-tree[Add a callee tree by cflow(1); calleefile must be posix format.]'\
+    '--caution[Display a caution message on the top page.]'\
+    '--cflow[Add a call tree by cflow(1). cflowfile must be posix format.]'\
+    '--colorize-warned-line[Use color to highlight warned lines.]'\
+    '--cvsweb-cvsroot[Specify cvsroot in cvsweb URL.]'\
+    '--cvsweb[Add a link to cvsweb; url is used as the base of URL.]'\
+    '--disable-grep[Disable grep in the search form (-f, --form).]'\
+    '--disable-idutils[Disable idutils in the search form (-f, --form).]'\
+    '--fixed-guide[Put a fixed guide at the bottom of the screen of the browser.]'\
+    '--full-path[Use full path name in the file index.]'\
+    '--gtagsconf[Set environment variable GTAGSCONF to file.]'\
+    '--gtagslabel[Set environment variable GTAGSLABEL to label.]'\
+    '--html-header[Insert a header record derived from file]'\
+    '--insert-footer[Insert custom footer derived from file before </body> tag.]'\
+    '--insert-header[Insert custom header derived from file after <body> tag.]'\
+    '--item-order[Specify the order of the items in the top page.]'\
+    '--map-file[Generate file MAP.]'\
+    '--no-order-list[Numbers are not given in list form.]'\
+    '--show-position[Print the position string per function definition. The string can be]'\
+    '--statistics[Print statistics information.]'\
+    '--suggest2[Htags chooses popular options on behalf of beginners.]'\
+    '--suggest[Htags chooses popular options on behalf of beginners.]'\
+    '--table-list[Use <table> tag to display the tag list.]'\
+    '--tabs[Tab stops. The default is 8.]'\
+    '--tree-view[Use treeview for the file index.]'\
+    {--suggest,-DfF,--auto-completion,--tree-view}'[now.]'\
+    {-D,--dynamic}'[Generate a tag list dynamically using CGI program.]'\
+    {-F,--frame}'[Use frames for the top page.]'\
+    {-I,--icon}'[Use icons instead of text for some links.]'\
+    {-T,--table-flist}'[Use <table> tag to display the file index.]'\
+    {-aghInosTxv,--show-position,--fixed-guide}'[now.]'\
+    {-d,--dbpath}'[Specify the directory in which GTAGS exists.]'\
+    {-f,--form}'[Add a search form using CGI program.]'\
+    {-g,--gtags}'[Execute gtags(1) before starting job.]'\
+    {-h,--func-header}'[Insert a function header for each function.]'\
+    {-m,--main-func}'[Specify startup function name; the default is main.]'\
+    {-n,--line-number}'[Print line numbers. By default, dont print line numbers.]'\
+    {-o,--other}'[Pick up not only source files but also other files for the file index.]'\
+    {-s,--symbol}'[Make anchors not only for definitions and references]'\
+    {-t,--title}'[Title of the hypertext.]'\
+    {-v,--verbose}'[Verbose mode.]'\
+    {-w,--warning}'[Print warning messages.]'\
+    '*:filename:_files'

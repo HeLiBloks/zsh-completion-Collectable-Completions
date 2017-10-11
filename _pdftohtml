@@ -1,0 +1,26 @@
+#compdef pdftohtml
+
+
+_arguments -s '-c[generate complex output]'\
+  '-enc[output text encoding name]'\
+  '-f[first page to print]'\
+  '-fmt[image file format for Splash output (png or jpg).  If complex is selected, but -fmt is not specified, -fmt  png  will]'\
+  '-fontfullname[outputs the font name without any substitutions.]'\
+  {-h,-help}'[Show summary of options.]'\
+  '-hidden[force hidden text extraction]'\
+  '-i[ignore images]'\
+  '-l[last page to print]'\
+  '-nodrm[document DRM settings]'\
+  '-noframes[generate no frames. Not supported in complex output mode.]'\
+  '-nomerge[do not merge paragraphs]'\
+  '-opw[owner password (for encrypted files)]'\
+  '-p[exchange .pdf links with .html]'\
+  '-q[do not print any messages or errors]'\
+  '-s[generate single HTML that includes all pages]'\
+  '-stdout[use standard output]'\
+  '-upw[user password (for encrypted files)]'\
+  '-v[print copyright and version info]'\
+  '-wbt[adjust the word break threshold percent. Default is 10.  Word break occurs when distance between two adjacent charac‐]'\
+  '-xml[output for XML post-processing]'\
+  '-zoom[zoom the PDF document (default 1.5)]'\
+  '*:filename:_files'

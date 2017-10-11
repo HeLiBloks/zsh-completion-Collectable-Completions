@@ -1,0 +1,34 @@
+#compdef scan-build-3.6
+
+
+_arguments -s '-analyze-headers[]'\
+  '-analyzer-config[]'\
+  '-disable-checker[name\]]'\
+  '-enable-checker[name\]]'\
+  '-h[]'\
+  '--help[]'\
+  '--html-title[]'\
+  '--html-title[]'\
+  '-internal-stats[]'\
+  '-k[]'\
+  '--keep-empty[]'\
+  '--keep-going[]'\
+  '-load-plugin[library\]]'\
+  '-maxloop[count>]'\
+  '-no-failure-reports[]'\
+  '-o[location>]'\
+  '--override-compiler[Always resort to the ccc-analyzer even when better interposition methods]'\
+  '-plist-html[]'\
+  '-plist[]'\
+  '-stats[]'\
+  '--status-bugs[]'\
+  '--use-analyzer[to clang\]]'\
+  '--use-analyzer[to clang\]]'\
+  '--use-c[++ \[compiler path\]]'\
+  '--use-c[++=\[compiler path\]]'\
+  '--use-cc[path\]]'\
+  '--use-cc[path\]]'\
+  '-v[]'\
+  '-V[]'\
+  '--view[]'\
+  '*:filename:_files'

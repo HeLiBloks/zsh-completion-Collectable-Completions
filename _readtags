@@ -1,0 +1,61 @@
+#compdef readtags
+
+_arguments '-e[Include extension fields in output]'\
+    '(- 1 :)-h[Print this help message]'\
+    '-i[Perform case-insensitive matching]'\
+    '-l[List all tags]'\
+    '-n[Allow print line numbers if -e option is given]'\
+    '-p[Perform partial matching]'\
+    '-Q[Filter the result with EXP]':expression:\
+    '-s[Override sort detection of tag file\[1|2\]]:nr:(1 2)'\
+    '-t[Use specified tag file (default: "tags").]:file:_files'
+
+# case "$state" in
+    # expression)
+          # null?:
+            # and:
+             # or:
+            # not:
+            # eq?:
+              # <:
+              # >:
+             # <=:
+             # >=:
+        # prefix?: (prefix? TARGET<string> PREFIX<string>) -> <boolean>
+        # suffix?: (suffix? TARGET<string> SUFFIX<string>) -> <boolean>
+        # substr?: (substr? TARGET<string> SUBSTR<string>) -> <boolean>
+         # member: (member ELEMENT LIST) -> #f|<list>'
+              # $: ($ NAME) -> #f|<string>'
+          # $name:
+         # $input: input file name
+        # $access:
+          # $file: file scope<boolean>
+      # $language:
+# $implementation:
+          # $line:
+          # $kind:
+          # $role:
+       # $pattern:
+      # $inherits: <list>
+    # $scope-kind:
+    # $scope-name:
+           # $end:
+        # ;;
+# esac
+# #
+# # fields=(
+          # # \$name\:''
+         # # \$input\:'input file name'
+        # # \$access\:''
+          # # \$file\:'file scope<boolean>'
+      # # \$language\:''
+# # \$implementation\:''
+          # # \$line\:''
+          # # \$kind\:''
+          # # \$role\:''
+       # # \$pattern\:''
+      # # \$inherits\:'<list>'
+    # # \$scope-kind\:''
+    # # \$scope-name\:''
+           # # \$end\:''
+# # )

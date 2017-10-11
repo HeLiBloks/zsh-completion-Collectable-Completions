@@ -1,0 +1,6 @@
+#compdef crontab
+
+_arguments -s '-e[(edit users crontab)]'\
+  '-i[(prompt before deleting users crontab)]'\
+  '-l[(list users crontab)]'\
+  '-r[(delete users crontab)]'\

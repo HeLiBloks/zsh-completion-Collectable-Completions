@@ -1,0 +1,3 @@
+#compdef *.py *.sh *.pl
+
+_arguments -- -s '*file*:file:_files'

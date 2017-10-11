@@ -1,0 +1,307 @@
+#compdef hashcat hashcat64 hashcat32
+
+# hashcat completion (C) by Henrik Lindgren henrikprojekt at gmail.com
+#
+# It is free software; you can redistribute it and/or modify it under the terms of either:
+#
+# a) the GNU General Public License as published by the Free Software Foundation;
+#    either external linkversion 1, or (at your option) any later versionexternal link, or
+#
+# b) the "Artistic License".
+
+_arguments {-m,--hash-type}'[Hash-type, see references below | example: -m 1000]:number:(\
+    900\
+    0\
+    5100\
+    100\
+    1300\
+    1400\
+    10800\
+    1700\
+    5000\
+    10100\
+    6000\
+    6100\
+    6900\
+    11700\
+    11800\
+    10\
+    20\
+    30\
+    40\
+    3800\
+    3710\
+    4010\
+    4110\
+    2600\
+    3910\
+    4300\
+    4400\
+    110\
+    120\
+    130\
+    140\
+    4500\
+    4520\
+    4700\
+    4900\
+    14400\
+    1410\
+    1420\
+    1430\
+    1440\
+    1710\
+    1720\
+    1730\
+    1740\
+    50\
+    60\
+    150\
+    160\
+    1450\
+    1460\
+    1750\
+    1760\
+    14000\
+    14100\
+    14900\
+    400\
+    8900\
+    11900\
+    12000\
+    10900\
+    12100\
+    23\
+    2500\
+    4800\
+    5300\
+    5400\
+    5500\
+    5500\
+    5600\
+    7300\
+    7500\
+    8300\
+    10200\
+    11100\
+    11200\
+    11400\
+    13100\
+    121\
+    400\
+    2611\
+    2711\
+    2811\
+    2811\
+    8400\
+    11\
+    400\
+    400\
+    2612\
+    7900\
+    21\
+    21\
+    11000\
+    124\
+    10000\
+    3711\
+    13900\
+    4521\
+    4522\
+    12001\
+    12\
+    131\
+    132\
+    1731\
+    200\
+    300\
+    3100\
+    112\
+    12300\
+    8000\
+    141\
+    1441\
+    1600\
+    12600\
+    1421\
+    101\
+    111\
+    1411\
+    1711\
+    15000\
+    11500\
+    3000\
+    1000\
+    1100\
+    2100\
+    12800\
+    1500\
+    12400\
+    500\
+    3200\
+    7400\
+    1800\
+    122\
+    1722\
+    7100\
+    6300\
+    6700\
+    6400\
+    6500\
+    2400\
+    2410\
+    500\
+    5700\
+    9200\
+    9300\
+    22\
+    501\
+    15100\
+    7000\
+    5800\
+    13800\
+    8100\
+    8500\
+    7200\
+    9900\
+    125\
+    7700\
+    7800\
+    10300\
+    8600\
+    8700\
+    9100\
+    133\
+    13500\
+    11600\
+    12500\
+    13000\
+    13200\
+    13300\
+    13600\
+    14700\
+    14800\
+    62XY\
+    8800\
+    12900\
+    12200\
+    137XY\
+    14600\
+    9700\
+    9710\
+    9720\
+    9800\
+    9810\
+    9820\
+    9400\
+    9500\
+    9600\
+    10400\
+    10410\
+    10420\
+    10500\
+    10600\
+    10700\
+    9000\
+    5200\
+    6800\
+    6600\
+    8200\
+    11300\
+    12700\
+    13400\
+    99999\
+    )'\
+  {-a,--attack-mode}'[Attack-mode, see references below | example: -a 3]:number:((\
+  0\:Straight\
+  1\:Combination\
+  3\:Brute-force\
+  6\:Hybrid\ Wordlist\ +\ Mask\
+  7\:Hybrid\ Mask\ +\ Wordlist\
+  ))'\
+  '(- : *)'{-V,--version}'[Print version]'\
+  '(- : *)'{-h,--help}'[Print help]'\
+  '--quiet[Suppress output]'\
+  '--hex-charset[Assume charset is given in hex]'\
+  '--hex-salt[Assume salt is given in hex]'\
+  '--hex-wordlist[Assume words in wordlist are given in hex]'\
+  '--force[Ignore warnings]'\
+  '--status[Enable automatic update of the status screen]'\
+  '--status-timer[Num Sets seconds between status screen updates to X | -example:-status-timer=1]:seconds:'\
+  '--machine-readable[Display the status view in a machine-readable format]'\
+  '--keep-guessing[Keep guessing the hash after it has been cracked]'\
+  '--loopback[Add new plains to induct directory]'\
+  '--weak-hash-threshold[Num Threshold X when to stop checking for weak hashes | example: --weak=0]:weak hash threshold number:'\
+  '--markov-hcstat[Specify hcstat file to use | example: --markov-hc=my.hcstat]:hcstat file:_files'\
+  '--markov-disable[Disables markov-chains, emulates classic brute-force]'\
+  '--markov-classic[Enables classic markov-chains, no per-position]'\
+  {-t,--markov-threshold}'[Num Threshold X when to stop accepting new markov-chains | example: -t 50]:markov threshold number:'\
+  '--runtime[Num Abort session after X seconds of runtime | example: --runtime=10]:seconds:'\
+  '--session[Str Define specific session name | example: --session=mysession]:session name:'\
+  '--restore[Restore session from --session]:session name:'\
+  '--restore-disable[Do not write restore file]'\
+  '--restore-file-path[Specific path to restore file | example: --restore-file-path=my.restore]:restore file:_files -/'\
+  {-o,--outfile}'[Define outfile for recovered hash | example: -o outfile.txt]:output file:_files'\
+  '--outfile-format[Num Define outfile-format X for recovered hash | example: --outfile-format=7]:number:'\
+  '--outfile-autohex-disable[Disable the use of $HEX\[\] in output plains]'\
+  '--outfile-check-timer[Num Sets seconds between outfile checks to X | -example:-outfile-check=30]:number:'\
+  {-p,--separator}'[Char Separator char for hashlists and outfile | example: -p :]'\
+  '--stdout[Do not crack a hash, instead print candidates only]'\
+  '--show[Compare hashlist with potfile; show cracked hashes]'\
+  '--left[Compare hashlist with potfile; show uncracked hashes]'\
+  '--username[Enable ignoring of usernames in hashfile]'\
+  '--remove[Enable removal of hashes once they are cracked]'\
+  '--remove-timer[Num Update input hash file each X seconds | example: --remove-timer=30]'\
+  '--potfile-disable[Do not write potfile]'\
+  '--potfile-path[Dir Specific path to potfile | example: --potfile-path=my.pot]:files:_files'\
+  '--debug-mode[Num Defines the debug mode (hybrid only by using rules) | -example:-debug-mode=4]'\
+  '--debug-file[Output file for debugging rules | example: --debug-file=good.log]:files:_files'\
+  '--induction-dir[Dir Specify the induction directory to use for loopback | example: --induction=inducts]'\
+  '--outfile-check-dir[Dir Specify the outfile directory to monitor for plains | example: --outfile-check-dir=x]:directory:_files -/'\
+  '--logfile-disable[Disable the logfile]'\
+  '--hccapx-message-pair[Num Load only message pairs from hccapx matching X | -example:-hccapx-message-pair=2]'\
+  '--nonce-error-corrections[Num The BF size range to replace APs nonce last bytes --nonce-error-corrections=16]'\
+  '--truecrypt-keyfiles[Keyfiles to use, separated with commas | example: --truecrypt-key=x.png]:files:_files'\
+  '--veracrypt-keyfiles[Keyfiles to use, separated with commas | example: --veracrypt-key=x.txt]:files:_files'\
+  '--veracrypt-pim[Num VeraCrypt personal iterations multiplier | example: --veracrypt-pim=1000]'\
+  {-b,--benchmark}'[Run benchmark]'\
+  '--speed-only[Return expected speed of the attack, then quit]'\
+  '--progress-only[Return ideal progress step size and time to process]'\
+  {-c,--segment-size}'[Num Sets size in MB to cache from the wordfile to X | -example:c 32]:size in MB:'\
+  '--bitmap-min[Num Sets minimum bits allowed for bitmaps to X | -example:-bitmap-min=24]:number:'\
+  '--bitmap-max[Num Sets maximum bits allowed for bitmaps to X | -example:-bitmap-max=24]:number:'\
+  '--cpu-affinity[Str Locks to CPU devices, separated with commas | example: --cpu-affinity=1,2,3]'\
+  {-I,--opencl-info}'[Show info about detected OpenCL platforms/devices | example: -I]'\
+  '--opencl-platforms[Str OpenCL platforms to use, separated with commas | example: --opencl-platforms=2]:number:'\
+  {-d,--opencl-devices}'[Str OpenCL devices to use, separated with commas | example: -d 1]:number:'\
+  {-D,--opencl-device-types}'[Str OpenCL device-types to use, separated with commas | example: -D 1]:number:'\
+  '--opencl-vector-width[Num Manually override OpenCL vector-width to X | -example:-opencl-vector=4]:number:'\
+  {-w,--workload-profile}'[Num Enable a specific workload profile, see pool below | example: -w 3]:number:'\
+  {-n,--kernel-accel}'[Num Manual workload tuning, set outerloop step size to X | -example:n 64]'\
+  {-u,--kernel-loops}'[Num Manual workload tuning, set innerloop step size to X | -example:u 256]'\
+  '--nvidia-spin-damp[Num Workaround NVIDIAs CPU burning loop bug, in percent | example: --nvidia-spin-damp=50]'\
+  '--gpu-temp-disable[Disable temperature and fanspeed reads and triggers]'\
+  '--gpu-temp-abort[Num Abort if GPU temperature reaches X degrees Celsius | example: --gpu-temp-abort=100]'\
+  '--gpu-temp-retain[Num Try to retain GPU temperature at X degrees Celsius | example: --gpu-temp-retain=95]'\
+  '--powertune-enable[Enable power tuning. Restores settings when finished]'\
+  '--scrypt-tmto[Num Manually override TMTO value for scrypt to X | -example:-scrypt-tmto=3]'\
+  {-s,--skip}'[Num Skip X words from the start | example: -s 1000000]'\
+  {-l,--limit}'[Num Limit X words from the start + skipped words | example: -l 1000000]'\
+  '--keyspace[Show keyspace base:mod values and quit]'\
+  {-j,--rule-left}'[Rule Single rule applied to each word from left wordlist | example: -j c]'\
+  {-k,--rule-right}'[Rule Single rule applied to each word from right wordlist | example: -k ^-]'\
+  {-r,--rules-file}'[Multiple rules applied to each word from wordlists | example: -r rules/best64.rule]:file:_files'\
+  {-g,--generate-rules}'[Num Generate X random rules | example: -g 10000]'\
+  '--generate-rules-func-min[Num Force min X functions per rule ]'\
+  '--generate-rules-func-max[Num Force max X functions per rule ]'\
+  '--generate-rules-seed[Num Force RNG seed set to X |]' \
+  {-1,--custom-charset1}'[CS User-defined charset ?1 | example:1 ?l?d?u]'\
+  {-2,--custom-charset2}'[CS User-defined charset ?2 | example:2 ?l?d?s]'\
+  {-3,--custom-charset3}'[CS User-defined charset ?3 |]' \
+  {-4,--custom-charset4}'[CS User-defined charset ?4 |]' \
+  {-i,--increment}'[Enable mask increment mode]'\
+  '--increment-min[Num Start mask incrementing at X | example:-increment-min=4]'\
+  '--increment-max[Num Stop mask incrementing at X | example:-increment-max=8]'\
+  ':hashfile hccapxfile hash:_files'\
+  ':dictionary mask directory:_files'
+

@@ -1,0 +1,62 @@
+#compdef scanimage
+
+# scanimage zsh completion
+# Copyright © 2017 Henrik Lindgren
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, see <http://www.gnu.org/licenses/>.
+
+
+_arguments {-A,--all-options}'[list all available backend options]'\
+  '--accept-md5-only[only accept authorization requests using md5]'\
+  {-b,--batch}'[specify the format of batchmode filename \[out%d.pnm\]]'\
+  {-B,--buffer-size}'[change input buffer size in kB, default 32]'\
+  '--batch-count[how many pages to scan in batch mode]'\
+  '--batch-double[increment page number by two]'\
+  '--batch-increment[increase page number in filename by nr]'\
+  '--batch-print[print image filenames to stdout]'\
+  '--batch-prompt[ask for pressing a key before scanning a page]'\
+  '--batch-start[page number to start naming files with]'\
+  '--button-controlled[]:button:(yes no)'\
+  '--button-update[Update button state]'\
+  '--custom-gamma[inactive]:gama:(auto yes no)'\
+  {-f,--formatted-device-list}'[similar to -L, but the FORMAT of the output]'\
+  '--format[file format of output file]:format:(tiff pnm)'\
+  '--gamma-table[0..255,... \[inactive\]]'\
+  '--gamma[0.299988..5 \[inactive\]]'\
+  {-h,--help}'[display this help message and exit]'\
+  {-i,--icc-profile}'[include this ICC profile into TIFF file]'\
+  {-L,--list-devices}'[show available scanner devices]'\
+  '-l[0..215.392mm \[0\]]'\
+  '--mode[\[Color\]]:color:(Lineart Gray Color)'\
+  {-n,--dont-scan}'[only set options, dont actually scan]'\
+  {-p,--progress}'[print progress messages]'\
+  '--resolution[75 150 300 600 1200dpi \[75\]]:res:(75 150 300 600 1200)'\
+  '--source[Document Feeder \[Flatbed\]]:feeder:( \"Automatic Document Feeder\"  flatbed )'\
+  {-T,--test}'[test backend thoroughly]'\
+  '-t[0..293.963mm \[0\]]'\
+  '--threshold[0..100% \(in steps of 1\) \[inactive\]]:step:( 1 100 )'\
+  {-v,--verbose}'[give even more status messages]'\
+  {-V,--version}'[print version information]'\
+  '-x[0..215.392mm \[215.392\]]'\
+  '-y[0..293.963mm \[293.963\]]'\
+  '--threshold-curve[0..127 in steps of 1 \[inactive\]]'
+
+
+if [[ "$state" = scann ]]; then
+  local -a taggroup
+  #taggroup=($(scanimage -L|sed -re "s/^device\s\`/'/g ; s/[:]/\\\:/g; s/'\s/:/g ; s/$/'/g"))
+  # scanimage -f “ scanner number %i device %d is a %t, model %m, produced by %v ”
+  taggroup=( $(scanimage -f "'%d:%m %t, produced by %v'"| sed -re 's/[:]/\\:/') )
+  compadd $taggroup
+fi

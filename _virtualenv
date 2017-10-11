@@ -1,0 +1,27 @@
+#compdef virtualenv
+
+
+_arguments '--always-copy[Always copy files rather than symlinking]'\
+  '--clear[Clear out the non-root install and start from scratch]'\
+  '--distribute[DEPRECATED. Retained only for backward compatibility]'\
+  '--download[Download preinstalled packages from PyPI]'\
+  '--extra-search-dir[Directory to look for setuptools/pip distributions in]'\
+  '--no-pip[Do not install pip in the new virtualenv]'\
+  '--no-setuptools[Do not install setuptools in the new virtualenv]'\
+  '--no-site-packages[DEPRECATED. Retained only for backward compatibility]'\
+  '--no-wheel[Do not install wheel in the new virtualenv]'\
+  '--prompt[Provides an alternative prompt prefix for this]'\
+  '--python[2.5 will use the python2.5 interpreter]'\
+  '--relocatable[Make an EXISTING virtualenv environment relocatable]'\
+  '--setuptools[DEPRECATED. Retained only for backward compatibility]'\
+  '--system-site-packages[Give the virtual environment access to the global]'\
+  '--unzip-setuptools[Unzip Setuptools when installing it]'\
+   '(- : 0)--version[show programs version number and exit]'\
+  {--no-download,--never-download}'[Do not download preinstalled packages from PyPI]'\
+  '(- : 0)'{-h,--help}'[show this help message and exit]'\
+  {-p,--python}'[The Python interpreter to use, e.g.]'\
+  {-q,--quiet}'[Decrease verbosity]'\
+  {-v,--verbose}'[Increase verbosity]'\
+  '*:filename:_files'
+
+

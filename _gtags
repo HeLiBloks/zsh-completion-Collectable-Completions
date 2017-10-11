@@ -1,0 +1,21 @@
+#compdef gtags
+
+_arguments '--accept-dotfiles[Accept files and directories whose names begin with a dot]'\
+  {-c,--compact}'[Make GTAGS in compact format]'\
+  '--config[Print the value of config variable name]'\
+  {-d,--dump}'[Dump a tag file as text to the standard output]'\
+  '--explain[Explain handling files]'\
+  {-f,--file}'[Give a list of candidates of target files]:file:_files'\
+  '--gtagsconf[Set environment variable GTAGSCONF to file]:file:_files'\
+  '--gtagslabel[Set environment variable GTAGSLABEL to label]:label:'\
+  {-I,--idutils}'[In addition to tag files, make ID database for idutils(1)]'\
+  {-i,--incremental}'[Update tag files incrementally]'\
+  {-O,--objdir}'[Use BSD-style objdir as the location of tag files]'\
+  '--single-update[Update tag files for a single file]'\
+  '--skip-unreadable[Skip unreadable files]'\
+  '--sqlite3[Use Sqlite 3 API to make tag files]'\
+  '--statistics[Print statistics information]'\
+  {-q,--quiet}'[Quiet mode]'\
+  {-v,--verbose}'[Verbose mode]'\
+  {-w,--warning}'[Print warning messages]'\
+  '*:filename:_files'

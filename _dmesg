@@ -1,0 +1,29 @@
+#compdef dmesg
+
+
+_arguments -s {-C,--clear}'[Clear the ring buffer.]'\
+  {-c,--read-clear}'[Clear the ring buffer after first printing its contents.]'\
+  {-D,--console-off}'[Disable the printing of messages to the console.]'\
+  {-d,--show-delta}'[Display  the  timestamp and the time delta spent between messages.  If used together with --notime then only the time]'\
+  {-E,--console-on}'[Enable printing messages to the console.]'\
+  {-e,--reltime}'[Display the local time and the delta in human-readable format. Be aware that conversion to the local  time  could  be]'\
+  {-f,--facility}'[Restrict output to the given (comma-separated) list of facilities.  For example:]'\
+  {-F,--file}'[Read the messages from the given file.]'\
+  {-h,--help}'[Display help text and exit.]'\
+  {-H,--human}'[Enable human-readable output]'\
+  {-k,--kernel}'[Print kernel messages.]'\
+  {-L,--color}'[Colorize  the  output.  The optional argument when can be auto, never or always.  If the when argument is omitted, it]'\
+  {-l,--level}'[Restrict output to the given (comma-separated) list of levels.  For example:]'\
+  {-n,--console-level}'[Set  the  level at which printing of messages is done to the console.  The level is a level number or abbreviation of]'\
+  {-P,--nopager}'[Do not pipe output into a pager.  A pager is enabled by default for --human output.]'\
+  {-r,--raw}'[Print the raw message buffer, i.e. do not strip the log-level prefixes.]'\
+  {-s,--buffer-size}'[Use a buffer of size to query the kernel ring buffer.  This is 16392 by default.  (The default kernel  syslog  buffer]'\
+  {-S,--syslog}'[Force  dmesg  to  use the syslog(2) kernel interface to read kernel messages.  The default is to use /dev/kmsg rather]'\
+  {-T,--ctime}'[Print human-readable timestamps.]'\
+  {-t,--notime}'[Do not print kernels timestamps.]'\
+  '--time-format[Print  timestamps  using  the  given  format, which can be ctime, reltime, delta or iso.  The first three formats are]'\
+  {-u,--userspace}'[Print userspace messages.]'\
+  {-V,--version}'[Display version information and exit.]'\
+  {-w,--follow}'[Wait for new messages.  This feature is supported only on systems with a readable /dev/kmsg (since kernel 3.5.0).]'\
+  {-x,--decode}'[Decode facility and level (priority) numbers to human-readable prefixes.]'\
+  '*:filename:_files'

@@ -1,0 +1,244 @@
+#compdef midori
+
+_arguments -s '(1 - :)'{-h,--help}'[Show help options]'\
+    '(1 - :)--help-all[Show all help options]'\
+  '(1 - :)'{-V,--version}'[Display program version]'\
+  '(1 - :)--help-execute[List available commands to execute with -e/ --execute]'\
+  '(1 - :)--help-gtk[Show GTK+ Options]'\
+  '--display[X display to use]:xdisplay:'\
+  '--plain[Plain GTK+ window with WebKit, akin to GtkLauncher]'\
+  {-a,--app}'[Run ADDRESS as a web application]'\
+  {-b,--block-uris}'[Block URIs according to regular expression PATTERN]:regex:'\
+  {-c,--config}'[Use FOLDER as configuration folder]:folder:{_files /-}'\
+  {-d,--diagnostic-dialog}'[Show a diagnostic dialog]'\
+  {*-e,--execute}'[Execute the specified command]:command:((\
+    Open:[Open a file]\
+    File:[File]\
+    CompactAdd:[Add]\
+    Previous:[Go to the previous sub-page]\
+    TabNew:[Open a new tab]\
+    ScrollRight:[Scroll Right]\
+    WindowClose:[Close Window]\
+    Separator:[Separator]\
+    EncodingKorean:[Korean (EUC-KR)]\
+    FindNext:[Find Next]\
+    TabDuplicate:[Duplicate Current Tab]\
+    InspectPage:[Inspect Page]\
+    ScrollDown:[Scroll Down]\
+    CompactMenu:[Menu]\
+    Bookmarks:[Show the saved bookmarks]\
+    BookmarkAdd:[Add a new bookmark]\
+    BookmarksExport:[Export bookmarks…]\
+    Preferences:[Configure the application preferences]\
+    Toolbars:[Toolbars]\
+    FindPrevious:[Find Previous]\
+    CaretBrowsing:[Caret Browsing]\
+    Forward:[Go forward to the next page]\
+    EncodingChineseSimplified:[Chinese Simplified (GB18030)]\
+    About:[About]\
+    Back:[Go back to the previous page]\
+    Location:[Open a particular location]\
+    TabMinimize:[Only show the Icon of the Current Tab]\
+    TabMoveLast:[Move Tab to last position]\
+    SelectAll:[Select All]\
+    TabClose:[Close the current tab]\
+    EncodingAutomatic:[Automatic]\
+    Dummy:[Tools]\
+    Encoding:[Encoding]\
+    Cut:[Cut]\
+    Redo:[Redo]\
+    Go:[Go]\
+    Delete:[Delete]\
+    WindowNew:[Open a new window]\
+    EncodingUnicode:[Unicode (UTF-8)]\
+    Menubar:[Menubar]\
+    EncodingWestern:[Western (ISO-8859-1)]\
+    BookmarkFolderAdd:[Add a new folder]\
+    BookmarksImport:[Import bookmarks…]\
+    ClearPrivateData:[Clear Private Data…]\
+    Undo:[Undo]\
+    ReloadStop:[Reload the current page]\
+    Fullscreen:[Toggle fullscreen view]\
+    TabPrevious:[Previous Tab]\
+    EncodingChinese:[Chinese Traditional (BIG5)]\
+    Bookmarkbar:[Bookmarkbar]\
+    ManageSearchEngines:[Manage Search Engines…]\
+    Trash:[Reopen a previously closed tab or window]\
+    EncodingCustom:[Custom…]\
+    LastSession:[Open last session]\
+    Edit:[Edit]\
+    AddNewsFeed:[Subscribe to News feed]\
+    Find:[Find a word or phrase in the page]\
+    TabMoveFirst:[Move Tab to first position]\
+    SaveAs:[Save to a file]\
+    TabCurrent:[Focus Current Tab]\
+    NextView:[Focus Next view]\
+    TabNext:[Next Tab]\
+    Paste:[Paste]\
+    PasteProceed:[Paste and proceed]\
+    PrivateBrowsing:[New Private Browsing Window]\
+    EncodingJapanese:[Japanese (SHIFT_JIS)]\
+    Search:[Run a web search]\
+    HelpFAQ:[Frequent Questions]\
+    TrashEmpty:[Empty Trash]\
+    MailTo:[Send Page Link Via Email]\
+    ScrollUp:[Scroll Up]\
+    Next:[Go to the next sub-page]\
+    SourceViewDom:[View DOM Source]\
+    NextForward:[Go to the next sub-page or next page in history]\
+    Tools:[Tools]\
+    ScrollLeft:[Scroll Left]\
+    Homepage:[Go to your homepage]\
+    Help:[Help]\
+    Copy:[Copy]\
+    SourceView:[View Source]\
+    HelpBugs:[Report a Problem…]\
+    ZoomIn:[Increase the zoom level]\
+    TabMoveBackward:[Move Tab Backward]\
+    Stop:[Stop loading the current page]\
+    Window:[Show a list of all open tabs]\
+    ZoomNormal:[Normal Size]\
+    View:[View]\
+    ReloadUncached:[Reload page without caching]\
+    Print:[Print the current page]\
+    Panel:[Sidepanel]\
+    TabMoveForward:[Move Tab Forward]\
+    UndoTabClose:[Undo Close Tab]\
+    Navigationbar:[Navigationbar]\
+    TabCloseOther:[Close Other Tabs]\
+    Quit:[Close all Windows]\
+    Statusbar:[Statusbar]\
+    AddSpeedDial:[Add to Speed dial]\
+    Readable:[Readable]\
+    Reload:[Reload the current page]\
+    LocationSearch:[(null)]\
+    EncodingRussian:[Russian (KOI8-R)]\
+    ZoomOut:[Decrease the zoom level]\
+    default-encoding:[string]\
+    cursive-font-family:[string]\
+    default-font-family:[string]\
+    fantasy-font-family:[string]\
+    monospace-font-family:[string]\
+    sans-serif-font-family:[string]\
+    serif-font-family:[string]\
+    default-font-size:[number]\
+    default-monospace-font-size:[number]\
+    minimum-font-size:[number]\
+    minimum-logical-font-size:[number]\
+    enforce-96-dpi:[true/ false]\
+    auto-load-images:[true/ false]\
+    auto-shrink-images:[true/ false]\
+    respect-image-orientation:[true/ false]\
+    print-backgrounds:[true/ false]\
+    enable-scripts:[true/ false]\
+    resizable-text-areas:[true/ false]\
+    zoom-step:[number]\
+    enable-developer-extras:[true/ false]\
+    enable-private-browsing:[true/ false]\
+    enable-spell-checking:[true/ false]\
+    spell-checking-languages:[string]\
+    enable-caret-browsing:[true/ false]\
+    enable-html5-database:[true/ false]\
+    enable-html5-local-storage:[true/ false]\
+    html5-local-storage-database-path:[string]\
+    enable-xss-auditor:[true/ false]\
+    enable-spatial-navigation:[true/ false]\
+    enable-frame-flattening:[true/ false]\
+    javascript-can-open-windows-automaticallytrue/false]\
+    javascript-can-access-clipboard:[true/ false]\
+    enable-offline-web-application-cache:[true/ false]\
+    editing-behavior:[WEBKIT_EDITING_BEHAVIOR_MAC WEBKIT_EDITING_BEHAVIOR_WINDOWS WEBKIT_EDITING_BEHAVIOR_UNIX]\
+    enable-universal-access-from-file-uris:[true/ false]\
+    enable-file-access-from-file-uris:[true/ false]\
+    enable-dom-paste:[true/ false]\
+    tab-key-cycles-through-elements:[true/ false]\
+    enable-default-context-menu:[true/ false]\
+    enable-site-specific-quirks:[true/ false]\
+    auto-resize-window:[true/ false]\
+    enable-java-applet:[true/ false]\
+    enable-hyperlink-auditing:[true/ false]\
+    enable-dns-prefetching:[true/ false]\
+    enable-webgl:[true/ false]\
+    enable-media-stream:[true/ false]\
+    enable-webaudio:[true/ false]\
+    enable-accelerated-compositing:[true/ false]\
+    enable-smooth-scrolling:[true/ false]\
+    media-playback-requires-user-gesture:[true/ false]\
+    media-playback-allows-inline:[true/ false]\
+    enable-running-of-insecure-content:[true/ false]\
+    enable-display-of-insecure-content:[true/ false]\
+    enable-mediasource:[true/ false]\
+    enable-javascript:[true/ false]\
+    default-charset:[string]\
+    zoom-text-and-images:[true/ false]\
+    remember-last-window-size:[true/ false]\
+    last-window-width:[number]\
+    last-window-height:[number]\
+    last-panel-position:[number]\
+    last-panel-page:[number]\
+    last-web-search:[number]\
+    search-width:[number]\
+    last-inspector-attached:[true/ false]\
+    last-window-state:[MIDORI_WINDOW_NORMAL MIDORI_WINDOW_MINIMIZED MIDORI_WINDOW_MAXIMIZED MIDORI_WINDOW_FULLSCREEN]\
+    inactivity-reset:[number]\
+    theme-name:[string]\
+    block-uris:[string]\
+    custom-title:[string]\
+    location-entry-search:[string]\
+    clear-private-data:[number]\
+    clear-data:[string]\
+    compact-sidepanel:[true/ false]\
+    open-panels-in-windows:[true/ false]\
+    right-align-sidepanel:[true/ false]\
+    show-menubar:[true/ false]\
+    show-navigationbar:[true/ false]\
+    show-bookmarkbar:[true/ false]\
+    show-panel:[true/ false]\
+    show-statusbar:[true/ false]\
+    show-crash-dialog:[true/ false]\
+    toolbar-items:[string]\
+    find-while-typing:[true/ false]\
+    zoom-level:[number]\
+    open-popups-in-tabs:[true/ false]\
+    kinetic-scrolling:[true/ false]\
+    middle-click-opens-selection:[true/ false]\
+    flash-window-on-new-bg-tabs:[true/ false]\
+    close-buttons-on-tabs:[true/ false]\
+    open-tabs-in-the-background:[true/ false]\
+    open-tabs-next-to-current:[true/ false]\
+    always-show-tabbar:[true/ false]\
+    homepage:[string]\
+    tabhome:[string]\
+    download-folder:[string]\
+    text-editor:[string]\
+    news-aggregator:[string]\
+    http-proxy:[string]\
+    http-proxy-port:[number]\
+    maximum-cache-size:[number]\
+    strip-referer:[true/ false]\
+    first-party-cookies-only:[true/ false]\
+    maximum-cookie-age:[number]\
+    maximum-history-age:[number]\
+    toolbar-style:[MIDORI_TOOLBAR_DEFAULT MIDORI_TOOLBAR_ICONS MIDORI_TOOLBAR_SMALL_ICONS MIDORI_TOOLBAR_TEXT MIDORI_TOOLBAR_BOTH MIDORI_TOOLBAR_BOTH_HORIZ]\
+    load-on-startup:[MIDORI_STARTUP_BLANK_PAGE MIDORI_STARTUP_HOMEPAGE MIDORI_STARTUP_LAST_OPEN_PAGES MIDORI_STARTUP_DELAYED_PAGES]\
+    new-tab-type:[MIDORI_NEWTAB_BLANK_PAGE MIDORI_NEWTAB_HOMEPAGE MIDORI_NEWTAB_SEARCH MIDORI_NEWTAB_SPEED_DIAL MIDORI_NEWTAB_CUSTOM]\
+    preferred-encoding:[MIDORI_ENCODING_CHINESE MIDORI_ENCODING_CHINESE_SIMPLIFIED MIDORI_ENCODING_JAPANESE MIDORI_ENCODING_KOREAN MIDORI_ENCODING_RUSSIAN MIDORI_ENCODING_UNICODE MIDORI_ENCODING_WESTERN MIDORI_ENCODING_CUSTOM]\
+    open-new-pages-in:[MIDORI_NEW_PAGE_TAB MIDORI_NEW_PAGE_WINDOW MIDORI_NEW_PAGE_CURRENT]\
+    enable-fullscreen:[true/ false]\
+    enable-plugins:[true/ false]\
+    enable-page-cache:[true/ false]\
+    proxy-type:[MIDORI_PROXY_AUTOMATIC MIDORI_PROXY_HTTP MIDORI_PROXY_NONE]\
+    identify-as:[MIDORI_IDENT_MIDORI MIDORI_IDENT_GENUINE MIDORI_IDENT_CHROME MIDORI_IDENT_SAFARI MIDORI_IDENT_IPHONE MIDORI_IDENT_FIREFOX MIDORI_IDENT_EXPLORER MIDORI_IDENT_CUSTOM]\
+    user-agent:[string]\
+    preferred-languages:[string]\
+    site-data-rules:[string]\
+    enforce-font-family:[true/ false]\
+    user-stylesheet-uri:[string]\
+    print-without-dialog:[true/ false]\
+  ))'\
+  {-g,--debug}'[Run within gdb and save a backtrace on crash]'\
+  {-i,--inactivity-reset}'[Reset Midori after SECONDS seconds of inactivity]'\
+  {-p,--private}'[Private browsing, no changes are saved]'\
+  {-r,--run}'[Run the specified filename as javascript]:file:'\
+  {-s,--snapshot}'[Take a snapshot of the specified URI]'\
+  '*:filename:_files'

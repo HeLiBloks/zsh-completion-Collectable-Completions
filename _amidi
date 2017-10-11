@@ -1,0 +1,14 @@
+#compdef amidi
+
+_arguments -s '(- 1 :)'{-h,--help}'[this help]'\
+   '(- 1 :)'{-V,--version}'[print current version]'\
+   '(- 1 :)'{-l,--list-devices}'[list all hardware ports]'\
+   '(- 1 :)'{-L,--list-rawmidis}'[list all RawMIDI definitions]'\
+  {-p,--port}'[select port by name]:port:'\
+  {-s,--send}'[send the contents of a (.syx) file]'\
+  {-r,--receive}'[write received data into a file]:filename:_files'\
+  {-S,--send-hex}'[send hexadecimal bytes]'\
+  {-d,--dump}'[print received data as hexadecimal bytes]'\
+  {-t,--timeout}'[exits when no data has been received]'\
+  {-a,--active-sensing}'[dont ignore active sensing bytes]'\
+  '*:filename:_files'

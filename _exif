@@ -1,0 +1,22 @@
+#compdef exif
+
+_arguments -s '(- 1 :)'{-v,--version}'[Display software version]'\
+  {-i,--ids}'[Show IDs instead of tag names]'\
+  {-t,--tag}'[Select tag]'\
+  '--ifd[Select IFD]'\
+  '(- 1 :)'{-l,--list-tags}'[List all EXIF tags]:files:_files'\
+  '--remove[Remove tag or ifd]'\
+  {-s,--show-description}'[Show description of tag]'\
+  {-e,--extract-thumbnail}'[Extract thumbnail]'\
+  {-r,--remove-thumbnail}'[Remove thumbnail]'\
+  {-n,--insert-thumbnail}'[Insert FILE as thumbnail]'\
+  '--no-fixup[Do not fix existing tags in files]'\
+  {-o,--output}'[Write data to FILE]'\
+  '--set-value[Value of tag]'\
+  {-c,--create-exif}'[Create EXIF data if not existing]'\
+  {-m,--machine-readable}'[Output in a machine-readable (tab delimited)]'\
+  {-w,--width}'[Width of output]'\
+  {-x,--xml-output}'[Output in a XML format]'\
+  {-d,--debug}'[Show debugging messages]'\
+  '(- 1 :)--usage[Display brief usage message]'\
+  '*:filename:_files'

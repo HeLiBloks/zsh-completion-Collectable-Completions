@@ -1,0 +1,37 @@
+#compdef smbcacls
+
+
+_arguments -s {-a,--add}'[Add an acl]'\
+  {-A,--authentication-file}'[Get the credentials from a file]'\
+  {-C,--chown}'[Change ownership of a file]'\
+  {-C,--use-ccache}'[Use the winbind ccache for]'\
+  {-d,--debuglevel}'[Set debug level]'\
+  {-D,--delete}'[Delete an acl]'\
+  '--domain-sid[Domain SID for sddl]'\
+  {-e,--encrypt}'[Encrypt SMB transport (UNIX extended]'\
+  {-G,--chgrp}'[Change group ownership of a file]'\
+  {-I,--inherit}'[Inherit allow|remove|copy]'\
+  {-i,--scope}'[Use this Netbios scope]'\
+  {-k,--kerberos}'[Use kerberos (active directory)]'\
+  {-l,--log-basename}'[Base name for log files]'\
+  {-m,--max-protocol}'[Set the max protocol level]'\
+  {-M,--modify}'[Modify an acl]'\
+  {-n,--netbiosname}'[Primary netbios name]'\
+  {-N,--no-pass}'[Dont ask for a password]'\
+  '--numeric[Dont resolve sids or masks to names]'\
+  {-O,--socket-options}'[socket options to use]'\
+  '--option[value Set smb.conf option from command line]'\
+  {-P,--machine-pass}'[Use stored machine account password]'\
+  '--pw-nt-hash[The supplied password is the NT hash]'\
+  '--query-security-info[The security-info flags for queries]'\
+  {-s,--configfile}'[Use alternate configuration file]'\
+  {-S,--set}'[Set acls]'\
+  {-S,--signing}'[Set the client signing state]'\
+  '--sddl[Output and input acls in sddl format]'\
+  '--set-security-info[The security-info flags for]'\
+  {-t,--test-args}'[Test arguments]'\
+  {-U,--user}'[Set the network username]'\
+  '--usage[Display brief usage message]'\
+  {-V,--version}'[Print version]'\
+  {-W,--workgroup}'[Set the workgroup name]'\
+  '*:filename:_files'

@@ -1,0 +1,22 @@
+#compdef csvlook
+
+_arguments -s '(: 1 -)'{-h,--help}'[show this help message and exit]'\
+'(-t -d )'{-d,--delimiter}'[Delimiting character of the input CSV file.]:delim:( \; 	 , )'\
+    '(-t -d )'{-t,--tabs}'[Specifies that the input CSV file is delimited with]'\
+    {-q,--quotechar}'[Character used to quote strings in the input CSV file.]:quotechar:'\
+    {-u,--quoting}'[Quoting style used in the input CSV file]:quotestyle:((\
+        0\:"Quote Minimal"\
+        1\:"Quote All"\
+        2\:"Quote Non-numeric"\
+        3\:"Quote None"\
+    ))'\
+    {-b,--doublequote}'[Whether or not double quotes are doubled in the input]'\
+    {-p,--escapechar}'[Character used to escape the delimiter if --quoting 3]:escapechar'\
+    {-z,--maxfieldsize}'[Maximum length of a single field in the input CSV]:length:'\
+    {-e,--encoding}'[Specify the encoding the input CSV file.]:encoding:'\
+    {-S,--skipinitialspace}'[Ignore whitespace immediately following the delimiter.]'\
+    {-H,--no-header-row}'[Specifies that the input CSV file has no header row.]'\
+    {-v,--verbose}'[Print detailed tracebacks when errors occur.]'\
+    {-l,--linenumbers}'[Insert a column of line numbers at the front of the]'\
+    '--zero[When interpreting or displaying column numbers, use]'\
+    '*:filename:_files'

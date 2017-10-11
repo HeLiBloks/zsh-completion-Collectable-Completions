@@ -1,0 +1,3 @@
+#comp gvfs-trash
+
+_parameters '*:files:_files' -- '*[a-z]*:descr:item'

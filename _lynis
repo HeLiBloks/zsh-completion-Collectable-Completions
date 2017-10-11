@@ -1,0 +1,27 @@
+#compdef lynis
+
+
+_arguments ':audit:((\
+    "audit\ system"\:"Perform local security scan"\
+    "audit\ system remote"\:"Remote security scan"\
+    "audit\ dockerfile"\:"Analyze Dockerfile"\
+    "update\ info"\:"Show update details"\
+    "update\ release"\:"Update Lynis release"\
+    show\:"Show all commands"\
+    "show\ version"\:"Show Lynis version"\
+    "show\ help"\:"Show help"\
+    ))'\
+  '--no-log[: Dont create a log file]'\
+  '--pentest[Non-privileged scan (useful for pentest)]'\
+  '--profile[Scan the system with the given profile file]:file:_files'\
+  '--quick[Quick mode, dont wait for user input]'\
+  '--no-colors[Dont use colors in output]'\
+  '--quiet[No output]'\
+  '--reverse-colors[Optimize color display for light backgrounds]'\
+  '--debug[Debug logging to screen]'\
+  '--view-manpage[View man page]'\
+  '--verbose[Show more details on screen]'\
+  '--version[Display version number and quit]'\
+  '--plugin-dir[Define path of available plugins]:Plugin path:_files -\'\
+  '--upload[Upload data to central node]'\
+  '*:filename:_files'

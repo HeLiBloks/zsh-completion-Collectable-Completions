@@ -1,0 +1,37 @@
+#compdef ocrmypdf
+
+
+_arguments -s '--author[set document author]:author:'\
+  {-c,--clean}'[clean pages from scanning artifacts before performing]'\
+  {-d,--deskew}'[deskew each page before performing OCR]'\
+  {-f,--force-ocr}'[rasterize any fonts or vector objects on each page]'\
+  '--flowchart[Dont run any commands; just print pipeline as flowchart]'\
+  {-g,--debug-rendering}'[render each page twice with debug information on]'\
+  {-h,--help}'[show this help message and exit]'\
+  '--help[display help]'\
+  {-i,--clean-final}'[clean page as above, and incorporate the cleaned image]'\
+  '--image-dpi[for input image instead of PDF, use this DPI instead]'\
+  {-j,--jobs}'[Use up to N CPU cores simultaneously (default: use]'\
+  {-k,--keep-temporary-files}'[keep temporary files (helpful for debugging)]'\
+  '--keywords[set document keywords]'\
+  {-l,--language}'[Language(s) of the file to be OCRed (see tesseract]'\
+  '--list-langs[all language packs installed in your]'\
+  {-n,--just}'[_print      Dont actually run any commands; just print the]'\
+  '--output-type[pdf}]'\
+  '--output-type[which converts the PDF to a standardized PDF/A-2b.  This]'\
+  '--oversample[oversample images to at least the specified DPI, to]'\
+  '--pdf-renderer[tesseract,hocr,tess4}]:renderer:(tesseract hocr sandwich)'\
+  {-r,--rotate-pages}'[automatically rotate pages based on detected text]'\
+  '--remove-background[attempt to remove background from gray or color pages]'\
+  '--rotate-pages-threshold[only rotate pages when confidence is above this value]'\
+  {-s,--skip-text}'[skip OCR on any pages that already contain text]'\
+  '--skip-big[skip OCR on pages larger than specified]'\
+  '--subject[set document subject description]:subject:'\
+  '--tesseract-config[additional Tesseract configuration files]:files:_files'\
+  '--tesseract-oem[set Tesseract 4.0 OCR engine mode: 0 - original]:oem mode:'\
+  '--tesseract-pagesegmode[set Tesseract page segmentation mode (see tesseract]'\
+  '--tesseract-timeout[give up on OCR after the timeout, but copy the]'\
+  '--title[set document title (place multiple words in quotes)]:document title:'\
+  {--verbose,-v}'[Print more verbose messages]:nr:'\
+  '--version[show programs version number and exit]'\
+  '*:filename:_files'

@@ -1,0 +1,24 @@
+#compdef smbget
+
+
+_arguments -s {-a,--guest}'[Work as user guest]'\
+  {-e,--encrypt}'[Encrypt SMB transport (UNIX extended servers]'\
+  {-r,--resume}'[Automatically resume aborted files]'\
+  {-U,--update}'[Download only when remote file is newer than]'\
+  {-R,--recursive}'[Recursively download files]'\
+  {-u,--username}'[Username to use]:username:_user_expand'\
+  {-p,--password}'[Password to use]:password:'\
+  {-w,--workgroup}'[Workgroup to use (optional)]'\
+  {-n,--nonprompt}'[Dont ask anything (non-interactive)]'\
+  {-d,--debuglevel}'[Debuglevel to use]'\
+  {-o,--outputfile}'[Write downloaded data to specified file]'\
+  {-O,--stdout}'[Write data to stdout]'\
+  {-D,--dots}'[Show dots as progress indication]'\
+  {-q,--quiet}'[Be quiet]'\
+  {-v,--verbose}'[Be verbose]'\
+  {-P,--keep-permissions}'[Keep permissions]'\
+  {-b,--blocksize}'[Change number of bytes in a block]'\
+  {-f,--rcfile}'[Use specified rc file]'\
+  '--usage[Display brief usage message]'\
+  '*:filename:_files'
+

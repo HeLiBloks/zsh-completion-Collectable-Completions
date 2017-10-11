@@ -1,0 +1,9 @@
+#compdef hxwls
+
+
+_arguments '(-l -t)-l[Produce a long listing. The element name, the  value  of ]'\
+    '(-t -l)-t[Produce  a  tuple listing.  hxwls prints four columns: the URI of the document itself, the element name, the value]'\
+    '-r[Print relative URLs as they are, without converting them to absolute URLs.]'\
+    '-b[Use base as the initial base URL. If there is a <base> element in the document, it will override the -b option.]'\
+    '-h[Output as HTML. The output will be listed in the form of <a> elements.]'\
+    '*:filename:_files'

@@ -1,0 +1,13 @@
+#compdef rename
+
+_arguments -n {-v,-verbose}'[Verbose: print names of files successfully renamed]'\
+  '(- 1 :)'{-V,-version}'[Version: show version number]'\
+  '-E[Statement: code to act on files name, as -e but terminated by ;]':expression:\
+  "-e[Expression: code to act on files name]:expression:(( \'s\/\:'substitute' \'y\/\:'translate' ))"\
+  {-f,-force}'[Over write: allow existing files to be over-written]'\
+  '(- 1 :)'{-h,-help}'[Help: print SYNOPSIS and OPTIONS]'\
+  '(- 1 :)'{-m,-man}'[Manual: print manual page]'\
+  {-n,-nono}'[No action: print names of files to be renamed, but dont rename]'\
+  '*:filename:_files'
+
+

@@ -1,0 +1,9 @@
+#compdef locale
+
+_arguments -s {-a,--all-locales}'[Display a list of all available locales]'\
+  {-c,--category-name}'[For a category name argument, write the name of the locale category on a separate line preceding the list of keyword]:name:'\
+  {-k,--keyword-name}'[For each keyword whose value is being displayed, include also the name of that keyword]'\
+  {-m,--charmaps}'[Display the available charmaps (character set description files)]'\
+  '(: - 1)--usage[Display a short usage message and exit]'\
+  '(: - 1)'{-V,--version}'[Display the program version and exit.]'\
+  {-v,--verbose}'[Display additional information for some command-line option and argument combinations]'

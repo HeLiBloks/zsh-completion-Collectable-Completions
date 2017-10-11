@@ -1,0 +1,24 @@
+#compdef pep8
+
+
+_arguments '--benchmark[measure processing speed]'\
+  '--config[user config file location]'\
+  '--count[print total number of errors and warnings to standard]'\
+  '--diff[report changes only within line number ranges in the]'\
+  '--exclude[exclude files or directories which match these comma]'\
+  '--filename[when parsing directories, only check filenames matching]'\
+  '--first[show first occurrence of each error]'\
+  '--format[set the error format]:errorformat:( default pylint )'\
+  '--hang-closing[hang closing bracket instead of matching indentation of]'\
+  '(- : *)'{-h,--help}'[show help message and exit]'\
+  '--ignore[skip errors and warnings (e.g. E4,W) (default:]'\
+  '--max-line-length[set maximum allowed line length (default: 79)]'\
+  {-q,--quiet}'[report only file names, or nothing with -qq]'\
+  {-r,--repeat}'[(obsolete) show all occurrences of the same error]'\
+  '--select[select errors and warnings (e.g. E,W6)]'\
+  '--show-pep8[show text of PEP 8 for each error (implies --first)]'\
+  '--show-source[show source code for each error]'\
+  '--statistics[count errors and warnings]'\
+  {-v,--verbose}'[print status messages, or debug with -vv]'\
+  '(- : *)--version[show programs version number and exit]'\
+  '*:filename:_files'

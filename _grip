@@ -1,0 +1,17 @@
+#compdef grip
+
+_arguments -s '--api-url[Specify a different base URL for the github API]'\
+  '--clear[Clears the cached styles and assets and exits.]'\
+  '--context[The repository context, only taken into account]'\
+  '--export[Exports to <path>.html or README.md instead of]'\
+  '--no-inline[Link to styles instead inlining when using --export.]'\
+  '--norefresh[Do not automatically refresh the Readme content when]'\
+  '--pass[A GitHub password or auth token for API auth.]'\
+  '--quiet[Do not print to the terminal.]'\
+  '--title[Manually sets the pages title.]'\
+  '--user-content[Render as user-content like comments or issues.]'\
+  '--user[A GitHub username for API authentication. If used]'\
+  '--wide[Renders wide, i.e. when the side nav is collapsed.]'\
+  {-b,--browser}'[Open a tab in the browser after the server starts.]'\
+  '*:filename:_files'
+

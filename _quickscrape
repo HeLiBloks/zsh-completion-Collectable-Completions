@@ -1,0 +1,15 @@
+#compdef quickscrape
+
+_arguments -s  {-h,--help}'[output usage information]'\
+  {-V,--version}'[outputversion number]'\
+  {-u,--url}'[URL to scrape]:url:_url'\
+  {-r,--urllist}'[path to file with list of URLs to scrape (one per line)]:file:_files'\
+  {-s,--scraper}'[path to scraper definition (in JSON format)]:json file:_files'\
+  {-d,--scraperdir}'[path to directory containing scraper definitions (in JSON format)]:json file:_files'\
+  {-o,--output}'[where to output results (directory will be created if it doesnt exist]:dir:_files -/'\
+  {-i,--ratelimit}'[maximum number of scrapes per minute (default 3)]:nr:( 1 2 3 4 5 6 )'\
+  {-h,--headless}'[render all pages in a headless browser]'\
+  {-l,--loglevel}'[amount of information to log (silent, verbose, info*, data, warn, error, or debug)]:loglevel:( silent verbose info data warn error debug)'\
+  {-f,--outformat}'[JSON format to transform results into (currently only bibjson)]:outputformat:( bibjson )'\
+  {-f,--logfile}'[save log to specified file in output directory as well as printing to terminal]:logfile:_files'\
+  '*:filename:_files'

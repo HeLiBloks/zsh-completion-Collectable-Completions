@@ -1,0 +1,33 @@
+#compdef pyreverse
+
+_arguments '(0 - :)'{-h,--help}'[show this help message and exit]'\
+  {-f,--filter-mode}'[filter attributes and functions according ]:filter attributes:(PUB_ONLY SPECIAL OTHER ALL)'\
+  {-c,--class}'[create a class diagram with all classes related to class]:class:->getclass'\
+  '(-A --all-ancestors -a- --show-ancestors)'{-a-,--show-ancestors}'[show generations of ancestor classes]:nr of ancestors:( 1 2 3 4 )'\
+  {-A,--all-ancestors}'[show all ancestors off all classes in \<projects\>]'\
+  {-s,--show-associated}'[show \<class_level\> levels of associated classes not in]'\
+  {-S,--all-associated}'[show recursively all associated off all associated]'\
+  {-b,--show-builtin}'[include builtin objects in representation of classes]'\
+  {-m,--module-names}'[include module name in representation of classes]:module names:(y n)'\
+  {-k,--only-classnames}'[dont show attributes and methods in the class boxes]'\
+  {-o,--output}'[create a *.format output file if format available]:output format:( bmp canon cmap imap cmapx_np dot eps fig gd gd2 gif gtk gv ico imap_np ismap jpe jpeg jpg pdf pic plain plain-ext png pov ps ps2 svg svgz tif tiff tk vml vmlz vrml wbmp x11 xdot xdot1.2 xdot1.4 xlib cmapx )'\
+  '--ignore[add file or directory to the black list]:to ignore:_files'\
+  "(-p --project)"{-p,--project=}"[project name]:project name:->projectname"\
+  '*:files:_files'
+
+case "$state" in
+  getclass)
+    local classes
+    [[ ! -f tags ]] && classes=( $( _call_program 'ctags' ctags -x -R --maxdepth=3 -f - --python-kinds=c --languages=Python --_xformat=%N) )
+    [[ -f tags ]]   && classes=( ${${(f)"$( _call_program 'readtags' readtags -e -Q '(eq? $kind "class")' -l  )"}%%	*} )
+    _values -S ' ' 'classes' $classes
+    ;;
+  projectname)
+    compadd -X 'project name' $(basename $PWD)
+  ;;
+  ouputformat)
+    compadd  $( dot -Txxx 2>/dev/stdout 1>/dev/null | grep -iPo 'use one of:\K.*$' )
+    ;;
+esac
+
+#  vim: set ts=2 sw=2 tw=0 expandtab foldenable foldmethod=manual foldclose= :

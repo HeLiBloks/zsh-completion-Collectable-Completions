@@ -1,0 +1,34 @@
+#compdef airodump-ng
+
+interface=( ${${${${(f)"$(_call_program 'interface' netstat -i )"}%% *}##Kernel}##Iface} )
+
+_arguments '--band[Band on which airodump-ng should hop]'\
+  '--beacons[Record all beacons in dump file]'\
+  '--berlin[<secs> : Time before removing the AP/client]:secs:'\
+  '--bssid[Filter APs by BSSID]'\
+  '--channel[Capture on specific channels]'\
+  '--encrypt[Filter APs by cipher suite]'\
+  '--essid-regex[Filter APs by ESSID using a regular]'\
+  '--essid[Filter APs by ESSID]'\
+  '--gpsd[Use GPSd]'\
+  '(0 : -)--help[Displays this usage screen]'\
+  '--ignore-negative-one[Removes the message that says]'\
+  '--ivs[Save only captured IVs]'\
+  '--manufacturer[: Display manufacturer from IEEE OUI list]'\
+  '--netmask[Filter APs by mask]'\
+  '--output-format[Output format]:output format:(pcap ivs csv gps kismet netxml)'\
+  '--showack[Prints ack/cts/rts statistics]'\
+  '--update[Display update delay in seconds]:seconds:'\
+  '--uptime[Display AP Uptime from Beacon Timestamp]'\
+  '--write[Dump file prefix]:prefix:'\
+  '-C[Uses these frequencies in MHz to hop]:frequencies in MHz:'\
+  '-a[Filter unassociated clients]'\
+  '-f[Time in ms between hopping channels]:msecs:'\
+  '-h[Hides known stations for --showack]'\
+  '-r[Read packets from that file]:file:_files'\
+  '-w[same as --write]'\
+  '-x[Active Scanning Simulation]:msec:'\
+  {-s,--cswitch}'[Set channel switching method]:method:'\
+  "*:interface:( $interface )"
+
+#  vim: set ts=2 sw=2 tw=0 expandtab foldenable foldmethod=manual foldclose= :

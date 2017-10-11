@@ -1,0 +1,33 @@
+#compdef gnome-terminal
+
+
+_arguments -s '--active[Set the last specified tab as the active one in its window]'\
+  '--class[Program class as used by the window manager]'\
+  '--display[X display to use]'\
+  {-e,--command}'[Execute the argument to this option inside the terminal]'\
+  '--full-screen[Full-screen the window]'\
+  '--g-fatal-warnings[Make all warnings fatal]'\
+  '--gdk-debug[GDK debugging flags to set]'\
+  '--gdk-no-debug[GDK debugging flags to unset]'\
+  '--geometry[Set the window size; for example: 80x24, or 80x24+200+200 (COLSxROWS+X+Y)]'\
+  '--gtk-debug[GTK+ debugging flags to set]'\
+  '--gtk-module[Load additional GTK+ modules]'\
+  '--gtk-no-debug[GTK+ debugging flags to unset]'\
+  {-h,--help}'[Show help options]'\
+  '--help-all[Show all help options]'\
+  '--help-gtk[Show GTK+ Options]'\
+  '--help-terminal-options[Show per-terminal options]'\
+  '--help-terminal[Show terminal options]'\
+  '--help-window-options[Show per-window options]'\
+  '--hide-menubar[Turn off the menubar]'\
+  '--load-config[Load a terminal configuration file]'\
+  '--maximize[Maximize the window]'\
+  '--name[Program name as used by the window manager]'\
+  '--profile[Use the given profile instead of the default profile]'\
+  '--role[Set the window role]'\
+  '--show-menubar[Turn on the menubar]'\
+  '--tab[Open a new tab in the last-opened window with the default profile]'\
+  '--window[Open a new window containing a tab with the default profile]'\
+  '--working-directory[Set the working directory]'\
+  '--zoom[Set the terminals zoom factor (1.0 = normal size)]'\
+  '*:filename:_files'

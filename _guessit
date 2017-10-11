@@ -1,0 +1,25 @@
+#compdef guessit
+
+_arguments -s {-h,--help}'[show this help message and exit]'\
+  {-t,--type}'[The suggested file type: movie, episode. If undefined]'\
+  {-n,--name-only}'[Parse files as name only, considering "/" and "\" like]'\
+  {-Y,--date-year-first}'[If short date is found, consider the first digits as]'\
+  {-D,--date-day-first}'[If short date is found, consider the second digits as]'\
+  {-L,--allowed-languages}'[Allowed language (can be used multiple times)]'\
+  {-C,--allowed-countries}'[Allowed country (can be used multiple times)]'\
+  {-E,--episode-prefer-number}'[Guess "serie.213.avi" as the episode 213. Without this]'\
+  {-T,--expected-title}'[Expected title to parse (can be used multiple times)]'\
+  {-G,--expected-group}'[Expected release group (can be used multiple times)]'\
+  {-f,--input-file}'[Read filenames from an input text file. File should]'\
+  {-v,--verbose}'[Display debug output]'\
+  {-P,--show-property}'[Display the value of a single property (title, series]'\
+  {-a,--advanced}'[Display advanced information for filename guesses, as]'\
+  {-j,--json}'[Display information for filename guesses as json]'\
+  {-y,--yaml}'[Display information for filename guesses as yaml]'\
+  {-c,--config}'[Filepath to the configuration file. Configuration]'\
+  '--no-embedded-config[Disable default configuration.]'\
+  {-p,--properties}'[Display properties that can be guessed.]'\
+  {-V,--values}'[Display property values that can be guessed.]'\
+  '--version[Display the guessit version.]'\
+  '*:filename:_files'
+

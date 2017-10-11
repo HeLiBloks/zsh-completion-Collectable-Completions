@@ -1,0 +1,18 @@
+#compdef smbtar
+
+
+_arguments -s '-a[Reset archive bit mode, Dont reset archive bit]'\
+  '-b[Specify tapes blocksize]'\
+  '-d[Specify a directory in share  ]'\
+  '-i[Incremental mode Full backup mode]'\
+  '-l[Specify a Samba Log Level     2]'\
+  '-N[File for date comparison]'\
+  '-p[Specify PC Password]'\
+  '-r[Restore from tape file to PC  Save from PC to tapefile]'\
+  '-s[Specify PC Server]'\
+  '-t[Specify Tape device tar.out]'\
+  '-u[Specify User Name]'\
+  '-v[Verbose mode: echo command Dont echo anything]'\
+  '-X[Exclude mode]'\
+  '-x[Specify PC Share]'\
+  '*:filename:_files'

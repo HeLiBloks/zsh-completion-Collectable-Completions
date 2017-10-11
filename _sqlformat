@@ -1,0 +1,14 @@
+#compdef sqlformat
+
+_arguments -s '--indent_width=-[indent width (defaults to 2 spaces)]:indent width:'\
+  '--strip-comments[remove comments]'\
+  '--version[show programs version number and exit]'\
+  '(: - 1)'{-h,--help}'[show this help message and exit]'\
+  {-i,--identifiers}'[change case of identifiers]:case:(upper lower capitalize)'\
+  {-k,--keywords}'[change case of keywords]:case:(upper lower capitalize)'\
+  {-l,--language}'[output a snippet in programming language]:language:( python php )'\
+  {-o,--outfile}'[write output to FILE (defaults to stdout)]:file:_files'\
+  {-r,--reindent}'[reindent statements]'\
+  {-v,--verbose}'[verbose mode]'\
+  '-[read data from stdin]'\
+  '*:filename:_files'

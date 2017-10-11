@@ -1,0 +1,88 @@
+#compdef clamscan
+
+
+_arguments -s '(: - 1)'{--help,-h}'[Print this help screen]'\
+  '(: - 1)'{--version,-V}'[Print version number]'\
+  '--algorithmic-detection[Algorithmic detection]'\
+  '--allmatch[-z Continue scanning within file after finding a match]'\
+  {--archive-verbose,-a}'[Show filenames inside scanned archives]'\
+  '--bell[Sound bell on virus detection]'\
+  '--block-encrypted[Block encrypted archives]'\
+  '--block-macros[Block OLE2 files with VBA macros]'\
+  '--bytecode-timeout[Set bytecode timeout (in milliseconds)]'\
+  '--bytecode-unsigned[Load unsigned bytecode]'\
+  '--bytecode[Load bytecode from the database]'\
+  '--copy[Copy infected files into DIRECTORY]:file:{_files -/}'\
+  '--cross-fs[Scan files and directories on other filesystems]'\
+  '--database[Load virus database from FILE or load]:file:_files'\
+  '--debug[Enable libclamavs debug messages]'\
+  '--detect-broken[Try to detect broken executable files]'\
+  '--detect-pua[Detect Possibly Unwanted Applications]'\
+  '--detect-structured[Detect structured data (SSN, Credit Card)]'\
+  '--disable-cache[Disable caching and cache checks for hash sums of scanned files.]'\
+  '--disable-pe-stats[Disable submission of individual PE sections in stats submissions]'\
+  '--dumpcerts[Dump authenticode certificate chain in PE files]'\
+  '--enable-stats[Enable statistical reporting of malware]'\
+  '--exclude-dir[Dont scan directories matching REGEX]:regex:'\
+  '--exclude-pua[Skip PUA sigs of category CAT]'\
+  '--exclude[Dont scan file names matching REGEX]:regex:'\
+  {--file-list,-f}'[Scan files from FILE]:file:_files'\
+  '--follow-dir-symlinks[Follow directory symlinks (0 = never, 1 = direct, 2 = always)]:follow symlinks:(never direct always)'\
+  '--follow-file-symlinks[Follow file symlinks (0 = never, 1 = direct, 2 = always)]:follow symlinks:(never direct always)'\
+  '--heuristic-scan-precedence[Stop scanning as soon as a heuristic match is found]'\
+  '--include-dir[Only scan directories matching REGEX]:regex:'\
+  '--include-pua[Load PUA sigs of category CAT]'\
+  '--include[Only scan file names matching REGEX]:regex:'\
+  {--infected,-i}'[Only print infected files]'\
+  '--leave-temps[Do not remove temporary files]'\
+  {--log,-l}'[Save scan report to FILE]:file:_files'\
+  '--max-dir-recursion[Maximum directory recursion level]'\
+  '--max-embeddedpe[Maximum size file to check for embedded PE]'\
+  '--max-files[The maximum number of files to scan for each container file (**)]'\
+  '--max-filesize[Files larger than this will be skipped and assumed clean]'\
+  '--max-htmlnormalize[Maximum size of HTML file to normalize]'\
+  '--max-htmlnotags[Maximum size of normalized HTML file to scan]'\
+  '--max-iconspe[Maximum number of icons in PE file to be scanned]'\
+  '--max-partitions[Maximum number of partitions in disk image to be scanned]'\
+  '--max-rechwp3[Maximum recursive calls to HWP3 parsing function]'\
+  '--max-recursion[Maximum archive recursion level for container file (**)]'\
+  '--max-scansize[The maximum amount of data to scan for each container file (**)]'\
+  '--max-scriptnormalize[Maximum size of script file to normalize]'\
+  '--max-ziptypercg[Maximum size zip to type reanalyze]'\
+  '--move[Move infected files into DIRECTORY]:file:{_files -/}'\
+  '--no-summary[Disable summary at end of scanning]'\
+  '--nocerts[Disable authenticode certificate chain verification in PE files]'\
+  '--official-db-only[Only load official signatures]'\
+  '--partition-intersection[Detect partition intersections in raw disk images using heuristics.]'\
+  '--pcre-match-limit[Maximum calls to the PCRE match function.]'\
+  '--pcre-max-filesize[Maximum size file to perform PCRE subsig matching.]'\
+  '--pcre-recmatch-limit[Maximum recursive calls to the PCRE match function.]'\
+  '--phishing-cloak[Always block cloaked URLs (phishing module)]'\
+  '--phishing-scan-urls[URL-based phishing detection]'\
+  '--phishing-sigs[Signature-based phishing detection]'\
+  '--phishing-ssl[Always block SSL mismatches in URLs (phishing module)]'\
+  '--quiet[Only output error messages]'\
+  '--recursive[-r Scan subdirectories recursively]'\
+  '--remove[Remove infected files. Be careful!]'\
+  '--scan-archive[Scan archive files (supported by libclamav)]'\
+  '--scan-elf[Scan ELF files]'\
+  '--scan-html[Scan HTML files]'\
+  '--scan-hwp3[Scan HWP3 files]'\
+  '--scan-mail[Scan mail files]'\
+  '--scan-ole2[Scan OLE2 containers]'\
+  '--scan-pdf[Scan PDF files]'\
+  '--scan-pe[Scan PE files]'\
+  '--scan-swf[Scan SWF files]'\
+  '--scan-xmldocs[Scan xml-based document files]'\
+  '--statistics[Collect and print execution statistics]'\
+  '--stats-host-id[Set the Host ID used when submitting statistical info.]'\
+  '--stats-timeout[Number of seconds to wait for waiting a response back from the stats server]'\
+  '--stdout[Write to stdout instead of stderr]'\
+  '--structured-cc-count[Min CC count to generate a detect]:nr:'\
+  '--structured-ssn-count[Min SSN count to generate a detect]:nr:'\
+  '--structured-ssn-format[SSN format (0=normal,1=stripped,2=both)]:ssn format:(0 1 2)'\
+  {--suppress-ok-results,-o}'[Skip printing OK files]'\
+  '--tempdir[Create temporary files in DIRECTORY]'\
+  {--verbose,-v}'[Be verbose]'\
+  '*:filename:_files'
+

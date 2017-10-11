@@ -1,0 +1,15 @@
+#compdef pdfinfo
+
+_arguments '-f[Specifies the first page to examine.  If multiple pages are requested using the "-f" and "-l" options,  the  size  of]'\
+    '-l[Specifies the last page to examine]'\
+    '-box[Prints the page box bounding boxes\: MediaBox CropBox BleedBox TrimBox and ArtBox]:bounding boxes:(MediaBox CropBox BleedBox TrimBox ArtBox)'\
+    '-meta[Prints document-level metadata. \(This is the "Metadata" stream from the PDF files Catalog object\)]'\
+    '-js[Prints all JavaScript in the PDF]'\
+    '-rawdates[Prints the raw \(undecoded\) date strings, directly from the PDF file]'\
+    '-enc[Sets the encoding to use for text output. This defaults to "UTF-8"]'\
+    '-listenc[Lits the available encodings]'\
+    '-opw[Specify the owner password for the PDF file.  Providing this will bypass all security restrictions]'\
+    '-upw[Specify the user password for the PDF file]'\
+    '(- 1 :)-v[Print copyright and version information]'\
+    '(- 1 :)'{-h,--help}'[Print usage information.  \(-help and --help are equivalent\)]'\
+    '*:filename:_files'

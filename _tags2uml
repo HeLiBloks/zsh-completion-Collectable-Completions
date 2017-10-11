@@ -1,0 +1,12 @@
+#compdef tags2uml
+
+_arguments '-blackbox=[true for blackbox model, false for whitebox model (default=false)]:blackbox:(true false)'\
+  '(- 1 :)-help[print help message]'\
+  '-infile=[path to input file (default="tags") (default "tags")]:file:_files'\
+  '-inherit=[display inheritance info (default=true)]:inheritance:(true false)'\
+  '-members=[Display members]:members:(( 0\:"members not displayed",1\:"all members",2\:"only public (default)",3\:"only public and protected (default 2)"))'\
+  '-methods=[Display methods]:methods:(( 0\:"methods not displayed",1\:"all methods",2\:"only public (default)",3\:"only public and protected (default 2)"))'\
+  '-outfile=[path to output file, use "-" for stdout (default "-")]:file:_files'\
+  '-relations=[Display relationship info]:relationship:(( true\:"display relationship info" false\:"do not display" ))'\
+  '(- 1 :)-ver[print version]'\
+  '*:filename:_files'

@@ -1,0 +1,16 @@
+#compdef nvim-qt
+
+# _arguments [ opt ... ] -- [ -i pats ] [ -s pair ] [ helpspec ... ]
+_arguments '*:files:_files' -- '*\*:toggle:(yes no)' \
+           '*(=FILE|file)*:file:_files' \
+           '*=DIR*:directory:_files -/' \
+           '*(=PATH|path)*:directory:_files -/'\
+           '*(--server)*:connect to server instance:->nvimserver'
+
+
+if [[ "$state" = nvimserver ]]; then
+    local -a server
+    server=( $( nvim --cmd 'echo join(serverlist()," \n")' --cmd 'q' ) )
+  compadd -a $server
+fi
+

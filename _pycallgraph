@@ -1,0 +1,18 @@
+#compdef pycallgraph
+
+_arguments -s ':output type:((\
+    graphviz\:Graphviz generation\
+    gephi\:Gephi GDF generation\
+    ))'\
+  {-h,--help}'[show this help message and exit]'\
+  {-v,--verbose}'[Display informative messages while running]'\
+  {-d,--debug}'[Display debugging messages while running]'\
+  {-t,--threaded}'[Process traces asyncronously (Experimental)]'\
+  {-ng,--no-groups}'[Do not group functions by module]'\
+  {-s,--stdlib}'[Include standard library functions intrace]'\
+  {-m,--memory}'[(Experimental) Track memory usage]'\
+  {-i,--include}'[Wildcard pattern of modules to include in the output.]'\
+  {-e,--exclude}'[Wildcard pattern of modules to exclude in the output.]'\
+  '--include-pycallgraph[Do not automatically filter out pycallgraph]'\
+  '--max-depth[Maximum stack depth to trace]'\
+  '*:filename:_files'
