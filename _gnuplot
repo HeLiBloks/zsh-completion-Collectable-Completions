@@ -1,0 +1,11 @@
+#compdef gnuplot
+
+_arguments -s  {-V,--version}'[print version]'\
+  {-h,--help}'[show help]'\
+  {-p,--persist}'[persist]'\
+  {-d,--default-settings}'[use default settings]'\
+  '-c[scriptfile ARG1 ARG2 . ]:scriptfile:_files'\
+  '-e["command1; command2; ..."]:command:((\
+    plot\:plot\ is\ the\ primary\ command\ for\ drawing\ plots\ with\ gnuplot
+    fit\:fit\ a\ user-defined\ function\ to\ a\ set\ of\ data\ points\ x,y\ or\ x,y,z\
+    ))'

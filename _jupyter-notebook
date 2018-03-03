@@ -1,15 +1,15 @@
 #compdef jupyter-notebook
 
 _arguments '::list:(( list\:"list active notebooks" ))'\
-    '( 1 *):filename:_files'
-    '(--Aplication.log_level --log-level)'{--Aplication.log_level,--log-level}"[Set the log level by value or name]:loglevel:(0 10 20 30 40 50 'DEBUG' 'INFO' 'WARN' 'ERROR' 'CRITICAL' )"\
-    '(--browser --NotebookApp.browser=-)'{--browser,--NotebookApp.browser=-}'[Specify what command to use to invoke a web browser when opening the notebook]'\
-    '(--client-ca NotebookApp.client_ca=-)'{--client-ca,NotebookApp.client_ca=-}'[The full path to a certificate authority certifificate for SSL/TLS client authentication]:file:_files'\
-    '(--NotebookApp.certfile=- --certfile )'{--certfile,NotebookApp.certfile=-}'[The full path to an SSL/TLS certificate file]:file:_files'\
-    '(--NotebookApp.port --port){--NotebookApp.port,--port}[The port the notebook server will listen on. Default\: 8888]:port:( 8888 8080 8081 )'\
+    '( 1 *):filename:_files'\
+    '(--Aplication.log_level --log-level)'{--Aplication\.log_level,--log-level}"[Set the log level by value or name]:loglevel:(0 10 20 30 40 50 'DEBUG' 'INFO' 'WARN' 'ERROR' 'CRITICAL' )"\
+    '(--browser --NotebookApp.browser=-)'{--browser,--NotebookApp\.browser=-}'[Specify what command to use to invoke a web browser when opening the notebook]'\
+    '(--client-ca NotebookApp.client_ca=-)'{--client-ca,NotebookApp\.client_ca=-}'[The full path to a certificate authority certifificate for SSL/TLS client authentication]:file:_files'\
+    '(--NotebookApp.certfile=- --certfile )'{--certfile,NotebookApp\.certfile=-}'[The full path to an SSL/TLS certificate file]:file:_files'\
+    '(--NotebookApp.port --port)'{--NotebookApp\.port,--port}'[The port the notebook server will listen on. Default\: 8888]:port:( 8888 8080 8081 )'\
     '(--transport KernelManager\.transport=-)'{KernelManager\.transport,--transport}'[Default\: tcp]:transport:( tcp ipc )'\
-    '(JupyterApp.config_file --config){JupyterApp.config_file,--config}[Full path of a config file]'\
-    '(NotebookApp.keyfile --keyfile)'{NotebookApp.keyfile,--keyfile}'[The full path to a private key file for usage with SSL/TLS]'\
+    '(JupyterApp.config_file --config)'{JupyterApp\.config_file,--config}'[Full path of a config file]'\
+    '(NotebookApp.keyfile --keyfile)'{NotebookApp\.keyfile,--keyfile}'[The full path to a private key file for usage with SSL/TLS]'\
     '(NotebookApp.notebook_dir --notebook-dir){NotebookApp.notebook_dir,--notebook-dir}[The directory to use for notebooks and kernels]:dir:{ _file_names -g }'\
     '(NotebookApp.port_retries --port-retries){NotebookApp.port_retries,--port-retries}[The number of additional ports to try if the specified port is not available]'\
     '(NotebookApp.pylab --pylab){NotebookApp.pylab,--pylab}[DISABLED: use %pylab or %matplotlib in the notebook to enable matplotlib]'\
@@ -123,5 +123,5 @@ _arguments '::list:(( list\:"list active notebooks" ))'\
     '--Session.session=-[\<CUnicode\>]'\
     '--Session.signature_scheme=-[\<Unicode\>]'\
     '--Session.unpacker=-[\<DottedObjectName\>]'\
-    '--Session.username=-[\<Unicode\>]'\
-    '-y[Answer yes to any questions instead of prompting.]'\
+    '--Session.username=-[username]'\
+    '-y[Answer yes to any questions instead of prompting.]'

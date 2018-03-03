@@ -1,0 +1,9 @@
+#compdef zeitgeist-daemon
+
+_arguments -s  {-h,--help}'[Show help options]'\
+  {-q,--quit}'[Quit running Zeitgeist daemon instance]'\
+  {-r,--replace}'[If another Zeitgeist instance is already running, replace it]'\
+  {-v,--version}'[Print programs version number and exit]'\
+  '--no-datahub[Do not start zeitgeist-datahub automatically]'\
+  '--log-file[File to whichlog output will be appended]:logfile:_files'\
+  '--log-level[How much information should be printed]:loglevel:( DEBUG INFO WARNING ERROR CRITICAL )'

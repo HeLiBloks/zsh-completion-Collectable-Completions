@@ -1,0 +1,17 @@
+#compdef stow
+
+_arguments -s  {-d,--dir}'[Set stow dir to DIR (default is current dir)]:target dir:_files \-'\
+  {-t,--target}'[Set target to DIR (default is parent of stow dir)]:target dir:_files \-'\
+  {-S,--stow}'[Stowpackage names that follow this option]'\
+  {-D,--delete}'[Unstowpackage names that follow this option]:package:'\
+  {-R,--restow}'[Restow (like stow -D followed by stow -S)]'\
+  '--ignore[Ignore files ending in this Perl regex]:pattern:'\
+  '--defer[Dont stow files beginning with this Perl regex]:pattern:'\
+  '--override[Force stowing files beginning with this Perl regex]:pattern:'\
+  '--adopt[(Use with care!)  Import existing files into stow package]'\
+  {-p,--compat}'[Use legacy algorithm for unstowing]'\
+  {-n,--no,--simulate}'[Do not actually make any filesystem changes]'\
+  {-v,--verbose=}'[Increase verbosity (levels are 0,1,2,3)]:level:( 0 1 2 3 )'\
+  {-V,--version}'[Show stow version number]'\
+  {-h,--help}'[Show this help]'\
+  '*:filename:_files'
