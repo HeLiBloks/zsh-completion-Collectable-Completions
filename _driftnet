@@ -1,0 +1,16 @@
+#compdef driftnet
+
+_arguments -s  '-a[Adjunct mode\: do not display images on screen, but save]'\
+  '-b[Beep when a new image is captured]'\
+  '-d[User named temporary directory]:dir:_files -/'\
+  '-f[Instead of listening on an interface, read captured tcpdump file]:tcpdump file:_files'\
+  '(- 1 :)-h[Display this help message]'\
+  '-i[Select interface on which to listen (default\: all)]:interface:_net_interfaces'\
+  '-m[Maximum number of images to keep in temporary directory]'\
+  '-M[Use given command to play MPEG audio data extracted]:command:'\
+  '-p[Do not put listening interface into promiscuous mode]'\
+  '-s[Attempt to extract streamed audio data from network]'\
+  '-S[Extract streamed audio but not images]'\
+  '-v[Verbose operation]'\
+  '-x[Prefix to use when saving images]:prefix:'
+

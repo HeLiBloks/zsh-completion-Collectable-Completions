@@ -1,0 +1,10 @@
+#compdef bc
+
+_arguments -s  '(- 1 :)'{-h,--help}'[Print the usage and exit.]'\
+  {-i,--interactive}'[Force interactive mode.]'\
+  {-l,--mathlib}'[Define the standard math library.]:library:'\
+  {-w,--warn}'[Give warnings for extensions to POSIX bc.]'\
+  {-s,--standard}'[Process exactly the POSIX bc language.]'\
+  {-q,--quiet}'[Do not print the normal GNU bc welcome.]'\
+  {-v,--version}'[Print the version number and copyright and quit.]'\
+  '*:filename:_files'

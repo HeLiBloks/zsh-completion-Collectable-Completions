@@ -1,0 +1,14 @@
+#compdef macchanger
+
+_arguments -s  ':device:_net_interfaces'\
+  {-h,--help}'[Print this help]'\
+  {-V,--version}'[Print version and exit]'\
+  {-s,--show}'[PrintMAC address and exit]'\
+  {-e,--ending}'[Dont changevendor bytes]'\
+  {-a,--another}'[Set random vendor MAC ofsame kind]'\
+  '-A[Set random vendor MAC of any kind]'\
+  {-p,--permanent}'[Reset to original, permanent hardware MAC]'\
+  {-r,--random}'[Set fully random MAC]'\
+  {-l,--list}'[Print known vendors]'\
+  {-b,--bia}'[Pretend to be a burned-in-address]'\
+  {-m,--mac}'[SetMAC XX:XX:XX:XX:XX:XX]'

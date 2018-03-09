@@ -1,96 +1,94 @@
 #compdef csvfix
-local -a ascii_table block check date_format date_iso diff echo edit erase escape eval exclude exec file_info
-local -a file_merge file_split find flatten from_xml head inter join lower map merge mixed money number order
-local -a pad pivot printf put read_dsv read_fixed read_multi remove rmnew rowsort sequence shuffle sort split_char
-local -a split_fixed split_regex sql_delete sql_insert sql_update squash stat summary tail template timestamp to_xml
-local -a trim truncate unflatten unique upper validate write_dsv write_fixed write_multi
 
+_csvfix (){
+  # usage: csvfix command [flags] file ...
+  typeset -A opt_args
 
-# usage: csvfix command [flags] file ...
-(( CURRENT == 2 )) && (){
-  local curcontext="$curcontext" expl state line args ret=1
-    _arguments -n ':command:(( ascii_table\:"produce ascii table"\
-      block\:"perform actions on blocks of CSV records"\
-      check\:"check CSV record format conforms to CSV standard"\
-      date_format\:"perform date formatting"\
-      date_iso\:"convert dates to ISO format"\
-      diff\:"compare two CSV files"\
-      echo\:"echo input to output"\
-      edit\:"edit fields"\
-      erase\:"erase fields using regular expressions"\
-      escape\:"escape special characters"\
-      eval\:"expression evaluation"\
-      exclude\:"exclude fields from output"\
-      exec\:"execute external command"\
-      file_info\:"add file information to output"\
-      file_merge\:"merge multiple sorted CSV files"\
-      file_split\:"split into files"\
-      find\:"find rows matching regular expression or range"\
-      flatten\:"flatten to single row"\
-      from_xml\:"convert from XML to CSV"\
-      head\:"list first CSV records"\
-      inter\:"interleave fields from two CSV sources"\
-      join\:"perform relational join"\
-      lower\:"convert to lowercase"\
-      map\:"map betwen CSV field values"\
-      merge\:"merge fields"\
-      mixed\:"convert to mixed case"\
-      money\:"format fields as money/currency values"\
-      number\:"convert formatted numeric fields to ordinary numeric"\
-      order\:"change field order"\
-      pad\:"pad CSV records to fixed number of fields"\
-      pivot\:"simple pivot tables"\
-      printf\:"printf-style formatting"\
-      put\:"put literal or env variable into CSV output"\
-      read_dsv\:"convert DSV (delimiter separated variables) data to CSV"\
-      read_fixed\:"convert fixed format data to CSV"\
-      read_multi\:"read multi-line data"\
-      remove\:"remove rows matching regular expression or range"\
-      rmnew\:"remove embedded newlines"\
-      rowsort\:"in-row sort of CSV fields"\
-      sequence\:"add sequence numbers"\
-      shuffle\:"randomly shuffle rows or fields"\
-      sort\:"sort CSV input on one or more fields"\
-      split_char\:"split using regular expression"\
-      split_fixed\:"split input using fixed sizes"\
-      split_regex\:"split at character or character type transition"\
-      sql_delete\:"generate SQL DELETE statements"\
-      sql_insert\:"generate SQL INSERT statements"\
-      sql_update\:"generate SQL UPDATE statements"\
-      squash\:"squash duplicate rows to single row"\
-      stat\:"produce record/field stats for CSV files"\
-      summary\:"summarise CSV data"\
-      tail\:"list last CSV records"\
-      template\:"output via template"\
-      timestamp\:"add timestamp to CSV data"\
-      to_xml\:"convert CSV to XML"\
-      trim\:"trim leading/trailing spaces"\
-      truncate\:"truncate CSV records"\
-      unflatten\:"convert single row to multiple rows"\
-      unique\:"filter duplicate CSV records"\
-      upper\:"convert to uppercase"\
-      validate\:"validate CSV data files"\
-      write_dsv\:"convert CSV to DSV format"\
-      write_fixed\:"convert CSV to fixed format"\
-      write_multi\:"convert CSV to multi-line records"\
-      ))' && return 0
+  local context state line
+
+  local -a optiona
+
+  (( CURRENT > 2 )) && (){
+    # _messages -r $words[2]
+    local opti
+    opti="$(csvfix help $words[2] 2>/dev/null |\
+      awk -F'\t' '/^\s+-\w+/{OFS="";option=$1; gsub($1,"",$0);gsub(/\s+/," ",$0);
+        gsub(/^\s+/,"",$0);
+        if( option ~ /^\s*-\w+\s\w+/){ split(option,options," ");
+        printf "%s[%s]:%s:\n",options[1],$0,options[2]}
+        else {printf "%s[%s]\n",option,$0};}')"
+    optiona+=( "${(f)opti}" )
+    _arguments $optiona && return 0
   }
 
-[[ ! $words[2] == "" ]] && (){
-  local curcontext expl state line args message RE_MATCH_PCRE
-  local -a option
-  option="$(_call_program csvfix help $words[2] 2>/dev/null )"
-  message=${option}
-  _messages -r $option
+  (( CURRENT == 2 )) && (){
+    local curcontext="$curcontext" expl state line args ret=1
+      _arguments ':command:(( ascii_table\:"produce ascii table"\
+        block\:"perform actions on blocks of CSV records"\
+        check\:"check CSV record format conforms to CSV standard"\
+        date_format\:"perform date formatting"\
+        date_iso\:"convert dates to ISO format"\
+        diff\:"compare two CSV files"\
+        echo\:"echo input to output"\
+        edit\:"edit fields"\
+        erase\:"erase fields using regular expressions"\
+        escape\:"escape special characters"\
+        eval\:"expression evaluation"\
+        exclude\:"exclude fields from output"\
+        exec\:"execute external command"\
+        file_info\:"add file information to output"\
+        file_merge\:"merge multiple sorted CSV files"\
+        file_split\:"split into files"\
+        find\:"find rows matching regular expression or range"\
+        flatten\:"flatten to single row"\
+        from_xml\:"convert from XML to CSV"\
+        head\:"list first CSV records"\
+        inter\:"interleave fields from two CSV sources"\
+        join\:"perform relational join"\
+        lower\:"convert to lowercase"\
+        map\:"map betwen CSV field values"\
+        merge\:"merge fields"\
+        mixed\:"convert to mixed case"\
+        money\:"format fields as money/currency values"\
+        number\:"convert formatted numeric fields to ordinary numeric"\
+        order\:"change field order"\
+        pad\:"pad CSV records to fixed number of fields"\
+        pivot\:"simple pivot tables"\
+        printf\:"printf-style formatting"\
+        put\:"put literal or env variable into CSV output"\
+        read_dsv\:"convert DSV (delimiter separated variables) data to CSV"\
+        read_fixed\:"convert fixed format data to CSV"\
+        read_multi\:"read multi-line data"\
+        remove\:"remove rows matching regular expression or range"\
+        rmnew\:"remove embedded newlines"\
+        rowsort\:"in-row sort of CSV fields"\
+        sequence\:"add sequence numbers"\
+        shuffle\:"randomly shuffle rows or fields"\
+        sort\:"sort CSV input on one or more fields"\
+        split_char\:"split using regular expression"\
+        split_fixed\:"split input using fixed sizes"\
+        split_regex\:"split at character or character type transition"\
+        sql_delete\:"generate SQL DELETE statements"\
+        sql_insert\:"generate SQL INSERT statements"\
+        sql_update\:"generate SQL UPDATE statements"\
+        squash\:"squash duplicate rows to single row"\
+        stat\:"produce record/field stats for CSV files"\
+        summary\:"summarise CSV data"\
+        tail\:"list last CSV records"\
+        template\:"output via template"\
+        timestamp\:"add timestamp to CSV data"\
+        to_xml\:"convert CSV to XML"\
+        trim\:"trim leading/trailing spaces"\
+        truncate\:"truncate CSV records"\
+        unflatten\:"convert single row to multiple rows"\
+        unique\:"filter duplicate CSV records"\
+        upper\:"convert to uppercase"\
+        validate\:"validate CSV data files"\
+        write_dsv\:"convert CSV to DSV format"\
+        write_fixed\:"convert CSV to fixed format"\
+        write_multi\:"convert CSV to multi-line records"\
+        ))' && return 0
+    }
 
 }
-
-
-# (P)interpret content of variable as variable name
-    # echo ${(P)words[2]}
-    # _arguments ${(P)words[1]}
-    # comm=${(P)words[1]}
-    # echo $comm
-    # _message
-
 #  vim: set ts=2 sw=2 tw=0 expandtab foldenable foldmethod=manual foldclose= :

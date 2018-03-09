@@ -1,0 +1,24 @@
+# compdef crunch
+
+_arguments -s ':min-length:min-len:'\
+  ':max-len:max-len:'\
+  ':charset string:charset string:'\
+  '-b[Specifies the size of the output file, only works if -o START is used, i.e.: 60MB The output files will be in the]:number:'\
+  '-c[Specifies the number of lines to write to output file, only works if -o START is used, i.e.: 60 The output files]:number:'\
+  '-d[Limits the number of duplicate characters. -d 2@ limits the lower case alphabet to output like aab and aac. aaa]:number symbol:'\
+  '-e[Specifies when crunch should stop early]:string:'\
+  '-f[Specifies a character set from the charset.lst]:path:_files'\
+  '-i[the output so instead of aaa,aab,aac,aad, etc you get aaa,baa,caa,daa,aba,bba, etc]'\
+  '-l[you use-t option this option tells crunch which symbols should be treated as literals. This will allow you to]'\
+  '-o[Specifies the file to write the output to, eg: wordlist.txt]:file:_files'\
+  '-p[generate words that dont have repeating characters]:charset:'\
+  '-q[read filename.txt and permute what is read]:filename:_files'\
+  '-r[Resume to generate words from where crunch left off]'\
+  '-s[Specifies a starting string, eg: 03god22fs]:startblock:'\
+  '-t[Specifies a pattern, eg: @@god@@@@ where the only the @'s, ,'s, %'s, and ^'s will change]:pattern:_values ""
+      @\:"insert lower case characters"\
+      ,\:"insert upper case characters"\
+      %\:"insert numbers"\
+      ^\:"insert symbols"'\
+  '-u[The -u option disables the printpercentage thread. This should be the last option.]'\
+  '-z[Compresses the output from the -o option]:method:(gzip bzip2 lzma 7z)'

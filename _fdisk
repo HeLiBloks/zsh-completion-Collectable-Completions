@@ -1,0 +1,17 @@
+#compdef fdisk
+
+_arguments -s  {-b,--sector-size}'[physical and logical sector size]'\
+  {-B,--protect-boot}'[dont erase bootbits when create a new label]'\
+  {-c,--compatibility}'[mode is dos or nondos (default)]'\
+  {-L,--color}'[colorize output (auto, always or never)]'\
+  {-l,--list}'[display partitions end exit]'\
+  {-o,--output}'[output columns]'\
+  {-t,--type}'[recognize specified partition table type only]'\
+  {-u,--units}'[display units: cylinders or sectors (default)]:units:( cylinders sectors )'\
+  {-s,--getsz}'[display device size in 512-byte sectors \[DEPRECATED\]]'\
+  '--bytes[print SIZE in bytes rather than in human readable format]'\
+  {-C,--cylinders}'[specifynumber of cylinders]'\
+  {-H,--heads}'[specifynumber of heads]'\
+  {-S,--sectors}'[specifynumber of sectors per track]'\
+  {-h,--help}'[display this help and exit]'\
+  {-V,--version}'[output version information and exit]'

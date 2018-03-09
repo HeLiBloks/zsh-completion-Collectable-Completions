@@ -1,0 +1,23 @@
+#compdef cmus-remote
+
+_arguments -s  {-c,--clear}'[clear playlist, library (-l) or play queue (-q)]'\
+  {-f,--file}'[player-play FILE]'\
+  {-l,--library}'[modify library instead of playlist]'\
+  {-n,--next}'[player-next]'\
+  {-u,--pause}'[player-pause]'\
+  {-P,--playlist}'[modify playlist (default)]'\
+  {-p,--play}'[player-play]'\
+  {-r,--prev}'[player-prev]'\
+  {-Q,--query}'[get player status (same as -C status)]'\
+  {-q,--queue}'[modify play queue instead of playlist]'\
+  {-C,--raw}'[treat arguments (instead of stdin) as raw commands]'\
+  {-R,--repeat}'[toggle repeat]'\
+  {-k,--seek}'[seek SEEK]'\
+  {-S,--shuffle}'[toggle shuffle]'\
+  {-s,--stop}'[player-stop]'\
+  {-v,--volume}'[vol VOL]'\
+  '--server[connect using ADDR instead of $CMUS_SOCKET or $XDG_RUNTIME_DIR/cmus-socket]'\
+  '--help[display this help and exit]'\
+  '--passwd[password to use for TCP/IP connection]'\
+  '--version[v2.7.1]'\
+  '*:filename:_files'

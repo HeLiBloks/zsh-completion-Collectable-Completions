@@ -1,0 +1,37 @@
+#compdef traceroute
+
+_arguments -s  '--back[Guessnumber of hops inbackward path and]'\
+  '--fwmark[Set firewall mark for outgoing packets]'\
+  '--help[Read this help and exit]'\
+  '--mtu[Discover MTU alongpath being traced. Implies]'\
+  '--sport[Use source port num for outgoing packets. Implies]'\
+  '-4[Use IPv4]'\
+  '-6[Use IPv6]'\
+  {-A,--as-path-lookups}'[Perform AS path lookups in routing registries and]'\
+  {-D,--dccp}'[Use DCCP Request for tracerouting (default port]'\
+  {-d,--debug}'[Enable socket level debugging]'\
+  {-e,--extensions}'[Show ICMP extensions (if present), including MPLS]'\
+  {-F,--dont-fragment}'[Do not fragment packets]'\
+  {-f,--first}'[Start from the first_ttl hop (instead from 1)]'\
+  '-g[...  --gateway=gate,. ]'\
+  {-I,--icmp}'[Use ICMP ECHO for tracerouting]'\
+  {-i,--interface}'[Specify a network interface to operate with]'\
+  {-l,--flowlabel}'[Use specified flow_label for IPv6 packets]'\
+  {-m,--max-hops}'[Set the max number of hops (max TTL to be]'\
+  {-M,--module}'[Use specified module (either builtin or external)]'\
+  {-N,--sim-queries}'[Set the number of probes to be tried]'\
+  '-n[Do not resolve IP addresses to their domain names]'\
+  {-O,--options=}'[--options=OPTS]'\
+  {-p,--port}'[Set destination port to use]:port:'\
+  {-P,--protocol}'[Use raw packet of protocol prot for tracerouting]'\
+  {-q,--queries}'[Set the number of probes per each hop. Default is]:probes:'\
+  '-r[Bypass normal routing and send directly to a]'\
+  {-s,--source}'[Use source src_addr for outgoing packets]'\
+  {-T,--tcp}'[Use TCP SYN for tracerouting (default port is 80)]'\
+  {-t,--tos}'[SetTOS (IPv4 type of service) or TC (IPv6]'\
+  {-U,--udp}'[Use UDP to particular port for tracerouting]'\
+  '-UL[Use UDPLITE for tracerouting (default dest port]'\
+  {-V,--version}'[Print version info and exit]'\
+  {-w,--wait}'[Set the number of seconds to wait for response to]'\
+  {-z,--sendwait}'[Minimal time interval between probes (default 0).]'\
+  '*:host:_hosts'

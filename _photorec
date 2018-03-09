@@ -1,0 +1,9 @@
+#compdef photorec
+
+
+_arguments -s  'device:device image.dd:( sd1 )'\
+    '\/log[create a photorec.log file]'\
+       '\/debug[add debug information]'\
+       '\/debug[add debug information]'\
+       '\/recup_dir[cecup dir]:dir:_files -/'
+
