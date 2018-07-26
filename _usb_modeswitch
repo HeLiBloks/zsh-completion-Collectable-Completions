@@ -1,0 +1,45 @@
+#compdef usb_modeswitch
+
+_arguments -s {-a,--altsetting}'[select alternative USB interface setting]:NUM:'\
+  {-A,--mobileaction-mode}'[apply a special procedure]'\
+  {-b,--bus-num}'system[bus number of device (for hard ID)]:NUM:'\
+  {-B,--qisda-mode}'[apply a special procedure]'\
+  {-c,--config-file}'[load long configuration from file]:<filename>:'\
+  {-C,--target-class}'target[mode device class (optional)]:NUM:'\
+  {-d,--detach-only}'[detach the active driver, no further action]'\
+  {-D,--sysmode}'[specific result and syslog message]'\
+  {-E,--quanta-mode}'[apply a special procedure]'\
+  {-e,--version}'[print version information and exit]'\
+  {-f,--long-config}'[get long configuration from string]:<text>:'\
+  {-F,--pantech-mode}'[apply a special procedure, pass NUM through]:NUM:'\
+  {-g,--device-num}'system[device number (for hard ID)]:NUM:'\
+  {-G,--gct-mode}'[apply a special procedure]'\
+  {-h,--help}'[this help]'\
+  {-H,--huawei-mode}'[apply a special procedure]'\
+  {-I,--inquire}'[retrieve SCSI attributes initially]'\
+  {-i,--interface}'[select initial USB interface (default 0)]:NUM:'\
+  {-j,--find-mbim}'[return config no. with MBIM interface, exit]'\
+  {-J,--huawei-new-mode}'[apply a special procedure]'\
+  {-K,--std-eject}'[send standard EJECT sequence]'\
+  {-L,--cisco-mode}'[apply a special procedure]'\
+  {-M,--message-content}'-2[-3 additional messages to send (-n recommended)]:<msg>:'\
+  {-M,--message-content}'message[to send (hex number as string)]:<msg>:'\
+  {-m,--message-endpoint}'direct[the message transfer there (optional)]:NUM:'\
+  {-n,--need-response}'[read response to the message transfer (CSW)]'\
+  {-N,--sequans-mode}'[apply a special procedure]'\
+  {-O,--sony-mode}'[apply a special procedure]'\
+  {-p,--default-product}'product[ID of original mode (mandatory)]:NUM:'\
+  {-P,--target-product}'target[mode product ID (optional)]:NUM:'\
+  {-Q,--quiet}'[dont show progress or error messages]'\
+  {-Q,--quiet}'[dont show progress or error messages]'\
+  {-R,--reset-usb}'[reset the device after all other actions]'\
+  {-r,--response-endpoint}'read[response from there (optional)]:NUM:'\
+  {-S,--sierra-mode}'[apply a special procedure]'\
+  {-s,--success}'[switching result check with timeout]:<seconds>:'\
+  {-T,--kobil-mode}'[apply a special procedure]'\
+  {-t,--stdinput}'[read long configuration from stdin]'\
+  {-u,--configuration}'[select USB configuration]:NUM:'\
+  {-v,--default-vendor}'vendor[ID of original mode (mandatory)]:NUM:'\
+  {-V,--target-vendor}'target[mode vendor ID (optional)]:NUM:'\
+  {-W,--verbose}'[print all settings and debug output]'
+

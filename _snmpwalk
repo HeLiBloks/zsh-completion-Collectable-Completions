@@ -1,0 +1,28 @@
+#compdef snmpwalk
+
+_arguments -s  {-h,--help}'[display this help message]'\
+  {-V,--version}'[display package version number]'\
+  '-m[Load given list of MIBs (ALL loads everything)]'\
+  '-M[Look in given list of directories for MIBs]'\
+  '-v[Specifies SNMP version to use]:version:(1 2c 3)'\
+  '-C[set various application specific behaviours:]'\
+  '-Z[Set destination engine boots/time]:TIME:'\
+  '-D[Turn on debugging output forspecified TOKENs]:Token:'\
+  '-P[Defaults controlling MIB parsing]'\
+  '-I[Defaults controlling input parsing]'\
+  '-L[Defaults controlling logging]'\
+  '-O[Defaults controlling output display]'\
+  '-H[Display configuration file directives understood]'\
+  '-d[Dump input/output packets in hexadecimal]'\
+  '-a[Set authentication protocol (MD5|SHA)]:(MD5 SHA)'\
+  '-A[Set authentication protocol pass phrase]:pass phrase:'\
+  '-E[Set context engine ID (e.g. 800000020109840301)]:context engine:'\
+  '-n[Set context name (e.g. bridge1)]:context name:'\
+  '-x[Set privacy protocol (DES|AES)]':privacy protocol:(DES AES)\
+  '-X[Set privacy protocol pass phrase]:pass phrase:'\
+  '-e[Set security engine ID e.g. 800000020109840301]:ID:'\
+  '-l[Set security level ()]:level:(noAuthNoPriv authNoPriv authPriv)'\
+  '-u[Set security name (e.g. bert)]:name:'\
+  '-c[Setcommunity string]:string:'\
+  '-r[Setnumber of retries]:number:'\
+  '-t[Setrequest timeout (in seconds)]:seconds:'
