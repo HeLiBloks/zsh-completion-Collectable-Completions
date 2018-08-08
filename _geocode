@@ -1,15 +1,16 @@
 #compdef geocode
 
-_arguments {-p,--provider}'[]:provider:(arcgis baidu bing canadapost freegeoip gaode geocodefarm geolytica geonames gisgraphy google here ipinfo komoot locationiq mapbox mapquest mapzen maxmind opencage osm ottawa tamu tgos tomtom uscensus w3w yahoo yandex)'
-  {-m,--method}'[]:method:(geocode reverse elevation timezone places)'
-  {-o,--output}'[]:output type:(json osm geojson wkt)'
-  {-u,--units}'[]:unit:(kilometers miles feet meters)'
-  {-t,--timeout}'[]:FLOAT:'\
-  '--distance[]'\
-  '--language[]:TEXT:'\
-  '--url[]:TEXT:'\
-  '--proxies[]:TEXT:'\
-  '--key[]:TEXT:'\
-  {-c,--city}'[city]:TEXT:'\
-  {-s,--state}'[state]:TEXT:'\
-  {-z,--zipcode}'[zipcode]:TEXT:'
+_arguments '1:location:'\
+  {-p,--provider}'[provider to use]:provider:(arcgis baidu bing canadapost freegeoip gaode geocodefarm geolytica geonames gisgraphy google here ipinfo komoot locationiq mapbox mapquest mapzen maxmind opencage osm ottawa tamu tgos tomtom uscensus w3w yahoo yandex)'\
+  {-m,--method}'[method]:method:(geocode reverse elevation timezone places)'\
+  {-o,--output}'[output type]:output type:(json osm geojson wkt)'\
+  {-u,--units}'[unit]:unit:(kilometers miles feet meters)'\
+  {-t,--timeout}'[time until timeout]:FLOAT:'\
+  '--distance[distance]'\
+  '--language[language]:TEXT:'\
+  '--url[url]:url:'\
+  '--proxies[proxy]:proxy:'\
+  '--key[api key]:key:'\
+  {-c,--city}'[city]:city:'\
+  {-s,--state}'[state]:state:'\
+  {-z,--zipcode}'[zipcode]:zipcode:'
