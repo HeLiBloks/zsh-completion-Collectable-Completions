@@ -1,6 +1,6 @@
 #compdef eralchemy
 
-# erlachemy-zsh-completion (C) by Henrik Lindgren henrikprojekt@gmail.com
+# erlachemy-zsh-completion (C) by Henrik Lindgren henrikprojekt at gmail.com
 #
 # It is free software; you can redistribute it and/or modify it under the terms of either:
 #
@@ -10,19 +10,10 @@
 # b) the "Artistic License".
 
 
-      # sqlite\:"sqlite\ dbnames"\
-      # postgresql\:\/\/$USER\\:password@localhost\\:5432\/databasename\
-      # postgresql+psycopg2\:\/\/$USER\\:password@localhost/mydatabase\
-      # postgresql+pg8000\:\/\/$USER\\:password@localhost/mydatabase\
-      # mysql\\:\/\/$USER\\:password@localhost/foo\:mysql\
-      # mssql+pymssql\\:\/\/$USER\\:password@localhost\\:port\/dbname\:msql\ server\
-      # mssql+pyodbc\:\/\/$USER\:password@mydsn\:ODBC\
-    # hypen sqlite\:sqlite\\\:\\\\\\\\\\\\databasename.\[db\|sqlite\]\
-local bs
-bs='\\\\'
-
 _arguments '-i[\[ sqlalchemy connection string | markdownfile.er \]]:sqlalchemy connection string:((\
-    sqlite\:sqlite\\\:\\\\\\\\\\\\databasename.\[db\|sqlite\]\
+    sqlite\:sqlite\:\/\/\/databasename.\[db\|sqlite\]\
+    postgresql\:postgresql\:\/\/user\:password@host\/db_name\
+    mysql\:mysql\:\/\/user\:password@host\/db_name\
   ))'\
   '-s[db schema to use]:schema:'\
   '-x[exclude tables]:tables:'\

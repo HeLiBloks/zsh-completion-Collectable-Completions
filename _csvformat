@@ -1,22 +1,22 @@
 #compdef csvformat
 
 
-_arguments -s {-b,--doublequote}'[Whether or not double quotes are doubled in the input]'\
-  {-B,--out-doublequote}'[Whether or not double quotes are doubled in the output]'\
-  '(-d --delimiter -t)'{-d,--delimiter}'[Delimiting character of the input CSV file]:input delimiter:'\
-  {-D,--out-delimiter}'[Delimiting character of the output CSV file]:output delimiter:'\
-  {-e,--encoding}'[Specify the encoding the input CSV file]'\
+_arguments -s {-b,--doublequote}'[Whether or not double quotes are doubled in input]'\
+  {-B,--out-doublequote}'[Whether or not double quotes are doubled in output]'\
+  '(-d --delimiter -t)'{-d,--delimiter}'[Delimiting character of input CSV file]:input delimiter:'\
+  {-D,--out-delimiter}'[Delimiting character of output CSV file]:output delimiter:'\
+  {-e,--encoding}'[Encoding of input CSV file]:Encoding:'\
   {-h,--help}'[show this help message and exit]'\
-  {-M,--out-lineterminator}'[Character used to terminate lines in the output CSV]'\
-  {-p,--escapechar}'[Character used to escape the delimiter if --quoting 3]'\
-  {-P,--out-escapechar}'[Character used to escape the delimiter in the output]'\
-  {-Q,--out-quotechar}'[Character used to quote strings in the output CSV]'\
-  {-q,--quotechar}'[Character used to quote strings in the input CSV file]:char:'\
-  {-S,--skipinitialspace}'[Ignore whitespace immediately following the delimiter]'\
-  {-T,--out-tabs}'[Specifies that the output CSV file is delimited with tabs]'\
-  {-t,--tabs}'[Specifies that the input CSV file is delimited with tabs]'\
-  {-U,--out-quoting}'[Quoting style used in the output CSV file]:quoting style:(( 0\:"Quote Minimal" 1\:"Quote All" 2\:"Quote Non-numeric" 3\:"Quote None"))'\
-  {-u,--quoting}'[Quoting style used in the input CSV file]:quoting style:(( 0\:"Quote Minimal" 1\:"Quote All" 2\:"Quote Non-numeric" 3\:"Quote None"))'\
+  {-M,--out-lineterminator}'[Character used to terminate lines in output CSV]:char:'\
+  {-p,--escapechar}'[Character used to escape delimiter if --quoting 3]'\
+  {-P,--out-escapechar}'[Character used to escape delimiter in output]'\
+  {-Q,--out-quotechar}'[Character used to quote strings in output CSV]'\
+  {-q,--quotechar}'[Character used to quote strings in input CSV file]:char:'\
+  {-S,--skipinitialspace}'[Ignore whitespace immediately following delimiter]'\
+  {-T,--out-tabs}'[Specifies that output CSV file is delimited with tabs]'\
+  {-t,--tabs}'[Specifies that input CSV file is delimited with tabs]'\
+  {-U,--out-quoting}'[Quoting style in output CSV file]:quoting style:(( 0\:"Quote Minimal" 1\:"Quote All" 2\:"Quote Non-numeric" 3\:"Quote None"))'\
+  {-u,--quoting}'[Quoting style in input CSV file]:quoting style:(( 0\:"Quote Minimal" 1\:"Quote All" 2\:"Quote Non-numeric" 3\:"Quote None"))'\
   {-v,--verbose}'[Print detailed tracebacks when errors occur]'\
-  {-z,--maxfieldsize}'[Maximum length of a single field in the input CSV]'\
+  {-z,--maxfieldsize}'[Maximum length of a single field in input CSV]'\
   '*:filename:_files'

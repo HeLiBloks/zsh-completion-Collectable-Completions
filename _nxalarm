@@ -1,0 +1,38 @@
+#compdef nxalarm
+
+local state
+
+_arguments '-c[Codepage (default is ASCII)]:codepage:'\
+  '-D[Turn on debug mode]'\
+  '-e[Encrypt session]'\
+  '-h[Display help and exit]'\
+  '-o[Output format for list]:format:->xformat'\
+  '-P[Specify users password. Default is empty password]:password:'\
+  '-s[Sticky acknowledge (only for "ack" command)]'\
+  '-S[Sticky acknowledge with timeout (only for "ack" command)]:minutes:'\
+  '-u[Login to server as <user>. Default is "guest"]:user:( $users )'\
+  '-v[Display version and exit]'\
+  '-w[Specify command timeout (default is 3 seconds)]:time in s:'
+
+if [[ $state == xformat ]]; then
+    (){
+        local context state state_descr line
+        _values -S '' 'xformat' \
+           '*\%a[Primary IP address of source object]'\
+           '*\%A[Primary host name of source object]'\
+           '*\%c[Repeat count]'\
+           '*\%d[Related DCI ID]'\
+           '*\%e[Event code]'\
+           '*\%E[Event name]'\
+           '*\%h[Helpdesk state as number]'\
+           '*\%H[Helpdesk state as text]'\
+           '*\%i[Source object identifier]'\
+           '*\%I[Alarm identifier]'\
+           '*\%m[Message text]'\
+           '*\%n[Source object name]'\
+           '*\%s[Severity as number]'\
+           '*\%S[Severity as text]'\
+           '*\%x[Alarm state as number]'\
+           '*\%X[Alarm state as text]' && return 0
+    } && return 0
+fi

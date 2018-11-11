@@ -1,6 +1,6 @@
 #compdef nvim vim gvim gex gview rvim rview rgvim rgview evim eview vimdiff gvimdiff
 
-(( $+functions[_vim_files] )) ||
+(( $+functions[_vim_files] )) || \
 _vim_files () {
   case $PREFIX in
     (+*) _files -P './' $* && return 0 ;;

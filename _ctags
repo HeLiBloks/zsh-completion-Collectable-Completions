@@ -8,14 +8,18 @@
 #
 # b) the "Artistic License".
 
+_ctags() {
+
+typeset -a opt_args
 local -a extra args
-local excmds nolist passiv
+local excmds nolist passiv 
+local context state line
 
 
 excmds='(--excmd -N -n)'
 
 args=(
-   $excmds--excmd='[Uses the specified type of EX command to locate tags ]:excmd:((
+   $excmds--excmd='[Use specified type of EX command to locate tags]:excmd:((
      number\:"use line number"
      pattern\:"use regex pattern"
      mix\:"use both"
@@ -27,29 +31,29 @@ args=(
 nolist="-R -N -n -f -L -a --langdef --file-scope --excmd --extras --fields --languages --maxdepth "
 passiv=' --list-* --with-list-header --machinable '
 args+=(
-    '*-D[(CPreProcessor) Give definition for macro <macro>=<definition>]:macro definition:->macro'
+    '*-D[(CPreProcessor) definition for macro <macro>=<definition>]:macro definition:->macro'
     '(-f --file* -e --tag* --machinable --help)--machinable[Use tab separated representation in --list- option output]'
-    "($pasiv --language-force -G --guess-language-eagerly)"'--language-force=-[Force all files to be interpreted using specified language]:language:->languages'
+    "($passiv --language-force -G --guess-language-eagerly)"'--language-force=[Force all files to be interpreted using specified language]:language:->languages'
     '(--machinable --list-* --etags-include=)'--etags-include'[Include reference to "file" in Emacs-style tag file (requires -e)]:file:_files'
-    '(--machinable --list-* -a --append=-)'{-a,--append=-}'[Indicates whether tags generated from the specified files should be appended to those already present in the tag file]:append:( yes no )'
-    '(--machinable --list-* -R --recurse=-)'{-R,--recurse=-}'[Recurse into directories supplied on command line (no)]:recurse:(yes no)'
+    '(--machinable --list-* -a --append=)'{-a,--append=}'[Indicates whether tags generated from the specified files should be appended to those already present in the tag file]:append:( yes no )'
+    '(--machinable --list-* -R --recurse=)'{-R,--recurse=}'[Recurse into directories supplied on command line (no)]:recurse:(yes no)'
     '(-e --tag-relative)'{--tag-relative=,-e}'[Should paths be relative to location of tag file (no; yes when -e)?]:tag relative:(always never no yes)'
     '(-v --verbose)'{-v,--verbose}'[Enable verbose mode. Prints out information on option processing and brief message describing action]:yes or no:(yes no)'
-    "( $pasiv -f -o )"{-o,-f}'[Use name specified by tagfile for tag file default is tags, or TAGS when in etags mode]:file:_files'
+    "( $passiv -f -o )"{-o,-f}'[Use name specified by tagfile for tag file default is tags, or TAGS when in etags mode]:file:_files'
     "(--sort -u)"{--sort,-u}'[Should tags be sorted optionally ignoring case]:sort:( yes no foldcase )'
-    "( $pasiv 1:* )"'-L[A list of input file names is read from the specified file]:file:_files'
+    "( $passiv 1:* )"'-L[A list of input file names is read from the specified file]:file:_files'
     '(- 1 :)--help[Prints to standard output a detailed usage description, and then exits]'
     '(- 1 :)--license[Print details of software license]'
     '(- 1 :)--version[Print version identifier to standard output]'
-    "($nolist)"'--list-aliases=-[Lists alias patterns]:languages:->languages'
+    "($nolist)"'--list-aliases=[Lists alias patterns]:languages:->languages'
     "($nolist)"'--list-file-kind[List kind letter for file]:language:->languages'
-    "($nolist)"'--list-extensions=-[Lists language extensions in mapping]:language:->languages'
-    "($nolist)"'--list-maps=-[List language mappings(both extensions and patterns)]:language:->languages'
-    "($nolist)"'--list-extras=-[List extra]:extra:->languages'
-    "($nolist)"'--list-patterns=-[Output list of language patterns in mapping.]:language:->languages'
-    "($nolist)"'--list-fields=-[List fields]:fields:->languages'
-    "($nolist)"'--list-kinds=-[Lists tag kinds for the specified language or all]:language:->languages'
-    "($nolist)"'--list-kinds\-full=-[List details of all tag kinds for specified language or all]:language:->languages'
+    "($nolist)"'--list-extensions=[Lists language extensions in mapping]:language:->languages'
+    "($nolist)"'--list-maps=[List language mappings(both extensions and patterns)]:language:->languages'
+    "($nolist)"'--list-extras=[List extra]:extra:->languages'
+    "($nolist)"'--list-patterns=[Output list of language patterns in mapping.]:language:->languages'
+    "($nolist)"'--list-fields=[List fields]:fields:->languages'
+    "($nolist)"'--list-kinds=[Lists tag kinds for the specified language or all]:language:->languages'
+    "($nolist)"'--list-kinds\-full=[List details of all tag kinds for specified language or all]:language:->languages'
     "($nolist)"'--list-regex-flags[List flags which can be used in regex parser definition]'
     "($nolist)"'--list-pseudo-tags[List pseudo tags]'
     "($nolist)"'--list-languages[Lists names of languages understood by ctags]'
@@ -59,32 +63,33 @@ args+=(
     '(--list-*)--extras=[Include extra tag entries for selected information (flags- Ffq.)]:extra tag entries:->extra'
     '(--list-*)--fields=[fields to include]:field:->fields'
     # "($nolist)--kinds=[Kinds to include]:kinds:->kinds"
-    "($nolist)--kinds\--[Include kinds for specific language]:language:->languages"
-    '*--libexec-dir=-[DIR Add or set DIR to libexec directory search path \[+\]]:libexec dir:->libexec'
-    '--map--[Map language to file extension \[<LANG>=\[+|-\]pattern|extension\]]:language:->maplanguage'
+    "($nolist)--kinds--[Include kinds for specific language]:language:->languages"
+    '*--libexec-dir=[DIR Add or set DIR to libexec directory search path \[+\]]:libexec dir:->libexec'
+    '*--map--[Map language to file extension \[<LANG>=\[+|-\]pattern|extension\]]:language:->maplanguage'
+    '*--langmap=[Map language to file extension \[<LANG>=\[+|-\]pattern|extension\]]:language:->maplanguage'
     '--line-directives[Should "#line" directives be recognized]'
     '(--language-force -G --guess-language-eagerly)'{-G,--guess-language-eagerly}'[Guess language eagerly]'
-    '--print-language[Dont make tags file just print the guessed language name for lang]'
-    '--with-list-header=-[Preprend the column descriptions in --list- output]:colum descriptions:( yes no )'
-    '--_force-quit=-[\[num\] Quit when the option is processed. Useful to debug the chain of loading option files]'
-    '--_list-roles=-[Output list of all roles of tag kind specified for languages \[language|all\]\:\[kindletters|*\]]:roles:->roles'
+    '--print-language[Dont make tags file print the guessed language name for lang]'
+    '--with-list-header=[Preprend the column descriptions in --list- output]:colum descriptions:( yes no )'
+    '--_force-quit=[\[num\] Quit when the option is processed. Useful to debug the chain of loading option files]'
+    '--list-roles=[Output list of all roles of tag kind specified for languages \[language|all\]\:\[kindletters|*\]]:roles:->roles'
     "($passiv)"'--file-scope=[Indicates  whether  tags  scoped  only for a single file should be included]:yesno:( yes no )'
-    '--pseudo-tags=-[\[-|+\] Enable/disable emitting pseudo tag named ptag]:ptag:->ptags'
-    "($pasiv)"'--filter-terminator=-[Specifies a string to print to standard output following the tags for each file name parsed when the --filter  option]'
+    '--pseudo-tags=[\[-|+\] Enable/disable emitting pseudo tag named ptag]:ptag:->ptags'
+    "($passiv)"'--filter-terminator=[String to print following tags for each file parsed with --filter]'
     '--_fatal-warnings[Make all warnings fatal]'
-    "($pasiv)"'*--exclude=-[Add pattern to a list of excluded files and directories. May be specified many times]:files:_files'
-    "($pasiv)"'--langdef=-[Define a new user-defined language, name, to be parsed with regular expressions]'
-    "($pasiv)"'--links=-[Follow symbolic links]:links:(yes no)'
-    "($pasiv)"'--totals=-[Prints statistics about the source files read and the tag file written during the current invocation of  ctags]:total:( yes no )'
-    "($pasiv)"'--_xformat=[Custom format for tabular cross reference \(-x\)]:xformat:->xformat'
-    "($pasiv)"'--maxdepth=-[Maximum recursion depth]:recursion depth:'
-    '--quiet=-[Write fewer messages, dont print NOTICE class messages]:quiet:( yes no )'
-    "($pasiv)"'--format=-[Level 1 original tag file format, level 2 new extended format containing extension fields]:format:(( 1"\:original tag file format" 2"\:new extended format containing extension fields" ))'
-    "($pasiv)"'--if0=-[should "#if 0" branch of a preprocessor conditional be  examined]:examine:(yes no)'
-    '--_echo=-[Echo MSG to standard error. Useful to debug the chain of loading option files]:messages:'
-    "($pasiv)"'--filter[Causes ctags to behave as a filter, read file names from stdin and print tags to stdout]'
-    "($pasiv)"'--_interactive[Enter interactive mode json over stdio]'
-    "($pasiv)"'-x[Print tabular cross reference xref file to stdout]'
+    "($passiv)"'*--exclude=[Add pattern to a list of excluded files and directories. May be specified many times]:files:_files'
+    "($passiv)"'--langdef=[Define new user-defined language, to be parsed with regular expressions]'
+    "($passiv)"'--links=[Follow symbolic links]:links:(yes no)'
+    "($passiv)"'--totals=[Prints statistics about the source files read and the tag file written during the current invocation of  ctags]:total:( yes no )'
+    "($passiv)"'--_xformat=[Custom format for tabular cross reference \(-x\)]:xformat:->xformat'
+    "($passiv)"'--maxdepth=[Maximum recursion depth]:recursion depth:'
+    '--quiet=[Write fewer messages, dont print NOTICE class messages]:quiet:( yes no )'
+    "($passiv)"'--format=[Level 1 original tag file format, level 2 new extended format containing extension fields]:format:(( 1"\:original tag file format" 2"\:new extended format containing extension fields" ))'
+    "($passiv)"'--if0=[should "#if 0" branch of a preprocessor conditional be  examined]:examine:(yes no)'
+    '--_echo=[Echo MSG to standard error. Useful to debug the chain of loading option files]:messages:'
+    "($passiv)"'--filter[Causes ctags to behave as a filter, read file names from stdin and print tags to stdout]'
+    "($passiv)"'--_interactive[Enter interactive mode json over stdio]'
+    "($passiv)"'-x[Print tabular cross reference xref file to stdout]'
     '--undef[Generate macro tag from #undef CPP directives in C/C++ files]'
     '--regex--[Specify kind for language <LANG>=/regexp/replacement/\[kind-spec/\]\[flags\]]:language:->languages'
 )
@@ -93,46 +98,53 @@ _arguments $args '*:file:_files'
 
 case "$state" in
   kinds)
-    local -a kind
-    kind=( ${(f)"$( _call_program commands ctags --with-list-header=no --list-kinds-full|cut -b17)"}  )
-    compadd -o 'kind-spec' $kind
+    # typeset -a opt_args
+    # local line context state line
+    local kind
+    kind=( "$( _call_program commands ctags --with-list-header=no --list-kinds-full 2>/dev/null |cut -f1 -d' '|sort -u)"  )
+    # kind=${(f)kind}
+    compadd -o 'kind-spec' $kind && return 0
     ;;
 
   languages)
-    local -a langs
-    langs=( ${${(f)"$(_call_program commands ctags --list-languages )"}%% *} )
-    compadd 'lang' $langs
+    local  langs
+    langs="$(_call_program commands ctags --list-languages )"
+    langs=( "${(f)langs}" )
+    compadd -a langs && return 0
     ;;
 
   languagelist)
-    local context state state_descr line
+    # local context state state_descr line
     # typeset -A val_args
     local -a langlist
     langlist=( ${${(f)"$(_call_program commands ctags --list-languages )"}%% *} )
-    _values -s , 'lang' $langlist
+    _values -s , 'lang' $langlist && return 0
     ;;
 
   maplanguage)
-    local context state state_descr line
-    # typeset -A val_args
-    local -a langlist
-    langlist=( ${${(f)"$(_call_program commands ctags --list-languages )"}%% *} )
-    types=( $(ctags --list-languages --machinable|cut -f2- ) )
-    _sep_parts $langlist ':' $types
+    # local state line
+    # typeset -A opt_args
+    local types
+    # langlist=( ${${(f)"$(_call_program commands ctags --list-languages )"}%% *} )
+    types=( "$(ctags --with-list-header=no --list-map-extensions --machinable| sed -e 's/\s\+/=/')" )
+    types=( "${(f)types}" )
+    # _messages -r $types[@]
+    # _multi_parts '\=' "(  $types )"  && return 0
+    compadd -a types && return 0
     ;;
 
   fields)
-    local context state state_descr line
-    typeset -A val_args
+    # local context state state_descr line
+    # typeset -A val_args
     local -a fields
     fields=( ${${(f)"$(_call_program commands ctags --with-list-header=no --machinable --list-fields )"}%%	*} )
     # awk -vtick="'" -F'\t' '/^[^#]/ {gsub("[`´\)\([{}]:.]","",$7); print tick$1"[$7]"tick }'` )
-    _values -s '+' 'fields' $fields
+    _values -s '+' 'fields' $fields && return 0
     ;;
   ptags)
       local -a ptags
       ptags=( ${${(f)"$( _call_program commands ctags --with-list-header=no --machinable --list-pseudo-tags )"}%%	*}  )
-      compadd -X 'pseudo tags' $ptags
+      compadd -X 'pseudo tags' $ptags && return 0
       ;;
   xformat)
     local context state state_descr line
@@ -164,31 +176,31 @@ case "$state" in
     '*\%E[Extra tag type information]'\
     '*\%x[xpath for the tag]'\
     '*\%p[Kind of scope as full name]'\
-    '*\%e[end lines of various items]'
+    '*\%e[end lines of various items]' && return 0
     ;;
 
   roles)
       roles=( ${${(f)"$(_call_program commands ctags --_list-roles )"}%%	*} )
-      compadd -X 'languages' $roles
+      compadd -X 'languages' $roles && return 0
   ;;
 
   extra)
-    local context state state_descr line
-    # typeset -A val_args
+    # local context state line
+    # typeset -A opt_args
     _values -S '' 'extra'\
-      '(*)\*:Include all tags'\
-      '(\*)F:Include tags of file scope'\
-      '(\*)f:Include an entry for the base file name of every input file'\
-      '(\*)p:Include pseudo tags'\
-      '(\*)q:Include an extra class-qualified tag entry for each tag'\
-      '(\*)r:Include reference tags'\
-      '(\*)g:Include tags generated by sub parsers'
+      '\*:Include all tags'\
+      'F:Include tags of file scope'\
+      'f:Include an entry for the base file name of every input file'\
+      'p:Include pseudo tags'\
+      'q:Include an extra class-qualified tag entry for each tag'\
+      'r:Include reference tags'\
+      'g:Include tags generated by sub parsers' && return 0
   ;;
 
   libexec)
     local libexec
     _alternative ':files:{_files -/ }'\
-      ":path files:( ${CTAGS_LIBEXEC_PATH//:/ } )"
+      ":path files:( ${CTAGS_LIBEXEC_PATH//:/ } )" && return 0
   ;;
 
   macro)
@@ -196,15 +208,18 @@ case "$state" in
     # ctagmacros=( "$(grep -oP '^[^	^]+(?=.*kind[:](d|macro))' tags 2&>/dev/null )" ) # 0,01ms slower over 100 tests
     # why doesnt readtags work with _call_program?
     ctagmacros=( "$(readtags -Q '(eq? $kind "macro")' -l 2&>/dev/null | cut -f1 )" )
-    compadd -s= -X 'macros' -a $ctagmacros
+    compadd -s= -X 'macros' -a $ctagmacros && return 0
   ;;
 
   optionfiles)
     _alternative ":CTAGS_DATA_PATH:( ${CTAGS_DATA_PATH//:/ } )"\
       ":CTAGS_LIBEXEC_PATH:( ${CTAGS_LIBEXEC_PATH//:/ } )"\
       ':option files:(( NONE\:"Read no options from files or environment"))'\
-      ':option files:_files'
+      ':option files:_files' && return 0
   ;;
 esac
 
+}
+
+_ctags "$@" && return 0
 #  vim: set ts=2 sw=2 tw=0 foldenable foldmethod=syntax foldclose=all nowrap :

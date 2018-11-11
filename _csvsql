@@ -1,28 +1,43 @@
 #compdef csvsql
 
+local state
 
-_arguments -s {-b,--doublequote}'[Whether or not double quotes are doubled in the input]'\
-  '--blanks[Do not coerce empty strings to NULL values.]'\
-  {-d,--delimiter}'[Delimiting character of the input CSV file.]'\
-  '--db-schema[Optional name of database schema to create table(s)]'\
-  '--db[If present, a sqlalchemy connection string to use]:sqlalchemy connection string:'\
-  {-e,--encoding}'[Specify the encoding the input CSV file]'\
+_arguments -s {-b,--doublequote}'[are double quotes doubled in input]'\
+  '--blanks[Do not coerce empty strings to NULL values]'\
+  {-d,--delimiter}'[Delimiting character of input CSV file]'\
+  '--db-schema[Name of database schema to create table]'\
+  '--db[Sqlalchemy connection string to use]:sqlalchemy connection string:'\
+  {-e,--encoding}'[Specify encoding input CSV file]:encoding:'\
   {-h,--help}'[show this help message and exit]'\
-  {-H,--no-header-row}'[Specifies that the input CSV file has no header row.]'\
-  '-i[sybase,sqlite,informix,firebird,mysql,oracle,maxdb,postgresql,mssql}, --dialect {access,sybase,sqlite,informix,firebird,mysql,oracle,maxdb,postgresql,mssql}]'\
-  '--insert[In addition to creating the table, also insert csv file]'\
+  {-H,--no-header-row}'[Specifies that input CSV file has no header row]'\
+  {-i,--dialect}'[database dialect]:dialect:(access sybase sqlite informix firebird mysql oracle maxdb postgresql mssql)'\
+  '--insert[Create table and insert csv file]'\
   '--no-constraints[Generate a schema without length limits or null]'\
-  '--no-create[Skip creating a table. Only valid when --insert is]'\
-  '--no-inference[Disable type inference when parsing the input.]'\
-  {-p,--escapechar}'[Character used to escape the delimiter if --quoting 3]'\
-  {-q,--quotechar}'[Character used to quote strings in the input CSV file.]'\
-  '--query[Execute one or more SQL queries delimited by ";" and]'\
-  {-S,--skipinitialspace}'[Ignore whitespace immediately following the delimiter.]'\
-  {-t,--tabs}'[Specifies that the input CSV file is delimited with]'\
-  '--tables[Specify one or more names for the tables to be]:table name:'\
-  {-u,--quoting}'[Quoting style used in the input CSV file]:quoting style:(( 0\:"Quote Minimal" 1\:"Quote All" 2\:"Quote Non-numeric" 3\:"Quote None"))'\
-  {-v,--verbose}'[Print detailed tracebacks when errors occur.]'\
-  {-y,--snifflimit}'[Limit CSV dialect sniffing to the specified number of]:sniff limit:'\
-  {-z,--maxfieldsize}'[Maximum length of a single field in the input CSV]'\
-  '--zero[When interpreting or displaying column numbers, use]'\
+  '--no-create[Skip creating a table]'\
+  '--no-inference[Disable type inference when parsing input]'\
+  {-p,--escapechar}'[Character used to escape delimiter if --quoting 3]:character:'\
+  {-q,--quotechar}'[Character used to quote strings in input CSV file]:quotechar:'\
+  '--query[Execute one or more SQL queries delimited by ";" ]:query:'\
+  {-S,--skipinitialspace}'[Ignore whitespace immediately following delimiter]'\
+  {-t,--tabs}'[Input CSV file is delimited with tabs]'\
+  '--tables[Specify one or more names for tables to be created]:tablename:->tablenames'\
+  {-u,--quoting}'[Quoting style of input CSV file]:quoting style:(( 0\:"Quote Minimal" 1\:"Quote All" 2\:"Quote Non-numeric" 3\:"Quote None"))'\
+  {-v,--verbose}'[Print detailed tracebacks when errors occur]'\
+  {-y,--snifflimit}'[Limit CSV dialect sniffing to specified number]:sniff limit:'\
+  {-z,--maxfieldsize}'[Maximum length of a single field in input CSV]:field length:'\
+  '--zero[When interpreting or displaying column use zero based numbering]'\
   '*:filename:_files'
+
+case $state in
+    tablenames )
+        local tlist
+        [[ -f *.[tc]sv ]] && tlist=( $(basename -s .tsv -s .csv -a *.[tc]sv) )
+        [[ -v $tlist ]] && _values -S ' ' 'table' $tlist && return 0
+        ;;
+    columnnames )
+        local clist
+        tlist=( $( head -1 -q ./*.[ct]sv | grep -Eo '[^,|;  ]+' | sort -u ) )
+        _values -S ' ' 'table' $clist && return 0
+        ;;
+esac
+
