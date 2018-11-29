@@ -1,0 +1,94 @@
+#compdef grafana-cli
+
+local state line grafana_command
+
+grafana_command=(
+  'plugins:Manage plugins for grafana'
+  'admin:Grafana admin commands'
+  'help:Shows a list of commands or help for one command'
+)
+
+
+_arguments '--pluginsDir[path to grafana plugin directory]:dir:_files -/'\
+  '--repo[url to plugin repository]:url:'\
+  '--pluginUrl[Full url to plugin zip file instead of downloading plugin from grafana.com/api \[$GF_PLUGIN_URL\]]:zip file url:'\
+  '--insecure[Skip TLS verification (insecure)]'\
+  {--debug,-d}'[enable debug logging]'\
+  {--help,-h}'[show help]'\
+  {--version,-v}'[print version]'\
+  '1:grafana command:{_describe "grafana command" grafana_command}'\
+  '2:grafana sub command:->plugins'\
+  '3:grafana sub sub command:->remote_plugins'
+
+
+[[ $state = plugins ]] && case $words[2] in
+  plugins)
+    local cmd_plugins
+    cmd_plugins=(
+      'install:install <plugin id> <plugin version (optional)>'
+      'list-remote:list remote available plugins'
+      'list-versions:list-versions <plugin id>'
+      'update:update <plugin id>'
+      'upgrade:upgrade <plugin id>'
+      'update-all:update all installed plugins'
+      'upgrade-all:upgrade all installed plugins'
+      'ls:list all installed plugins'
+      'uninstall:uninstall <plugin id>'
+      'remove:uninstall <plugin id>'
+    )
+    _describe 'plugin command' cmd_plugins
+    return 0
+  ;;
+
+  admin)
+  local reset_admin_password
+  reset_admin_password=( 'reset-admin-password:reset password <new password>' )
+    _describe 'reset admin password' reset_admin_password
+    return 0
+  ;;
+  h|help)
+    _describe 'grafana commands' grafana_command
+    return 0
+  ;;
+esac
+
+case $state in
+  remote_plugins)
+    local remoteplugins
+    remoteplugins=( ${(qf)"$( _call_program grafana grafana-cli plugins list-remote 2>/dev/null |\
+      awk '/^id/ {printf "%s:version %s %s\n",$2,$4,$2 }')"})
+    _describe 'remote plugins' remoteplugins
+    return 0
+  ;;
+esac
+return 0
+
+#
+# NAME:
+   # Grafana cli
+#
+# USAGE:
+   # grafana-cli [global options] command [command options] [arguments...]
+#
+# VERSION:
+   # 5.3.4
+#
+# AUTHOR:
+   # Grafana Project <https://github.com/grafana/grafana>
+#
+# COMMANDS:
+     # plugins  Manage plugins for grafana
+     # admin    Grafana admin commands
+     # help, h  Shows a list of commands or help for one command
+#
+# GLOBAL OPTIONS:
+   # --pluginsDir value  path to the grafana plugin directory (default: "/var/lib/grafana/plugins") [$GF_PLUGIN_DIR]
+   # --repo value        url to the plugin repository (default: "https://grafana.com/api/plugins") [$GF_PLUGIN_REPO]
+   # --pluginUrl value   Full url to the plugin zip file instead of downloading the plugin from grafana.com/api [$GF_PLUGIN_URL]
+   # --insecure          Skip TLS verification (insecure)
+   # --debug, -d         enable debug logging
+   # --help, -h          show help
+   # --version, -v       print the version
+
+
+#  vim: set ts=2 sw=2 tw=0 expandtab foldenable foldmethod=syntax foldclose=all :

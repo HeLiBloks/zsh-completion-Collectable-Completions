@@ -1,0 +1,32 @@
+#compdef grafana-server
+
+_arguments '-config[path to config file]'\
+  '-homepath[path to grafana install/home path, defaults to working directory]:path:_files \-'\
+  '-pidfile[path to pid file]:path:_files \-'\
+  '-profile[Turn on pprof profiling]'\
+  '-profile-port[Define custom port for profiling (default 6060)]:port:'\
+  '-test.bench[]:regexp:'\
+  '-test.benchmem[]'\
+  '-test.benchtime[]:d:'\
+  '-test.blockprofile[]:file:'\
+  '-test.blockprofilerate[]:rate:'\
+  '-test.count[]:n:'\
+  '-test.coverprofile[]:file:'\
+  '-test.cpu[]:list:'\
+  '-test.cpuprofile[]:file:'\
+  '-test.failfast[]'\
+  '-test.list[]:regexp:'\
+  '-test.memprofile[]:file:'\
+  '-test.memprofilerate[]:rate:'\
+  '-test.mutexprofile[]:string:'\
+  '-test.mutexprofilefraction[]:int:'\
+  '-test.outputdir[]:dir:'\
+  '-test.parallel[]:n:'\
+  '-test.run[]:regexp:'\
+  '-test.short[]'\
+  '-test.testlogfile[]:file:'\
+  '-test.timeout[]:d:'\
+  '-test.trace[]:file:'\
+  '-test.v[]'\
+  '-v[prints current version and exits]'\
+  '*:filename:_files'

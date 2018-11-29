@@ -22,7 +22,7 @@ __parseopts() {
   return $engine
 }
 
-_arguments '*:filename:_files'\
+_arguments ':input file:_files'\
   '(- 1 :)-V[prints version information and exits]'\
   '(-O -o)-o-[Write output to file]:outputfile:_files'\
   '(- 1 :)-?[prints the usage and exits]'\
