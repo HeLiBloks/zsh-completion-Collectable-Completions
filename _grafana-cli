@@ -17,11 +17,11 @@ _arguments '--pluginsDir[path to grafana plugin directory]:dir:_files -/'\
   {--help,-h}'[show help]'\
   {--version,-v}'[print version]'\
   '1:grafana command:{_describe "grafana command" grafana_command}'\
-  '2:grafana sub command:->plugins'\
-  '3:grafana sub sub command:->remote_plugins'
+  '2:grafana sub command:->sub'\
+  '3:grafana sub sub command:->sub_sub'
 
 
-[[ $state = plugins ]] && case $words[2] in
+[[ $state = sub ]] && case $words[2] in
   plugins)
     local cmd_plugins
     cmd_plugins=(
@@ -50,45 +50,26 @@ _arguments '--pluginsDir[path to grafana plugin directory]:dir:_files -/'\
     _describe 'grafana commands' grafana_command
     return 0
   ;;
+  *)
+    return 0
+  ;;
 esac
 
-case $state in
-  remote_plugins)
+[[ $state =~ sub_sub ]] && [[ $words[2] =~ plugins ]] && case $words[3] in
+  install|list-versions)
     local remoteplugins
     remoteplugins=( ${(qf)"$( _call_program grafana grafana-cli plugins list-remote 2>/dev/null |\
       awk '/^id/ {printf "%s:version %s %s\n",$2,$4,$2 }')"})
     _describe 'remote plugins' remoteplugins
     return 0
   ;;
+  update|uninstall|remove|upgrade)
+    localplugins=( ${(qf)"$( _call_program grafana grafana-cli plugins ls 2>/dev/null |\
+      awk '/@/ {printf "%s:version %s %s\n",$1,$2,$1 }')"})
+    _describe 'local plugins' localplugins
+    return 0
+  ;;
 esac
 return 0
-
-#
-# NAME:
-   # Grafana cli
-#
-# USAGE:
-   # grafana-cli [global options] command [command options] [arguments...]
-#
-# VERSION:
-   # 5.3.4
-#
-# AUTHOR:
-   # Grafana Project <https://github.com/grafana/grafana>
-#
-# COMMANDS:
-     # plugins  Manage plugins for grafana
-     # admin    Grafana admin commands
-     # help, h  Shows a list of commands or help for one command
-#
-# GLOBAL OPTIONS:
-   # --pluginsDir value  path to the grafana plugin directory (default: "/var/lib/grafana/plugins") [$GF_PLUGIN_DIR]
-   # --repo value        url to the plugin repository (default: "https://grafana.com/api/plugins") [$GF_PLUGIN_REPO]
-   # --pluginUrl value   Full url to the plugin zip file instead of downloading the plugin from grafana.com/api [$GF_PLUGIN_URL]
-   # --insecure          Skip TLS verification (insecure)
-   # --debug, -d         enable debug logging
-   # --help, -h          show help
-   # --version, -v       print the version
-
 
 #  vim: set ts=2 sw=2 tw=0 expandtab foldenable foldmethod=syntax foldclose=all :
