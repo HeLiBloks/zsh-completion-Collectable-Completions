@@ -12,7 +12,7 @@ _ctags() {
 
 typeset -a opt_args
 local -a extra args
-local excmds nolist passiv 
+local excmds nolist passiv
 local context state line
 
 
@@ -59,17 +59,17 @@ args+=(
     "($nolist)"'--list-languages[Lists names of languages understood by ctags]'
     "($nolist)--languages=[\[+|-\]Languages for which tag generation is enabled, comma-separated list of language]:comma-separated list of languages:->languagelist"
     # '(--list-* --languages)--language-force=[force files to be interpreted as language]:language:->languages'
-    '(--list-* --options)--options=[\[file|directory|NONE\] Read additional options from file or directory]:options:->optionfiles'
+    '(--list-* --options)--options=[\[file|directory|NONE\] Read additional options from file or directory]:file dir:->optionfiles'
     '(--list-*)--extras=[Include extra tag entries for selected information (flags- Ffq.)]:extra tag entries:->extra'
     '(--list-*)--fields=[fields to include]:field:->fields'
     # "($nolist)--kinds=[Kinds to include]:kinds:->kinds"
-    "($nolist)--kinds--[Include kinds for specific language]:language:->languages"
+    "($nolist)--kinds--[Include kinds for specific language]:kinds:->languages"
     '*--libexec-dir=[DIR Add or set DIR to libexec directory search path \[+\]]:libexec dir:->libexec'
     '*--map--[Map language to file extension \[<LANG>=\[+|-\]pattern|extension\]]:language:->maplanguage'
     '*--langmap=[Map language to file extension \[<LANG>=\[+|-\]pattern|extension\]]:language:->maplanguage'
     '--line-directives[Should "#line" directives be recognized]'
     '(--language-force -G --guess-language-eagerly)'{-G,--guess-language-eagerly}'[Guess language eagerly]'
-    '--print-language[Dont make tags file print the guessed language name for lang]'
+    '(-o )--print-language[Dont make tags file print the guessed language name for lang]'
     '--with-list-header=[Preprend the column descriptions in --list- output]:colum descriptions:( yes no )'
     '--_force-quit=[\[num\] Quit when the option is processed. Useful to debug the chain of loading option files]'
     '--list-roles=[Output list of all roles of tag kind specified for languages \[language|all\]\:\[kindletters|*\]]:roles:->roles'
@@ -94,65 +94,58 @@ args+=(
     '--regex--[Specify kind for language <LANG>=/regexp/replacement/\[kind-spec/\]\[flags\]]:language:->languages'
 )
 
-_arguments $args '*:file:_files'
+_arguments $args '*:input file:_files'
 
 case "$state" in
   kinds)
-    # typeset -a opt_args
-    # local line context state line
     local kind
-    kind=( "$( _call_program commands ctags --with-list-header=no --list-kinds-full 2>/dev/null |cut -f1 -d' '|sort -u)"  )
-    # kind=${(f)kind}
-    compadd -o 'kind-spec' $kind && return 0
+    kind=(${${(f)"$(_call_program commands ctags --with-list-header=no --machinable --list-kinds-full 2>/dev/null )"}%%[	 ]*} )
+    # kind=( "$( _call_program commands ctags --with-list-header=no --list-kinds-full 2>/dev/null |cut -f1 -d' '|sort -u)"  )
+    compadd -x 'kind-spec' -a kind
+    return 0
     ;;
 
   languages)
-    local  langs
-    langs="$(_call_program commands ctags --list-languages )"
-    langs=( "${(f)langs}" )
-    compadd -a langs && return 0
+    local langs
+    langs=(${${(f)"$(_call_program commands ctags --with-list-header=no --machinable --list-languages 2>/dev/null )"}%%[	 ]*} )
+    # langs=( "${(f)langs}" )
+    compadd -x 'languages' -a langs
+    return 0
     ;;
 
   languagelist)
-    # local context state state_descr line
-    # typeset -A val_args
-    local -a langlist
-    langlist=( ${${(f)"$(_call_program commands ctags --list-languages )"}%% *} )
-    _values -s , 'lang' $langlist && return 0
+    local langlist
+    langlist=( ${${(f)"$(_call_program commands ctags --with-list-header=no --machinable --list-languages 2>/dev/null)"}%%[	 ]*} )
+    _values -s ',' 'list of languages' "$langlist[@]"
+    return 0
     ;;
 
   maplanguage)
-    # local state line
-    # typeset -A opt_args
     local types
-    # langlist=( ${${(f)"$(_call_program commands ctags --list-languages )"}%% *} )
-    types=( "$(ctags --with-list-header=no --list-map-extensions --machinable| sed -e 's/\s\+/=/')" )
-    types=( "${(f)types}" )
-    # _messages -r $types[@]
-    # _multi_parts '\=' "(  $types )"  && return 0
-    compadd -a types && return 0
+    types=( ${(f)"$(ctags --with-list-header=no --list-map-extensions --machinable 2>/dev/null | sed -e 's/\s\+/=/')"} )
+    compadd -X 'map language to extension or pattern' -a types
+    return 0
     ;;
 
   fields)
-    # local context state state_descr line
-    # typeset -A val_args
     local -a fields
-    fields=( ${${(f)"$(_call_program commands ctags --with-list-header=no --machinable --list-fields )"}%%	*} )
+    fields=( ${${(f)"$(_call_program commands ctags --with-list-header=no --machinable --list-fields 2>/dev/null )"}%%[	 ]*} )
     # awk -vtick="'" -F'\t' '/^[^#]/ {gsub("[`´\)\([{}]:.]","",$7); print tick$1"[$7]"tick }'` )
-    _values -s '+' 'fields' $fields && return 0
+    _values -s '+' 'tag fields' "$fields[@]"
+    return 0
     ;;
+
   ptags)
-      local -a ptags
-      ptags=( ${${(f)"$( _call_program commands ctags --with-list-header=no --machinable --list-pseudo-tags )"}%%	*}  )
-      compadd -X 'pseudo tags' $ptags && return 0
+      local ptags
+      ptags=( ${${(f)"$( _call_program commands ctags --with-list-header=no --machinable --list-pseudo-tags )"}%%[	 ]*}  )
+      compadd -X 'pseudo tags' -a ptags
+      return 0
       ;;
+
   xformat)
-    local context state state_descr line
-    # local -a xform
     # xform=`ctags --machinable --with-list-header=no --list-fields 2> /dev/null | awk -F"\t" -vORS=' ' -vtick="'" '/^[^#]/ { gsub("[tick({)}:.`´]","",$7); print getline==0 ? tick$1"["$7"]"tick" \\\" : print tick$1"[$7"]"tick; }' 2>/dev/null`
-    # _values -p "%" 'val' $xform
-    # local context state state_descr line
-    # typeset -A val_args
+    # ToDo: make this work with multiple values, why does it work for ->extra?
+    # ToDo: description breaks -S flag is this a bug in _values?
     _values -S '' 'xformat' \
     '*\%N[tag name fixed field]'\
     '*\%F[input file fixed field]'\
@@ -169,56 +162,60 @@ case "$state" in
     '*\%S[Signature of routine e.g. prototype or parameter list]'\
     '*\%s[Scope of tag definition p can be used for printing its kind]'\
     '*\%t[Type and name of a variable or typedef]'\
-    '*\%z[Include the 'kind:' key in kind field use k or K in tags output, kind full name in xref output]'\
+    '*\%z[Include the kind\: key in kind field use k or K in tags output, kind full name in xref output]'\
     '*\%r[Role]'\
     '*\%R[Marker R or D representing whether tag is definition or reference]'\
-    '*\%Z[Include the 'scope:' key in scope field use s in tags output, scope name in xref output]'\
+    '*\%Z[Include the scope\: key in scope field use s in tags output, scope name in xref output]'\
     '*\%E[Extra tag type information]'\
     '*\%x[xpath for the tag]'\
     '*\%p[Kind of scope as full name]'\
-    '*\%e[end lines of various items]' && return 0
-    ;;
+    '*\%e[end lines of various items]'
+    return 0
+  ;;
 
   roles)
-      roles=( ${${(f)"$(_call_program commands ctags --_list-roles )"}%%	*} )
-      compadd -X 'languages' $roles && return 0
+    local roles
+      roles=( ${${(f)"$(_call_program commands ctags --with-list-header=no --list-roles 2>/dev/null )"}%%[	 ]*} )
+      compadd -X 'languages' -a roles
+      return 0
   ;;
 
   extra)
-    # local context state line
-    # typeset -A opt_args
     _values -S '' 'extra'\
       '\*:Include all tags'\
-      'F:Include tags of file scope'\
       'f:Include an entry for the base file name of every input file'\
+      'F:Include tags of file scope'\
+      'g:Include tags generated by sub parsers'\
       'p:Include pseudo tags'\
       'q:Include an extra class-qualified tag entry for each tag'\
-      'r:Include reference tags'\
-      'g:Include tags generated by sub parsers' && return 0
+      'r:Include reference tags'
+    return 0
   ;;
 
   libexec)
     local libexec
     _alternative ':files:{_files -/ }'\
-      ":path files:( ${CTAGS_LIBEXEC_PATH//:/ } )" && return 0
+      ":path files:( ${CTAGS_LIBEXEC_PATH//:/ } )"
+      return 0
   ;;
 
   macro)
-    local -a ctagmacros
-    # ctagmacros=( "$(grep -oP '^[^	^]+(?=.*kind[:](d|macro))' tags 2&>/dev/null )" ) # 0,01ms slower over 100 tests
+    local ctagmacros
     # why doesnt readtags work with _call_program?
-    ctagmacros=( "$(readtags -Q '(eq? $kind "macro")' -l 2&>/dev/null | cut -f1 )" )
-    compadd -s= -X 'macros' -a $ctagmacros && return 0
+    ctagmacros=( ${${(f)"$(readtags -Q '(eq? $kind "macro")' -l 2>/dev/null )"}%%[	 ]*} )
+    compadd -s'=' -X 'macros' -a ctagmacros
+    return 0
   ;;
 
   optionfiles)
     _alternative ":CTAGS_DATA_PATH:( ${CTAGS_DATA_PATH//:/ } )"\
       ":CTAGS_LIBEXEC_PATH:( ${CTAGS_LIBEXEC_PATH//:/ } )"\
       ':option files:(( NONE\:"Read no options from files or environment"))'\
-      ':option files:_files' && return 0
+      ':option files:_files'
+    return 0
   ;;
 esac
-
+return 0
 }
 
 _ctags "$@" && return 0
