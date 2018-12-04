@@ -1,0 +1,54 @@
+#compdef apt-key
+# zshcompletions for apt-key
+# Copyright © 2018 Henrik Lindgren <henrikprojekt at gmail.com>
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, see <http://www.gnu.org/licenses/>.
+
+local key_commands
+
+key_commands=(
+  'add:Add a new key to the list of trusted keys'
+  'del:Remove a key from the list of trusted keys'
+  'export:Output the key keyid to standard output'
+  'exportall:Output all trusted keys to standard output'
+  'list:List trusted keys'
+  'finger:List fingerprints of trusted keys'
+  'adv:Pass advanced options to gpg'
+  'update:Update local keyring with the archive keyring,remove unvalid archive keys'
+  'net-update:get the archive keyring from a URI'
+)
+
+_arguments '(1)--keyring[specify keyring file the command should operate on]:file:_files'\
+  ':command:{_describe "command" key_commands}'\
+  ':sub command:->sub_cmd' && return 0
+
+[[ $state == sub_cmd ]] && case $words[2] in
+  del|export)
+    local key_list
+    key_list=( ${${(@qf)"$(apt-key list 2>/dev/null | \
+      awk -F'^[-]+$' '/^pub/ {split($0,key_values,/\s+/) }; /^uid/ {split($0,descript,/uid\s+/); gsub(/[:*?]/," ",descript[2]) ; print key_values[2]":"descript[2],key_values[3]}' 2>/dev/null)"}} )
+    _describe 'keys' key_list
+    return 0
+  ;;
+  adv)
+    # _gpg
+    return 0
+  ;;
+  add)
+    _files
+    return 0
+  ;;
+esac
+return 0
+#  vim: set ts=2 sw=2 tw=0 expandtab foldenable foldmethod=manual foldclose=all :
