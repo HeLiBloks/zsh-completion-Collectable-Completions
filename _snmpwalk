@@ -1,28 +1,181 @@
-#compdef snmpwalk
+#compdef snmpbulkget snmpbulkwalk snmpdelta snmpdf snmpget snmpgetnext snmpnetstat snmpset snmpstatus snmptable snmptest snmptrap snmpusm snmpwalk
+# Completion for snmp* cmd. Stolen from:
+#    2006 Andrew J Cosgriff
+#    http://polydistortion.net/
+#    http://polydistortion.net/sw/zsh/_snmpcmd
+#    http://polydistortion.net/monkey/archives/2006/07/16/003735.html
+#
+# With some other modifications
+# and some other modifications by Henrik Lindgren 2018
 
-_arguments -s  {-h,--help}'[display this help message]'\
-  {-V,--version}'[display package version number]'\
-  '-m[Load given list of MIBs (ALL loads everything)]'\
-  '-M[Look in given list of directories for MIBs]'\
-  '-v[Specifies SNMP version to use]:version:(1 2c 3)'\
-  '-C[set various application specific behaviours:]'\
-  '-Z[Set destination engine boots/time]:TIME:'\
-  '-D[Turn on debugging output forspecified TOKENs]:Token:'\
-  '-P[Defaults controlling MIB parsing]'\
-  '-I[Defaults controlling input parsing]'\
-  '-L[Defaults controlling logging]'\
-  '-O[Defaults controlling output display]'\
-  '-H[Display configuration file directives understood]'\
-  '-d[Dump input/output packets in hexadecimal]'\
-  '-a[Set authentication protocol (MD5|SHA)]:(MD5 SHA)'\
-  '-A[Set authentication protocol pass phrase]:pass phrase:'\
-  '-E[Set context engine ID (e.g. 800000020109840301)]:context engine:'\
-  '-n[Set context name (e.g. bridge1)]:context name:'\
-  '-x[Set privacy protocol (DES|AES)]':privacy protocol:(DES AES)\
-  '-X[Set privacy protocol pass phrase]:pass phrase:'\
-  '-e[Set security engine ID e.g. 800000020109840301]:ID:'\
-  '-l[Set security level ()]:level:(noAuthNoPriv authNoPriv authPriv)'\
-  '-u[Set security name (e.g. bert)]:name:'\
-  '-c[Setcommunity string]:string:'\
-  '-r[Setnumber of retries]:number:'\
-  '-t[Setrequest timeout (in seconds)]:seconds:'
+
+[[ $service == snmpnetstat ]] && _snmpnetstat=(
+  '-CL[Legacy SNMP MIB elements, not modern IP version agnostic tables]'
+  '-Ca[Default display, show state of all sockets; normally sockets used]'
+  '-Cf[Only show entries for selected address family (inet, inet6)]:address family:( inet inet6 )'
+  '-Ci[State of all of network interfaces. interface display provides]'
+  '-Cd[Dropped packets to interface display]'
+  '-Cb[An extended interface status, giving octets in addition to packets]'
+  '-Co[An abbreviated interface status, giving octets in place of packets]'
+  '-CI[Show information only about this interface]:interface:'
+  '-Cn[Network addresses as numbers]'
+  '-Cv[Allow long host or service names to break columnar output]'
+  "-Cp[Show statistics about protocol]:protocol:( ${${${(f)"$(</etc/protocols)"}:#\#*}%%[        ]*})"
+  '-Cs[Per-protocol statistics. If this is duplicated (-Css) statistics entries]'
+  '-Cr[Routing tables]'
+  '-CR[repeaters For GETBULK requests, repeaters specifies max-repeaters value to]'
+)
+
+_snmp_get_mibs () {
+  local -a mibs
+  local -a mib
+  local mibdirs
+  local dir
+
+  mibdirs=$(snmptranslate -Dinit_mib 2>&1 | \
+  sed -n "s/^init_mib: Seen MIBDIRS: Looking in '\(.*\)' for mib dirs ...$/\1/p")
+  for dir in ${(ws+:+)mibdirs}; do
+      [[ ! -d $dir ]] && continue
+      mibs=($mibs $dir/*(.))
+  done
+  compadd "$@" -- ${mibs[@]:t:r}
+}
+
+
+local context state line
+typeset -A opt_args
+
+_arguments -A  $_snmpnetstat\
+  '(-v1 -v2c )-a[set authentication protocol]:protocol:(MD5 SHA)' \
+  '(-v1 -v2c )-A[set authentication protocol pass phrase]:passphrase:' \
+  '( -v3 )-c[set community string]:community string:( private public )' \
+  '*-C[set various application specific behaviours]:APPOPTS:->conf'\
+  "-CI[don't include the given OID, even if no results are returned]:OID:" \
+  '-Ci[include given OID in the search range]:OID:' \
+  '-It[Display wall-clock time to complete the request]' \
+  '-Cp[print the number of variables found]' \
+  '-d[dump input/output packets in hexadecimal]' \
+  '--dontLoadHostConfig=[dont load]:true false:( true false )'\
+  '-D[turn on debugging output for the specified tokens]:token:' \
+  '-O0[print leading 0 for single-digit hex characters]' \
+  '(- 1 :)-H[display configuration file directives understood]' \
+  '(- 1 :)'{-h,--help}'[display this help message]'\
+  "-Ih[don't apply DISPLAY-HINTs]"\
+  '-Ib[do best/regex matching to find a MIB node]'\
+  '-Ic[do not check returned OIDs are increasing]'\
+  '-OS[print MIB module-id plus last element]'\
+  '(-v1 -v2c )-E[set context engine ID]:engine-id:'\
+  '(-v1 -v2c )-e[set security engine ID]:engine-id:'\
+  '-Ir[do not check values for range/type legality]'\
+  '-IR[do random access to OID labels]'\
+  '-IS[Append OIDs with prefix before parsing]:prefix:'\
+  '-Is[Append OIDs with suffix before parsing]:suffix:'\
+  '(-v1 -v2c )-l[set security level]:security level:(noAuthNoPriv authNoPriv authPriv)'\
+  '-Le[log to standard error]'\
+  '-Lf[log to the specified file]:file:_files'\
+  "-Ln[don't log at all]"\
+  '-Lo[log to standard output]'\
+  '-Ls[log to the syslog (via the specified facility)]:facility:'\
+  '-M[directory to search for MIBs]:directory:_files -/'\
+  '-m[MIB file to use]:mib:->mib'\
+  '(-v1 -v2c )-n[set context name]:context name:'\
+  '-Oa[print all strings in ascii format]'\
+  '-Ob[do not break OID indexes down]'\
+  '-OE[escape quotes in string indices]'\
+  '-Oe[print enums numerically]'\
+  '-Of[print full OIDs on output]'\
+  '-On[print OIDs numerically]'\
+  '-Oq[quick print for easier parsing]'\
+  '-Os[print only last symbolic element of OID]'\
+  '-Ot[print timeticks unparsed as numeric integers]'\
+  "-OU[don't print units]"\
+  '-Ov[print values only (not OID = value)]'\
+  '-OX[extended index format]'\
+  '-Ox[print all strings in hex format]'\
+  '-Pc[disallow the use of "--" to terminate comments in MIBs]'\
+  '-Pd[save the DESCRIPTIONs of the MIB objects]'\
+  '-Pe[disable errors when MIB symbols conflict]'\
+  '-PR[replace MIB symbols from latest module]'\
+  '-Pu[allow the use of underlines in MIB symbols]'\
+  '-PW[enable detailed warnings when MIB symbols conflict]'\
+  '-Pw[enable warnings when MIB symbols conflict]'\
+  '-r[set the number of retries]:retries: '\
+  '-OT[print human-readable text along with hex strings]'\
+  '-OQ[quick print with equal-signs]'\
+  '-Ou[print OIDs using UCD-style prefix suppression]'\
+  '-Iu[top-level OIDs must have "." prefix (UCD-style)]'\
+  '-T[specify token ("name") from snmp.conf]:token:(localCert= peerCert= their_hostname= trust_cert=)'\
+  '-t[set the request timeout (in seconds)]:timeout:'\
+  '(-v1 -v2c )-u[set security name]:user:_users'\
+  '-v-[SNMP version to use]:version:(1 2c 3)'\
+  '(- 1 :)'{-V,--version}'[display package version number]'\
+  '(-v1 -v2c )-X[set privacy protocol pass phrase]:passphrase:'\
+  '(-v1 -v2c )-x[set privacy protocol]:protocol:(AES DES)'\
+  '-Y-[specify token ("name") from snmp.conf]:token:'\
+  '(-v1 -v2c )-Z[set destination engine boots/time]:boots,time:'\
+  ':hosts:_hosts'\
+  ':object:->object'
+
+while [[ -n "$state" ]]; do
+  lstate="$state"
+  state=''
+
+  case "$lstate" in
+    mib)
+      if compset -P '*+'; then
+        _snmp_get_mibs
+      elif compset -P '*:'; then
+        _snmp_get_mibs
+      else
+        _snmp_get_mibs
+      fi
+    ;;
+    object)
+      local obj
+      local arg
+      local next
+      local -a additional
+      next=0
+      for arg in $words; do
+      # _message $arg
+      case $arg in
+        "-m")
+        next=1
+        additional=($additional "-m")
+        ;;
+        *)
+        if (( next == 1 )); then
+          additional=($additional $arg)
+          next=0
+        fi
+        ;;
+      esac
+      done
+      for obj in ${(@f)"$(snmptranslate $additional -Ta 2> /dev/null)"}; do
+        case ${${(s: :)obj}[2]} in
+          OBJECT)
+          compadd "$@" -- ${${(s: :)obj}[1]}
+          ;;
+          *) continue
+          ;;
+        esac
+      # compadd "$@" -- ${${(s: :)obj}[1]}
+      done
+    ;;
+    conf)
+      local config
+      config=( ${(@fq)"$(snmpwalk -H 2>&1 | awk '/^\s+[a-z]/ {print $1":"$2}' )"} )
+      _describe 'config variable' config
+    ;;
+  esac
+done
+
+return 0
+
+# Local Variables:
+# mode: Shell-Script
+# sh-indentation: 4
+# indent-tabs-mode: t
+# sh-basic-offset: 4
+# End:
+#  vim: set ts=2 sw=2 tw=0 expandtab foldenable foldmethod=manual foldclose=all :
