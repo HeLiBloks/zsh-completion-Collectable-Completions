@@ -1,0 +1,143 @@
+#!/usr/bin/gawk -f
+# dynamic completion generator for the Z [S]hell
+# Copyright © 2019 Henrik Lindgren
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+# Invoke the script like this:
+# executable --help | compgenz [name of completionfunction to generate]
+
+BEGIN {
+    DescStart=0
+    if (ARGV[1]!="") {
+        name=ARGV[1]
+        ARGV[1]=""
+    }
+};
+
+function cleanDescr(desc){
+    # dont break prinf, remove % signs
+    gsub(/[%]/,"percent", desc);
+    gsub(/(\s[tT]he\s?)|[[;:'*><~|]|[]]/," ",desc)
+    gsub(/\s{2,}/," ",desc)
+    gsub(/[\s,.]$/,"",desc)
+    return desc
+}
+
+
+function classify( string, argument){
+    if (Argument[0]=="") {
+        return ""
+    } else if (Argument[0] ~ /date|time/){
+        return "_dates"
+    } else if (Argument[0] ~ /files?/){
+        return "_files"
+    } else if (Argument[0] ~ /hosts?/){
+        return "_hosts"
+    }
+
+    split(string,strings,/\s+|[+.,|]/)
+    for (x in strings) {
+    switch (string) {
+        case /--file/:
+            return "_files"
+            break
+        case /--(dir|path)/:
+            return "_path_files"
+            break
+        default:
+            return ""
+            break
+        }
+    }
+}
+
+# try to figure out Name of binary that produced input string
+/[Uu]sage[:]?/{
+    # skip if name already set
+    if (name!="") {
+        next
+    }
+    if ($2!="") {
+        name=$2
+        next
+    } else {
+        getline
+        name=$1
+    }
+}
+
+/^\s{2,}--?/ {
+
+    # trim preceding whitespace
+    sub(/^\s+/,"",$0);
+
+    FallbackCopy=$0
+
+    # find start of description
+    DescStart=match($0,/\s{2,}/)+RLENGTH;
+    Desc=cleanDescr(substr($0,DescStart));
+
+    # remove Desc from $0
+    $0=substr($0,0,DescStart-1)
+
+    # add long options to array LongOption
+    if (match($0,/(-{2}[a-z0-9A-Z][a-z0-9A-Z_-]?+)/, LongOption)){
+        # trim longoption from $0 TODO: escape regexes
+        gsub(LongOption[0],"",$0)
+        }
+
+    # add short options to array ShortOption
+    if (match($0,/(-{1}[a-z0-9A-Z][a-z0-9A-Z_-]?+)/, ShortOption)){
+            gsub(ShortOption[0],"",$0)
+        }
+
+    # if $0 still contains a word add it to Argument
+    if (match($0,/[=]?[a-zA-Z0-9]+/, Argument)){
+            gsub(Argument[0],"",$0)
+            gsub(/[=]/,"",Argument[0])
+            Argument[0]=sprintf(":%s:",Argument[0])
+        }
+
+    # printf() row of completion function
+    if (ShortOption[0]=="" && LongOption[0]=="") {
+
+    } else if (ShortOption[0]!="" && LongOption[0]!="") {
+        Options=sprintf("{%s,%s}",ShortOption[0],LongOption[0])
+        sub(/^-/,"",ShortOption[0])
+        sub(/^--/,"",LongOption[0])
+        ComplText[LongOption[0]]=sprintf("%s'[%s]%s%s'",Options,Desc,Argument[0],classify(FallbackCopy))
+    } else if ( ShortOption[0]=="" || LongOption[0]=="" ){
+       Options=sprintf("%s%s",ShortOption[0],LongOption[0])
+       sub(/^--/,"",LongOption[0])
+       sub(/^-/,"",ShortOption[0])
+       ComplText[LongOption[0] ShortOption[0]]=sprintf( "'%s[%s]%s%s'",Options,Desc,Argument[0],classify(FallbackCopy))
+   }
+
+    # Debug
+    # print "DescStart:",DescStart, "ShortOption:",ShortOption[0],"LongOption:",LongOption[0],"Desc:",Desc,"Argument:",Argument[0],"Rest:",$0
+    delete LongOption
+    delete ShortOption
+    delete Argument
+}
+
+END {
+    print "#compdef",name
+    printf "\n\n_arguments -s"
+    # Sort array
+    asort(ComplText)
+    for (opt in ComplText) {
+        printf "  %s\\\n",ComplText[opt]
+    }
+    print "  ':file:_files' && return 0"
+}
