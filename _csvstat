@@ -1,28 +1,53 @@
-#compdef csvstat
+#compdef csvstat csvjoin
 
-_arguments -s  '(-d --delimiter -t)'{-d,--delimiter}'[Delimiting character of the input CSV file]:input delimiter:'\
-  {-q,--quotechar}'[Character used to quote strings in the input CSV file.]'\
-  {-t,--tabs}'[Specifies that the input CSV file is delimited with tabs]'\
-  {-u,--quoting}'[Quoting style used in the input CSV file]:quoting style:(( 0\:"Quote Minimal" 1\:"Quote All" 2\:"Quote Non-numeric" 3\:"Quote None"))'\
-  {-b,--out-doublequote}'[Whether or not double quotes are doubled in the output]'\
-  {-p,--escapechar}'[Character used to escape the delimiter if --quoting 3]'\
-  {-z,--maxfieldsize}'[Maximum length of a single field in the input CSV]'\
+local noargs context state line
+# _message $service
+[[ $service == csvjoin ]] && _csvopt=(
+  {-l,--linenumbers}'[Insert a column of line numbers at front]'
+  '--left[Perform left outer join]'
+  '--outer[Perform full outer join]'
+  '--right[Perform right outer join]'
+)
+
+[[ $service == csvstat ]] && _csvopt=(
+  '--count[Only output row count]'
+  '--freq[Only output frequent values]'
+  {-H,--no-header-row}'[input CSV file has no header row]'
+  '--len[Only output max value length]'
+  '--max[Only output max]'
+  '--mean[Only output mean]'
+  '--median[Only output median]'
+  '--min[Only output min]'
+  '--nulls[Only output whether column contains nulls]'
+  '--stdev[Only output standard deviation]'
+  '--sum[Only output sum]'
+  '--unique[Only output unique values]'
+  {-y,--snifflimit}'[Limit CSV dialect sniffing to the specified number of]'
+  {-z,--maxfieldsize}'[Maximum length of a single field in the input CSV]'
+  '--zero[When interpreting or displaying column numbers, use]'
+)
+
+_arguments $_csvopt '*:filename:_files'\
+  {-b,--out-doublequote}'[double quotes are doubled in the output]'\
+  {-c,--columns}'[Comma separated list of column indices or names]:column names or index:->columname'\
+  '(-d --delimiter -t)'{-d,--delimiter}'[Delimiting character of the input CSV file]:input delimiter:'\
   {-e,--encoding}'[Specify the encoding the input CSV file.]'\
+  {-p,--escapechar}'[Character used to escape the delimiter if --quoting 3]'\
+  {-q,--quotechar}'[Character used to quote strings in the input CSV file.]'\
   {-S,--skipinitialspace}'[Ignore whitespace immediately following the delimiter.]'\
-  {-H,--no-header-row}'[Specifies thatinput CSV file has no header row]'\
-  {-v,--verbose}'[Print detailed tracebacks when errors occur]'\
-  '--zero[When interpreting or displaying column numbers, use]'\
-  {-y,--snifflimit}'[Limit CSV dialect sniffing to the specified number of]'\
-  {-c,--columns}'[A comma separated list of column indices or names to]'\
-  '--max[Only output max]'\
-  '--min[Only output min]'\
-  '--sum[Only output sum]'\
-  '--mean[Only output mean]'\
-  '--median[Only output median]'\
-  '--stdev[Only output standard deviation]'\
-  '--nulls[Only output whether column contains nulls]'\
-  '--unique[Only output unique values]'\
-  '--freq[Only output frequent values]'\
-  '--len[Only output max value length]'\
-  '--count[Only output row count]'\
-  '*:filename:_files'
+  {-t,--tabs}'[Specifies that the input CSV file is delimited with tabs]'\
+  {-u,--quoting}'[Quoting style used in the input CSV file]:quoting style:(( 0:"Quote Minimal" 1:"Quote All" 2:"Quote Non-numeric" 3:"Quote None"))'\
+  {-v,--verbose}'[Print detailed tracebacks when errors occur]' && return 0
+
+case $state in
+    columname)
+        local clist
+        local curcontext="$curcontext"
+        for file in $words[@]; do
+            [[ -f $file ]] && clist=( $( head -1 -q $file | egrep -o '\w+' ) )
+        done
+        [[ -z $clist ]] && clist=( $( head -1 -q ./*.[ct]sv | egrep -o '[^,|;\s"]+' | sort -u ) )
+        _values -s , 'columns' $clist
+        return 0
+    ;;
+esac

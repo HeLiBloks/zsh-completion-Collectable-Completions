@@ -1,32 +1,150 @@
 #compdef awk hawk gawk
+# local -A compstate
 
-_arguments '*'{-v,--assign=}'[assign val to variable]:variable:( FS= OFS= IFS= RS= ORS= FPAT= )'\
-  {-M,--bignum}'[Force arbitrary precision arithmetic on numbers]'\
-  {-b,--characters-as-bytes}'[Treat all input data as single-byte characters ignore locale information]'\
-  '(- 1 :)'{-C,--copyright}'[Print the copyright standard output]'\
-  {-D,--debug}'[Enable debugging of AWK programs]'\
-  {-d,--dump-variables}'[Print a sorted list of global variables, their types and final values to file. If no file is provided, gawk uses a]:files:_files'\
-  {-E+,--exec=}'[Similar to -f, however, this is option is the last one processed. This should be used with #! scripts, particularly]'\
-  {-F+,--field-separator=}'[Use fs for the input field separator \(the value of the FS predefined variable\).]'\
-  '(1)*'{-f+,--file=}'[Read the AWK program source from the file program-file, instead of from the first command line argument]:files:_files'\
-  {-g,--gen-pot}'[Scan and parse the AWK program, and generate a GNU .pot \(Portable Object Template\) format file on standard output]'\
-  {-h,--help}'[a relatively short summary of the available options on the standard output. \(Per the GNU Coding Standards]'\
-  {-i,--include}'[Load an awk source library. This searches for the library using the AWKPATH environment variable. If the initial]'\
-  {-t,--lint-old}'[Provide warnings about constructs that are not portable to the original version of UNIX awk.]'\
-  {-L,--lint=-}'[Provide warnings about constructs that are dubious or non-portable to other AWK implementations. With an optional]:lint:(fatal)'\
-  {-l,--load}'[Load a shared library from file or \$AWKPATH]:libfile:->libfiles'\
-  {-n,--non-decimal-data}'[Recognize octal and hexadecimal values in input data. Use this option with great caution!]'\
-  {-O,--optimize}'[Enable optimizations]'\
-  {-P,--posix}'[This turns on compatibility mode]'\
-  {-o,--pretty-print}'[Pretty print program to file]:outfile:_files'\
-  {-p,--profile}'[Start a profiling session, send the profiling data to prof-file]:file:_files'\
-  {-r,--re-interval}'[Enable the use of interval expressions in regular expression matching]'\
-  {-S,--sandbox}'[Run gawk in sandbox mode, disabling system\(\) function, input redirection with getline, output redirection]'\
-  {-e,--source}'[Use program-text as AWK program source code. Allows the easy intermixing of library functions]'\
-  {-c,--traditional}'[Run in compatibility mode]'\
-  {-N,--use-lc-numeric}'[use the locales decimal point character when parsing input data]'\
-  {-V,--version}'[Print version information to standard output]'\
+_arguments '*'{-v-,--assign=-}'[assign val to variable]:awk variable:->awk_var'\
+  '(-M --bignum)'{-M,--bignum}'[Force arbitrary precision arithmetic on numbers]'\
+  '(-b --characters-as-bytes)'{-b,--characters-as-bytes}'[Treat all input data as single-byte characters ignore locale information]'\
+  '(- 1 :)'{-C,--copyright}'[Print copyright standard output]'\
+  '(-D --debug)'{-D,--debug}'[Enable debugging of AWK programs]'\
+  '(-d --dump-variables)'{-d,--dump-variables}'[Print list of global variables, types and final values]:files:_files'\
+  '(--exec=)'{-E+,--exec=}'[Similar to -f, should be used with #! scripts, particularly]'\
+  '(--field-separator)'{-F+,--field-separator=}'[Input field separator \(FS= predefined variable\)]:Input field separator'\
+  '(1)'{-f+,--file=}'[Read AWK source from program-file, instead of first argument]:files:_files'\
+  '(-g --gen-pot)'{-g,--gen-pot}'[Scan, parse AWK program and generate .pot file]'\
+  '(- 1 :)'{-h,--help}'[summary of the available options]'\
+  {-i,--include}'[Load an awk source library, using \$AWKPATH environment variable]:library:_awk_lib'\
+  '(-t --lint-old)'{-t,--lint-old}'[Warn about non portable awk constructs]'\
+  '(-L --lint=)'{-L,--lint=}'[Warn about dubious constructs, non-portable to other AWK implementations]:lint:(fatal)'\
+  {-l,--load}'[Load shared library from file or \$AWKPATH]:libfile:_awk_lib'\
+  '(-n --non-decimal-data)'{-n,--non-decimal-data}'[!CAUTION! Recognize octal and hexadecimal values in input data]'\
+  '(-O --optimize)'{-O,--optimize}'[Enable optimizations]'\
+  '(-P --posix)'{-P,--posix}'[This turns on compatibility mode]'\
+  '(-o --pretty-print)'{-o,--pretty-print}'[Pretty print program to file]:outfile:_files'\
+  '(-p --profile)'{-p,--profile}'[Start a profiling session, send the profiling data to prof-file]:file:_files'\
+  '(-r --re-interval)'{-r,--re-interval}'[Enable the use of interval expressions in regular expression matching]'\
+  '(-S --sandbox)'{-S,--sandbox}'[Sandbox mode, disabling system\(\) function, input redirection with getline, output redirection]'\
+  '*'{-e,--source}'[Use program-text as AWK program source code. Allows easy intermixing of library functions]'\
+  '(-c --traditional)'{-c,--traditional}'[Run in compatibility mode]'\
+  '(-N --use-lc-numeric)'{-N,--use-lc-numeric}'[use locales decimal point char when parsing input data]'\
+  '(- 1 :)'{-V,--version}'[Print version information to standard output]'\
+  '1:awk program text:->program_text' \
   '*:input files:_files'\
-  '1: :_guard "^-*" "program text"'
+  && return 0
+
+case $state in
+  awk_lib)
+    _files -g ${AWKPATH[@]//:/ } && return 0
+    ;;
+  awk_var)
+    local awk_var
+    awk_var=(
+      'ARGV:Array of command line arguments'
+      'BINMODE:On non-POSIX systems, specifies use of “binary” mode for all file I/O'
+      'CONVFMT:The conversion format for numbers, "%.6g", by default.'
+      'ENVIRON:An array containing the values of the current environment'
+      'ERRNO:If a system error occurs either doing a redirection for getline'
+      'FIELDWIDTHS:A whitespace separated list of field widths.'
+      'FILENAME:The name of the current input file'
+      'FNR:The input record number in the current input file.'
+      'FPAT:A regular expression describing the contents of the fields in a record'
+      'FS:The input field separator, a space by default.  See Fields, above.'
+      'FUNCTAB:An array whose indices and corresponding values are the names of all the user-defined or extension functions in the program'
+      'IGNORECASE:Controls the case-sensitivity of all regular expression and string operations'
+      'LINT:Provides dynamic control of the --lint option from within an AWK program'
+      'NF:The number of fields in the current input record.'
+      'NR:The total number of input records seen so far.'
+      'OFMT:The output format for numbers, "%.6g", by default.'
+      'OFS:The output field separator, a space by default.'
+      'ORS:The output record separator, by default a newline.'
+      'PREC:The working precision of arbitrary precision floating-point numbers, 53 by default.'
+      'PROCINFO:The elements of this array provide access to information about the running AWK program'
+      'RLENGTH:The length of the string matched by match()'
+      'ROUNDMODE:The rounding mode to use for arbitrary precision arithmetic on numbers'
+      'RS:The input record separator, by default a newline.'
+      'RSTART:The index of the first character matched by match()'
+      'RT:The record terminator, text that matched the character or regular expression specified by RS.'
+      'SUBSEP:The character used to separate multiple subscripts in array elements, by default "034".'
+      'SYMTAB:An array whose indices are the names of all currently defined global variables and arrays in the program'
+      'TEXTDOMAIN:The text domain of the AWK program'
+    )
+    _describe -t variables  'awk variables' awk_var -S= && return 0
+    # ( FS= OFS= IFS= RS= ORS= FPAT= )
+    # awk_var=( $(_call_program awk_var_program awk --sandbox  ) )
+    ;;
+  program_text)
+    [[ $compstate[quote] == "" ]] && return 0
+    # _guard "^-*" "program text"
+    # if ( compset -N'{' || compset -N'}' ) ; then
+    if compset -P'*{*' && ! compset -P'*}*' ; then
+      local awk_functions_desc
+      awk_functions_desc=(
+        'and(v1, v2 [, ...] )                         -- Return the bitwise AND of the values provided in'
+        'asort(s [, d [, how] ] )                     -- Return number of elements in string s'
+        'asorti(s [, d [, how] ] )                    -- Return number of elements in string s'
+        'atan2(y, x )                                 -- Return arctangent of y/x in radians.'
+        'close(file [, how] )                         -- Close file, pipe or co-process. The optional how'
+        'compl(val )                                  -- Return bitwise complement of val.'
+        'cos(expr )                                   -- Return cosine of expr, which is in radians.'
+        'exp(expr )                                   -- The exponential function.'
+        'fflush([file] )                              -- Flush any buffers associated with the open output'
+        'gensub(r, s, h [, t] )                       -- Search the target string t for matches of the'
+        'gsub(r, s [, t] )                            -- For each substring matching the regular expres‐'
+        'index(s, t )                                 -- Return the index of the string t in the string'
+        'int(expr )                                   -- Truncate to integer.'
+        'length([s] )                                 -- Return the length of the string s, or the'
+        'log(expr )                                   -- The natural logarithm function.'
+        'lshift(val, count )                          -- Return the value of val, shifted left by count'
+        'match(s, r [, a] )                           -- Return the position in s of regex r'
+        'mktime(datespec)                             -- Date'
+        'or(v1, v2 [, ...] )                          -- Return the bitwise OR of the values provided in the'
+        'patsplit(s, a [, r [, seps] ])               -- Split on pattern'
+        'rand( )                                      -- Return a random number N, between 0 and 1, such that 0 ≤'
+        'rshift(val, count )                          -- Return the value of val, shifted right by count'
+        'sin(expr )                                   -- Return the sine of expr, which is in radians.'
+        'split(s, a [, r [, seps] ])                  -- Split'
+        'sprintf()                                    -- To use a positional specifier with a dynamic width or pre‐'
+        'sprintf(fmt, expr-list )                     -- Print expr-list according to fmt, and return'
+        'sqrt(expr )                                  -- Return the square root of expr.'
+        'srand([expr] )                               -- Use expr as the new seed for the random number generator.'
+        'strftime([format [, timestamp[, utc-flag]]]) -- Time'
+        'strtonum(str )                               -- Examine str, and return its numeric value'
+        'sub(r, s [, t] )                             -- Just like gsub(), but replace only the first'
+        'substr(s, i [, n] )                          -- Return the at most n-character substring of s'
+        'system(cmd-line )                            -- Execute the command cmd-line, and return the exit'
+        'systime( )                                   -- Return the current time of day as the number of seconds since'
+        'tolower(str )                                -- Return lowercase copy of string str'
+        'toupper(str )                                -- Return uppercase copy of string str'
+        'xor(v1, v2 [, ...] )                         -- Return the bitwise XOR of the values provided in'
+      )
+      compadd -X 'awk program text' -d awk_functions_desc -l -S"(" -- ${awk_functions_desc[@]%%[(]*} && return 0
+
+    fi
+    return 0
+  ;;
+  statement)
+
+  awk_statement=(
+    'if:(condition) statement [ else statement ]'
+    'while:(condition) statement'
+    'do:statement while (condition)'
+    'for:(expr1; expr2; expr3) statement'
+    'for:(var in array) statement'
+    'break'
+    'continue'
+    'delete:array[index]'
+    'delete:array'
+    'exit:[ expression ]'
+    'switch:(expression) {'
+    'case:value|regex , statement'
+  )
+
+  ;;
+esac
 
 
+
+
+
+
+
+#  vim: set ts=2 sw=2 tw=2 expandtab foldenable foldmethod=indent foldclose=all :

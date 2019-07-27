@@ -1,19 +1,19 @@
 #compdef csvformat
 
 
-_arguments -s {-b,--doublequote}'[Whether or not double quotes are doubled in input]'\
-  {-B,--out-doublequote}'[Whether or not double quotes are doubled in output]'\
-  '(-d --delimiter -t)'{-d,--delimiter}'[Delimiting character of input CSV file]:input delimiter:'\
-  {-D,--out-delimiter}'[Delimiting character of output CSV file]:output delimiter:'\
+_arguments -s {-b,--doublequote}'[double quotes are doubled in input]'\
+  {-B,--out-doublequote}'[double quotes are doubled in output]'\
+  '(-d --delimiter --tabs -t)'{-d,--delimiter}'[Delimiting character of input CSV file]:input delimiter:'\
+  '(-T --out-tabs)'{-D,--out-delimiter}'[Delimiting character of output CSV file]:output delimiter:'\
   {-e,--encoding}'[Encoding of input CSV file]:Encoding:'\
-  {-h,--help}'[show this help message and exit]'\
+  '(- 1 :)'{-h,--help}'[show help message and exit]'\
   {-M,--out-lineterminator}'[Character used to terminate lines in output CSV]:char:'\
-  {-p,--escapechar}'[Character used to escape delimiter if --quoting 3]'\
-  {-P,--out-escapechar}'[Character used to escape delimiter in output]'\
-  {-Q,--out-quotechar}'[Character used to quote strings in output CSV]'\
+  {-p,--escapechar}'[Character used to escape delimiter if --quoting 3]:character:'\
+  {-P,--out-escapechar}'[Character used to escape delimiter in output]:delimiter:'\
+  {-Q,--out-quotechar}'[Character used to quote strings in output CSV]:character:'\
   {-q,--quotechar}'[Character used to quote strings in input CSV file]:char:'\
   {-S,--skipinitialspace}'[Ignore whitespace immediately following delimiter]'\
-  {-T,--out-tabs}'[Specifies that output CSV file is delimited with tabs]'\
+  '( -D --out-delimiter -T --out-tabs)'{-T,--out-tabs}'[Specifies that output CSV file is delimited with tabs]'\
   {-t,--tabs}'[Specifies that input CSV file is delimited with tabs]'\
   {-U,--out-quoting}'[Quoting style in output CSV file]:quoting style:(( 0\:"Quote Minimal" 1\:"Quote All" 2\:"Quote Non-numeric" 3\:"Quote None"))'\
   {-u,--quoting}'[Quoting style in input CSV file]:quoting style:(( 0\:"Quote Minimal" 1\:"Quote All" 2\:"Quote Non-numeric" 3\:"Quote None"))'\

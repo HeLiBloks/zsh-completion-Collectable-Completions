@@ -65,11 +65,15 @@ case "$state" in
       'twopi:filter for radial layouts of graphs'
     )
     _describe 'layout engine' engine
+    return 0
     ;;
 
   format)
+    local formats
     # format=( bmp canon cmap imap cmapx_np dot eps fig gd gd2 gif gtk gv ico imap_np ismap jpe jpeg jpg pdf pic plain plain-ext png pov ps ps2 svg svgz tif tiff tk vml vmlz vrml wbmp x11 xdot xdot1.2 xdot1.4 xlib cmapx )
-    compadd  ${${"$(dot -Txxx 2>/dev/stdout)"}//*:/ }
+    formats=(${(ps: :)"$(dot -Txxx /dev/null 2> /dev/stdout )"//*of:/ })
+    _describe 'output format' formats
+    return 0
     ;;
 
   graph)
@@ -123,6 +127,7 @@ case "$state" in
       ;;
     esac
     _describe 'graph attributes' graphattributes
+    return 0
     ;;
 
     nodeattribute)
@@ -212,6 +217,7 @@ case "$state" in
            )
       esac
       _describe 'edge attributes' edgeattributes
+      return 0
       ;;
 esac
 

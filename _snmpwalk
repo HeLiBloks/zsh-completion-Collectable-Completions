@@ -1,4 +1,4 @@
-#compdef snmpbulkget snmpbulkwalk snmpdelta snmpdf snmpget snmpgetnext snmpnetstat snmpset snmpstatus snmptable snmptest snmptrap snmpusm snmpwalk
+#compdef snmp{bulkwalk,delta,df,get,getnext,netstat,set,status,table,test,trap,usm,walk}
 # Completion for snmp* cmd. Stolen from:
 #    2006 Andrew J Cosgriff
 #    http://polydistortion.net/

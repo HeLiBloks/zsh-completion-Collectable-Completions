@@ -6,20 +6,19 @@ _csvfix (){
 
   local context state line
 
-  local -a optiona
+  local optiona
 
   (( CURRENT > 2 )) && (){
-    # _messages -r $words[2]
     local opti
-    opti="$(csvfix help $words[2] 2>/dev/null |\
-      awk -F'\t' '/^\s+-\w+/{OFS="";option=$1; gsub($1,"",$0);gsub(/\s+/," ",$0);
+    opti=( ${(fq)"$( csvfix help ascii 2>/dev/null |\
+      awk -vtick="'" -F'\t' '/^\s+-\w+/{OFS="";option=$1; gsub($1,"",$0); gsub(/\s+/," ",$0);
         gsub(/^\s+/,"",$0);
         if( option ~ /^\s*-\w+\s\w+/){ split(option,options," ");
-        printf "%s[%s]:%s:\n",options[1],$0,options[2]}
-        else {printf "%s[%s]\n",option,$0};}')"
-    optiona+=( "${(f)opti}" )
-    _arguments $optiona && return 0
-  }
+        printf "%s[%s]:%s:\n",options[1],$0,options[2] }
+      else {gsub(/\s+/,"",option);printf "%s[%s]\n",option,$0};}' | sed '$ ! s/$/\\/' )"} )
+    _arguments "$opti[@]"
+    return 0
+  } && return 0
 
   (( CURRENT == 2 )) && (){
     local curcontext="$curcontext" expl state line args ret=1
@@ -91,4 +90,5 @@ _csvfix (){
     }
 
 }
+_csvfix $@
 #  vim: set ts=2 sw=2 tw=0 expandtab foldenable foldmethod=manual foldclose= :

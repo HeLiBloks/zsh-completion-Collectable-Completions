@@ -9,16 +9,22 @@
 #
 # b) the "Artistic License".
 
+# TODO: fix this
+# [[ $words[$CURRENT-2] =~ "-i" ]] && () {
+  # _user_at_host && return 0
+# } && return 0
 
-_arguments '-i[\[ sqlalchemy connection string | markdownfile.er \]]:sqlalchemy connection string:((\
-    sqlite\:sqlite\:\/\/\/databasename.\[db\|sqlite\]\
-    postgresql\:postgresql\:\/\/user\:password@host\/db_name\
-    mysql\:mysql\:\/\/user\:password@host\/db_name\
-  ))'\
+sqlalchemy_string=(
+  'mysql\:\/\/:mysql\:\/\/user\:password@host\/db_name'
+  'postgresql\:\/\/:postgresql\:\/\/user\:password@host\/db_name'
+  'sqlite\:\/\/\/:sqlite\:\/\/\/databasename.\[db\|sqlite\]'
+)
+
+_arguments '-i[sqlalchemy connection string \| markdownfile.er ]:sqlalchemy connection string:{ _describe "sqlalchemy connection string" sqlalchemy_string  }'\
   '-s[db schema to use]:schema:'\
   '-x[exclude tables]:tables:'\
   '-o[output \[.er for markdown | .pdf\] ]:schema:_files'\
   '*:file:_files'
 
 
-# vim: set ts=4 sw=4 tw=0 expandtab foldenable foldmethod=manual foldclose=all :
+# vim: set ts=2 sw=2 tw=0 expandtab foldenable foldmethod=manual foldclose=all :

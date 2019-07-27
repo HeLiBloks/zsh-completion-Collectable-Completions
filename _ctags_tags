@@ -1,0 +1,7 @@
+#autoload
+
+local expl tags
+which readtags 2>/dev/null
+[[ $? == 0 ]] && [[ -r tags ]] && tags=( ${${${(@fq)"$( readtags -e -l )"}:#[!]*}%%[[:blank:]]*} )
+
+_wanted ctags expl 'tag' compadd -M 'm:{a-zA-Z}={A-Za-z}' -a "$@" - tags

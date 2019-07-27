@@ -51,4 +51,5 @@ _arguments '(1)--keyring[specify keyring file the command should operate on]:fil
   ;;
 esac
 return 0
+
 #  vim: set ts=2 sw=2 tw=0 expandtab foldenable foldmethod=manual foldclose=all :

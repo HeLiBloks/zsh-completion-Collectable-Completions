@@ -2,42 +2,37 @@
 
 local state
 
-_arguments -s {-b,--doublequote}'[are double quotes doubled in input]'\
+_arguments -s '(-b --doublequote)'{-b,--doublequote}'[are double quotes doubled in input]'\
   '--blanks[Do not coerce empty strings to NULL values]'\
-  {-d,--delimiter}'[Delimiting character of input CSV file]'\
-  '--db-schema[Name of database schema to create table]'\
+  '(-t --tabs -d --delimiter)'{-d,--delimiter}'[Delimiting character of input CSV file]:delim:'\
+  '--db-schema[Name of database schema to create table]:schema:'\
   '--db[Sqlalchemy connection string to use]:sqlalchemy connection string:'\
-  {-e,--encoding}'[Specify encoding input CSV file]:encoding:'\
-  {-h,--help}'[show this help message and exit]'\
-  {-H,--no-header-row}'[Specifies that input CSV file has no header row]'\
-  {-i,--dialect}'[database dialect]:dialect:(access sybase sqlite informix firebird mysql oracle maxdb postgresql mssql)'\
+  '(-e --encoding)'{-e,--encoding}'[Specify encoding input CSV file]:encoding:'\
+  '(1 - :)'{-h,--help}'[show help message and exit]'\
+  '(-H --no-header-row)'{-H,--no-header-row}'[Specifies that input CSV file has no header row]'\
+  '(-i --dialect)'{-i,--dialect}'[database dialect]:dialect:(access sybase sqlite informix firebird mysql oracle maxdb postgresql mssql)'\
   '--insert[Create table and insert csv file]'\
   '--no-constraints[Generate a schema without length limits or null]'\
   '--no-create[Skip creating a table]'\
   '--no-inference[Disable type inference when parsing input]'\
-  {-p,--escapechar}'[Character used to escape delimiter if --quoting 3]:character:'\
-  {-q,--quotechar}'[Character used to quote strings in input CSV file]:quotechar:'\
+  '(-p --escapechar)'{-p,--escapechar}'[Character used to escape delimiter if --quoting 3]:character:'\
+  '(-u --quoting -q --quotechar)'{-q,--quotechar}'[Character used to quote strings in input CSV file]:quotechar:'\
   '--query[Execute one or more SQL queries delimited by ";" ]:query:'\
-  {-S,--skipinitialspace}'[Ignore whitespace immediately following delimiter]'\
-  {-t,--tabs}'[Input CSV file is delimited with tabs]'\
+  '(-S --skipinitialspace)'{-S,--skipinitialspace}'[Ignore whitespace immediately following delimiter]'\
+  '(-t --tabs -d --delimiter)'{-t,--tabs}'[Input CSV file is delimited with tabs]'\
   '--tables[Specify one or more names for tables to be created]:tablename:->tablenames'\
-  {-u,--quoting}'[Quoting style of input CSV file]:quoting style:(( 0\:"Quote Minimal" 1\:"Quote All" 2\:"Quote Non-numeric" 3\:"Quote None"))'\
-  {-v,--verbose}'[Print detailed tracebacks when errors occur]'\
-  {-y,--snifflimit}'[Limit CSV dialect sniffing to specified number]:sniff limit:'\
-  {-z,--maxfieldsize}'[Maximum length of a single field in input CSV]:field length:'\
+  '(-u --quoting -q --quotechar)'{-u,--quoting}'[Quoting style of input CSV file]:quoting style:(( 0\:"Quote Minimal" 1\:"Quote All" 2\:"Quote Non-numeric" 3\:"Quote None"))'\
+  '(-v --verbose)'{-v,--verbose}'[Print detailed tracebacks when errors occur]'\
+  '(-y --snifflimit)'{-y,--snifflimit}'[Limit CSV dialect sniffing to specified number]:sniff limit:'\
+  '(-z --maxfieldsize)'{-z,--maxfieldsize}'[Maximum length of a single field in input CSV]:field length:'\
   '--zero[When interpreting or displaying column use zero based numbering]'\
-  '*:filename:_files'
+  '*:filename:_files' && return 0
 
 case $state in
-    tablenames )
-        local tlist
-        [[ -f *.[tc]sv ]] && tlist=( $(basename -s .tsv -s .csv -a *.[tc]sv) )
-        [[ -v $tlist ]] && _values -S ' ' 'table' $tlist && return 0
-        ;;
-    columnnames )
-        local clist
-        tlist=( $( head -1 -q ./*.[ct]sv | grep -Eo '[^,|;  ]+' | sort -u ) )
-        _values -S ' ' 'table' $clist && return 0
-        ;;
+  tablenames)
+    compadd -x'tablename' -- $(basename -s.tsv -s.csv *.[tc]sv 2>/dev/null) && return 0
+    ;;
 esac
 
+
+#  vim: set ts=2 sw=2 tw=0 expandtab foldenable foldmethod=manual foldclose=all :

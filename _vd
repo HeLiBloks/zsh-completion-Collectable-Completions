@@ -1,0 +1,66 @@
+#compdef vd
+
+_arguments -s  {-b,--batch}'[replays in batch mode with no interface and all]'\
+    '(- 1 :)'{-h,--help}'[show this help message and exit]'\
+  {-o,--output}'[saves the final visible sheet to output (as .tsv) at]'\
+  {-p,--play}'[replays a saved .vd file within interface]'\
+  '(- 1 :)'{-v,--version}'[show programs version number and exit]'\
+  '--force-256-colors[use 256 colors even if curses reports fewer]'\
+  '--cmd-after-edit[command longname to execute after successful edit]'\
+  '--col-cache-size[max number of cache entries in each cached column]'\
+  '--plot-colors[list of distinct colors to use for plotting distinct]'\
+  '--clipboard-copy-cmd[command to copy stdin to system clipboard]'\
+  '--use-default-colors[curses use default terminal colors]'\
+  '--csv-delimiter[delimiter passed to csv.reader]'\
+  '--csv-dialect[dialect passed to csv.reader]'\
+  '--visidata-dir[directory to load and store macros]'\
+  '--graphviz-edge-labels[whether to include edge labels on graphviz diagrams]'\
+  '--safe-error[error string to use while saving]'\
+  '--encoding-errors[encoding_errors passed to codecs.open]'\
+  '--csv-escapechar[escapechar passed to csv.reader]'\
+  '--save-filetype[specify default file type to save as]'\
+  '--safety-first[sanitize input/output to handle edge cases, with a]'\
+  '--regex-flags[flags to pass to re.compile() \[AILMSUX\]]:regex flags:(A I L M S U X)'\
+  '--note-format-exc[cell note for an exception during type conversion or]'\
+  '--note-getter-exc[cell note for an exception during computation]'\
+  '--show-graph-labels[show axes and legend on graph]'\
+  '--cmdlog-histfile[file to autorecord each cmdlog action to]'\
+  '--zoom-incr[amount to multiply current zoomlevel when zooming]'\
+  '--scroll-incr[amount to scroll with scrollwheel]'\
+  '--json-indent[indent to use when saving json]'\
+  '--pcap-internet[(y/s/n) if save_dot includes all internet hosts]'\
+  '--regex-maxsplit[maxsplit to pass to regex.split]'\
+  '--min-memory-mb[minimum memory to continue loading and async]'\
+  '--replay-movement[insert movements during replay]'\
+  '--confirm-overwrite[whether to prompt for overwrite confirmation on save]'\
+  '--note-pending[note to display for pending cells]'\
+  '--rowkey-prefix[string prefix for rowkey in the cmdlog]'\
+  '--csv-quotechar[quotechar passed to csv.reader]'\
+  '--fixed-rows[number of rows to check for fixed width columns]'\
+  '--tsv-safe-newline[replacement for tab character when saving to tsv]'\
+  '--tsv-safe-tab[replacement for newline character when saving to tsv]'\
+  '--csv-skipinitialspace[skipinitialspace passed to csv.reader]'\
+  '--curses-timeout[curses timeout in ms]'\
+  '--note-type-exc[cell note for an exception during computation]'\
+  '--note-unknown-type[cell note for unknown types in anytype column]'\
+  '--motd-url[source of randomized startup messages]'\
+  '--force-valid-colnames[clean column names to be valid Python identifiers]'\
+  '--null-value[a value to be counted as null]'\
+  '--replay-wait[time to wait between replayed commands, in seconds]'\
+  '--default-width[default column width]'\
+  '--quitguard[confirm before quitting last sheet]'\
+  '-d[delimiter to use for tsv filetype]'\
+  '--delimiter[delimiter to use for tsv filetype]'\
+  '--encoding[encoding passed to codecs.open]'\
+  '--debug[exit on error and display stacktrace]'\
+  '--profile[filename to save binary profiling data]'\
+  '-y[overwrites existing files without confirmation]'\
+  '--header[parse first N rows of certain formats as column names]'\
+  '--diff[show diffs from all sheets against this source]'\
+  '--skip[skip first N lines of text input]'\
+  '--filetype[specify file type]'\
+  '-w[time to wait between replayed commands, in seconds]'\
+  '-f[uses loader for filetype instead of file extension]'\
+  '--visibility[visibility level (0=low, 1=high)]:visibility:(low high)'\
+  '--wrap[wrap text to fit window width on TextSheet]'\
+  '*:filename:_files'

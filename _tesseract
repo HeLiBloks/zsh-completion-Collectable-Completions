@@ -43,7 +43,7 @@ noargs="( --print-parameters --list-langs -v --help-psm --help-oem --help -h --v
 _arguments -C '1:imagename:->input'\
   '2:outputbase:->output'\
   ':configfile:->config'\
-  $noargs'--tessdata-dir[Specify the location of tessdata path]:tessdata path:{_path_files -/ }'\
+  $noargs'--tessdata-dir[Specify the location of tessdata path]:tessdata path:_path_files -/'\
   $noargs'--user-words[Location of user words file]:user words:->userwords'\
   $noargs'--user-patterns[Location of user patterns file]:user patterns:->userpatterns'\
   $noargs'-l[Specify language used for OCR]:language:->language'\
@@ -79,12 +79,12 @@ _arguments -C '1:imagename:->input'\
 
 case "$state" in
     userwords)
-        _alternative ":user words:_files $TESSDATA_PREFIX/**/???.user-words"\
+        _alternative ":user words:{_files $TESSDATA_PREFIX/**/???.user-words}"\
             ':files:_files'
         return 0
         ;;
     userpatterns)
-        _alternative ":user patterns:_files $TESSDATA_PREFIX/**/???.user-patterns"\
+        _alternative ":user patterns:{_files $TESSDATA_PREFIX/**/???.user-patterns}"\
             ':current files:_files -g ???.user-patterns'
         return 0
         ;;
@@ -104,9 +104,15 @@ case "$state" in
         local -a configfile
         local curcontext="$curcontext"
         configfile=(
+              'get\.images:Write images'
               'hocr:Output in hOCR format'
+              'logfile:Write debug file tesseract.log'
+              'lstm.train:Used for LSTM training'
+              'makebox:Output box file'
               'pdf:If inovked with \[-psm 3\] outputs image and a separate searchable text layer with the recognized text underneath'
+              'quiet:Write debug file to /dev/null'
               'tsv:Output in tsv format'
+              'txt:Output plain text'
             )
             _alternative ':configfile:{ _describe -V "conffiles" configfile }'\
                 ":configfile:{_files -W $TESSDATA_PREFIX/tessdata/**configs }"

@@ -11,7 +11,7 @@ _arguments -s {-A,--annotate}'[LEVEL  Set the annotation level.]'\
   {-n,--nx,--no-init}'[Dont run initialization files.]'\
   {-q,--quiet}'[Do not print introductory and quiet messages.]'\
   {-T,--tempdir}'[Use DIRECTORY to store temporary files]'\
-  {--tty,--terminal}'[Set to terminal in debugger output to DEV]'\
+  {--tty,--terminal}'[Set to terminal in debugger output to DEV]:dev:'\
   {-V,--version}'[Print the debugger version number.]'\
   {-x,--eval-command}'[Execute debugger commands from CMDFILE.]'\
   {-X,--trace}'[Set line tracing similar to set -x]'\
