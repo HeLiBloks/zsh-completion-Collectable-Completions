@@ -7,4 +7,7 @@ some completion files might originate from sources I lost track of, contact me i
 ```make compile```
 
 ## to install
-```echo 'fpath=($PWD/ $fpath)'>> ~/.zshrc```
+```echo "fpath=($PWD/ \$fpath)">> ~/.zshrc```
+
+## dynamicly generate a completion file for an executable
+```executable --help | script/compgenz executable > _executable```
