@@ -1,0 +1,53 @@
+#compdef kdeconnect-cli
+local noargs
+noargs="--my-id --license --author -l -a --list-available -h --help -v --version --refresh --list-devices"
+
+_arguments '(- 1 :)--author[Show author information]'\
+  "($noargs)--encryption-info[Get encryption info about said device]"\
+  "($noargs)--desktopfile[base file name of desktop entry for this]:basename:_files"\
+  "($noargs)--my-id[Display this devices id and exit]"\
+  "(--license --list-[a-ce-km-z]* --[a-km-z]* --my-id )--id-only[Make --list-devices or --list-available print only id]"\
+  '(- 1 :)--license[Show license information]'\
+  "($noargs)--list-notifications[Display notifications on a said device]"\
+  "($noargs)--lock[Lock specified device]"\
+  "( $noargs --unpair )--pair[Request pairing to a said device]"\
+  "($noargs --ping-msg --ping)--ping-msg[Same as ping but you can set message to]"\
+  "($noargs --ping --ping-msg)--ping[Sends a ping to said device]"\
+  '(- 1 :)--refresh[Search for devices in network and re-establish]'\
+  "($noargs)--ring[Find said device by ringing it]"\
+  "($noargs)--share[Share a file to a said device]:file:_files"\
+  "($noargs --pair )--unpair[Stop pairing to a said device]"\
+  "(--name -n --device -d $noargs)"{--device,-d}'[Device ID]:id:->device_id'\
+  '(- 1 :)'{-a,--list-available}'[List available (paired and reachable) devices]'\
+  "($noargs --list-commands)"'--execute-command[Executes a remote command by id]:command:->device_command'\
+  '(- 1 :)'{-h,--help}'[Displays help]'\
+  "($noargs --name -n --device -d)"{--name,-n}'[Device Name]:name:->device_name'\
+  "($noargs --list-commands)"'--list-commands[Lists remote commands and their ids]'\
+  '(- 1 :)'{-l,--list-devices}'[List all devices]'\
+  "($noargs -k --send-keys)"{-k,--send-keys}'[Sends keys to a said device]'\
+  "($noargs)--send-sms[Sends an SMS. Requires destination]:sms text:"\
+  "($noargs)--destination[Phone number to send message]:phone number:"\
+  '(- 1 :)'{-v,--version}'[Displays version information]'
+
+case $state in
+  device_id )
+    local dev_id
+    dev_id=(${(@fq)"$(kdeconnect-cli --list-devices 2>/dev/null | awk -vFS='(^-)|[:)(]' '/^-/ {gsub(/[ \t]+/,""); print $3":"$2}' )"} )
+    _describe 'device id' dev_id
+    return 0
+  ;;
+  device_name)
+    local dev_name
+    dev_name=(${(@fq)"$(kdeconnect-cli --list-devices --name-only 2>/dev/null )"} )
+    _describe 'device name' dev_name
+    return 0
+  ;;
+  device_command)
+    local dev_command
+    dev_command=(${(@fq)"$(kdeconnect-cli --list-commands 2>/dev/null | awk -vFS='(^-)|[:)(]' '/^-/ {gsub(/[ \t]+/,""); print $3":"$2}' )"} )    _describe 'device command' dev_command
+    _describe 'device command' dev_command
+    return 0
+
+esac
+
+#  vim: set ts=2 sw=2 tw=0 expandtab foldenable foldmethod=manual foldclose= :

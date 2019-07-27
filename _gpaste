@@ -1,0 +1,82 @@
+#compdef gpaste-client
+# gpaste-client completion for zsh
+# Copyright © 2019 Henrik Lindgren
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, see <http://www.gnu.org/licenses/>.
+
+local context state line commands
+
+_commands=(
+  'about:display the about dialog'
+  'add:set text to clipboard'
+  'add-password:add the name - password couple to the clipboard'
+  'backup-history:backup current history'
+  'daemon-reexec:reexecute the daemon after upgrading...'
+  'daemon-version:display the daemon version'
+  'delete:delete numberth item of the history'
+  'delete-history:delete a history'
+  'delete-password:delete the password name from the history'
+  'empty:empty the history'
+  'file:put content of the file into clipboard'
+  'get:get the numberth item from the history'
+  'get-history:get the name of the current history'
+  'help:display help'
+  'history-size:print the size of the history'
+  'history:print the history with indexes'
+  'list-histories:list available histories'
+  'merge:merge the numberth items from the history and add put the result in the clipboard'
+  'quit:stop tracking clipboard changes'
+  'rename-password:rename the password'
+  'replace:replace the contents of the numberth item from the history with the provided one'
+  'select:set the numberth item from the history to the clipboard'
+  'set-password:set numberth item from history as a password named name'
+  'settings:launch the configuration tool'
+  'show-history:make the applet or extension display the history'
+  'start:start tracking clipboard changes'
+  'stop:stop tracking clipboard changes'
+  'switch-history:switch to another history'
+  'ui:launch the graphical tool'
+  'upload:upload the numberth item to a pastebin service'
+  'version:display the version'
+)
+
+_arguments '--oneline[display item on one line]'\
+  '--raw[omit line numbers]'\
+  '--reverse[reverse order display]'\
+  '--zero[set NUL character separator]'\
+  '--decoration[merge with given decoration at beginning and end]:decorator:'\
+  '--separator[merge with given separator between each item]:separator:'\
+  '1:command:{_describe "command" _commands}'\
+  '2:sub command:->subcmd' && return 0
+
+[[ $state == subcmd ]] && case $words[2] in
+  select|replace|get|delete|upload|merge)
+      local number
+      number=(${(f)"$(gpaste-client --oneline history )"})
+      _describe 'number' number
+    return 0
+  ;;
+  file)
+    _message 'file'
+    _files
+  return 0
+  ;;
+  text)
+    _message 'text to add'
+  return 0
+  ;;
+esac
+
+
+# vim: set ts=2 sw=2 tw=0 expandtab foldenable foldmethod=manual foldclose= :
