@@ -25,8 +25,25 @@ BEGIN {
     }
 };
 
+
+
+function classify_brace(SOpt, LOpt){
+    if (LOpt ~ /--?help/ || sOpt ~ /-help/ || LOpt ~ /--?version/) {
+        return "'(: - 1)'"
+    } else if (SOpt !="" && LOpt !="") {
+    return sprintf("'(%s %s)'",ShortOption[0],LongOption[0])
+    } else {  return "" }
+}
+
+function skip( str ){
+    delete LongOption
+    delete ShortOption
+    delete Argument
+    next
+}
+
 function cleanDescr(desc){
-    # dont break prinf, remove % signs
+    # dont break prinf(), remove % signs
     gsub(/[%]/,"percent", desc);
     gsub(/(\s[tT]he\s?)|[[;:'*><~|]|[]]/," ",desc)
     gsub(/\s{2,}/," ",desc)
@@ -35,40 +52,39 @@ function cleanDescr(desc){
 }
 
 
-function classify( string, argument){
+function classify(string){
     if (Argument[0]=="") {
         return ""
     } else if (Argument[0] ~ /date|time/){
         return "_dates"
     } else if (Argument[0] ~ /files?/){
         return "_files"
-    } else if (Argument[0] ~ /hosts?/){
+    } else if (Argument[0] ~ /url|hosts?/ || LongOption[0] ~ /url|hosts?/){
         return "_hosts"
     }
 
-    split(string,strings,/\s+|[+.,|]/)
-    for (x in strings) {
-    switch (string) {
-        case /--file/:
-            return "_files"
-            break
-        case /--(dir|path)/:
-            return "_path_files"
-            break
-        default:
-            return ""
-            break
-        }
-    }
+    # split(string,strings,/\s+|[+.,|]/)
+    # for (x in strings) {
+    # switch (x) {
+        # case /--file/:
+            # return "_files"
+            # break
+        # case /--(dir|path)/:
+            # return "_path_files"
+            # break
+        # default:
+            # return ""
+            # break
+        # }
+    # }
 }
 
 # try to figure out Name of binary that produced input string
-/[Uu]sage[:]?/{
+/^\s*[Uu]sage[:]?/{
     # skip if name already set
     if (name!="") {
         next
-    }
-    if ($2!="") {
+    } else if ($2!="") {
         name=$2
         next
     } else {
@@ -111,24 +127,23 @@ function classify( string, argument){
 
     # printf() row of completion function
     if (ShortOption[0]=="" && LongOption[0]=="") {
-
+        skip()
     } else if (ShortOption[0]!="" && LongOption[0]!="") {
-        Options=sprintf("{%s,%s}",ShortOption[0],LongOption[0])
-        sub(/^-/,"",ShortOption[0])
-        sub(/^--/,"",LongOption[0])
-        ComplText[LongOption[0]]=sprintf("%s'[%s]%s%s'",Options,Desc,Argument[0],classify(FallbackCopy))
+        Opt=sprintf("{%s,%s}",ShortOption[0],LongOption[0])
+        Brace=classify_brace(ShortOption[0],LongOption[0])
+        sub(/^--/, "", LongOption[0])
+        ComplText[LongOption[0]]=sprintf("%s%s'[%s]%s%s'", Brace, Opt, Desc, Argument[0], classify(FallbackCopy))
+        skip()
     } else if ( ShortOption[0]=="" || LongOption[0]=="" ){
-       Options=sprintf("%s%s",ShortOption[0],LongOption[0])
+       Brace=classify_brace(ShortOption[0],LongOption[0])
+       sOption=sprintf("%s%s",ShortOption[0],LongOption[0])
        sub(/^--/,"",LongOption[0])
        sub(/^-/,"",ShortOption[0])
-       ComplText[LongOption[0] ShortOption[0]]=sprintf( "'%s[%s]%s%s'",Options,Desc,Argument[0],classify(FallbackCopy))
+       ComplText[LongOption[0] ShortOption[0]]=sprintf( "'%s%s[%s]%s%s'", Brace, sOption, Desc, Argument[0], classify( FallbackCopy))
+       skip()
    }
-
     # Debug
     # print "DescStart:",DescStart, "ShortOption:",ShortOption[0],"LongOption:",LongOption[0],"Desc:",Desc,"Argument:",Argument[0],"Rest:",$0
-    delete LongOption
-    delete ShortOption
-    delete Argument
 }
 
 END {
@@ -137,6 +152,7 @@ END {
     # Sort array
     asort(ComplText)
     for (opt in ComplText) {
+        gsub(/''/,"'",ComplText[opt])
         printf "  %s\\\n",ComplText[opt]
     }
     print "  ':file:_files' && return 0"
