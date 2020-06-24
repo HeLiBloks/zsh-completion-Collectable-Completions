@@ -1,0 +1,92 @@
+#compdef xo-cli
+# xo-cli zsh completion script
+# Copyright © 2020 Henrik Lindgren
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+# This file contains code from the saltstack project that has been repurposed for xo-cli completion
+
+
+local state line curcontext="$curcontext" xo_dir
+zstyle ':completion::complete:xo-cli:xocommands:' use-cache true
+
+# cache validation can be controled with the style cache-ttl.
+# it expects two arguments: number (days|hours|weeks|months)
+# to invalidate the host cache after one day:
+
+zstyle ':completion::complete:xo-cli:xocommands:'            cache-ttl 1 days
+
+_xocommands(){
+    local _xocommands expl curcontext=${curcontext%:*}:commands
+
+    if ! zstyle -m ":completion:$curcontext:" cache-policy '*'; then
+        zstyle ":completion:$curcontext:" cache-policy _xocli_caching_policy
+    fi
+
+    if _cache_invalid xo-cli/xocommands || ! _retrieve_cache xo-cli/_xocommands; then
+        _xocommands=( ${(f)"$(_call_program xo_cmd xo-cli --list-commands 2>/dev/null | grep -Po '^\w+\.\w+' | sort -u )"} )
+        _store_cache xo-cli/_xocommands _xocommands
+    fi
+
+    _wanted commands expl commands _multi_parts "$@" . _xocommands
+}
+
+(( $+functions[_xocli_caching_policy] )) ||
+_xocli_caching_policy() {
+    # thanks to saltstack completion script for the caching logic
+    local oldp ttl d t
+    zstyle -a ":completion:$curcontext:" cache-ttl ttl
+
+    if (( $#ttl >= 2 )); then
+      [[ $ttl[1] == <-> ]] && integer t=$ttl[1]
+
+      case $ttl[2] in
+        seconds#)d=s;;
+        months#) d=M;;
+        weeks#)  d=w;;
+        hours#)  d=h;;
+        *)       d=d;;
+      esac
+    fi
+
+    oldp=( "$1"(Nm${d:-d}+${t:-1}) )
+    (( $#oldp ))
+}
+
+_xocomp(){
+    _arguments -s '(--unregister --list-commands --json --list-objects)--expiresIn[change validity duration of authorization token (default: one month). ]:duration:'\
+      '(--unregister)--register[Registers the XO instance to use]::url:username:password:'\
+      '(--register)--unregister[Remove stored credentials]'\
+      '--list-commands[patterns to filter on command names]:pattern:'\
+      '(--expiresIn --register --unregister)--json[output json]'\
+      '--list-objects[list XO objects]'\
+      '(--register --unregister )--property[Restricts displayed properties to those listed]:property=value:'\
+      ':command:_xocommands'\
+      '::arguments:'
+}
+
+() {
+    local curcontext=${curcontext%:*}:xo_dir
+    if ! zstyle -m ":completion:$curcontext:" cache-policy '*'; then
+        zstyle ":completion:$curcontext:" cache-policy _xocli_caching_policy
+    fi
+
+    if _cache_invalid xo-cli/xo_dir || ! _retrieve_cache xo-cli/xo_dir; then
+        xo_dir="$HOME/.cache/"
+        _store_cache salt/xo_dir xo_dir
+    fi
+}
+
+
+_xocomp "$@"
