@@ -2,7 +2,7 @@
 SHELL=/bin/zsh
 
 listInstalledCompletions:
-	locate -eLi0 --regex 'zsh.*\/_{1}[a-z0-9]\w*' | xargs -0 grep -HPo '^#compdef\s\K.*' > completionFilelist
+	locate --regex 'zsh.*\/_{1}[a-z0-9]\w*' | xargs -0 grep -HPo '^#(compdef)|(autoload)\s\K.*' > completionFilelist
 
 completion_function_tags:
 	locate --regex 'zsh.*\/_{1}[a-z0-9]\w*' |\
