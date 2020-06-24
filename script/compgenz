@@ -114,12 +114,12 @@ function classify(    string){
 
 /^\s{2,}--?/,!/^(\s*$)|(^\s+[-])/ {
 
-    # find start of options
-    # OptStart=match($0,/^\s{2,}--?/)
-
     # determine indent length
     match($0,/^\s+/);
     IndentLen=RLENGTH
+    # find start of options
+    # OptStart=match($0,/^\s{2,}--?/)
+
     # trim preceding whitespace
     sub(/^\s+/,"",$0);
 
@@ -128,10 +128,30 @@ function classify(    string){
     # find start of description
     # it {sh|c}ould look like "-d  description"
     DescStart=match($0,/(\s{2,})|\t/)+RLENGTH;
+    # Desc: description beginning after "match($0,/\s{2,}/)+RLENGTH"
     Desc=cleanDescr(substr($0,DescStart));
 
+        # print "DescStart:",DescStart, "ShortOption:",ShortOption[0],"LongOption:",LongOption[0],"Desc:",Desc,"Argument:",Argument[0],"Rest:",$0
+    if (Desc = -1) {
+        # description probably is below option, so fetch next line
+        getline Desc
+        # FallbackCopy=Desc
+    if (Desc ~ /^\s{2,}--?/) {
+        # print "Desc:",Desc
+        # this line starts with an option fallback
+        $0=Desc
+        sub(/^\s+/,"",$0);
+        DescStart=match($0,/\s{2,}/)+RLENGTH;
+        Desc=substr($0,DescStart)
+    }
+    }
+
+    sub(/^\s+/,"",Desc);
+    Desc=cleanDescr(Desc);
+
     # remove Desc from $0
-    $0=substr($0,0,DescStart-1)
+    # $0=substr($0,0,DescStart-1)
+    sub(Desc,"",$0)
 
     # add long option to array LongOption
     if (match($0,/(-{2}[a-z0-9A-Z][a-z0-9A-Z_-]?+)/, LongOption)){

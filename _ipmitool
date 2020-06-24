@@ -38,44 +38,34 @@ ipmitool_commands=(
   'vita:Run a VITA 46.11 extended cmd'
 )
 
-ipmitool_interface=(
-  'free:FreeIPMI IPMI Interface'
-  'imb:Intel IMB Interface'
-  'lan:IPMI v1.5 LAN Interface'
-  'lanplus:IPMI v2.0 RMCP+ LAN Interface'
-  'open:Linux OpenIPMI Interface default'
-  'serial-basic:Serial Interface, Basic Mode'
-  'serial-terminal:Serial Interface, Terminal Mode'
-  'usb:IPMI USB Interface OEM Interface for AMI Devices'
-)
 
 _arguments '-4[Use only IPv4]'\
   '-6[Use only IPv6]'\
-  '-A[Force use of auth type NONE, PASSWORD, MD2, MD5 or OEM]:authtype:( MD2 MD5 NONE OEM PASSWORD )'\
+  '-A[Force use of auth type]:authtype:( MD2 MD5 NONE OEM PASSWORD )'\
   '-a[Prompt for remote password]'\
   '-b[Set destination channel for bridged request]:channel:'\
   '-B[Set transit channel for bridged request (dual bridge)]:channel:'\
   '-c[Display output in comma separated format]'\
   '-d[Specify /dev/ipmiN device to use (default=0)]:device:'\
-  '-D[Specify serial device, baud and if interface is system one]:tty\:b\:s:'\
+  '-D[Specify serial device, baud and if interface is system one]:tty\:baudrate\:s:'\
   '-E[Read password from IPMI_PASSWORD environment variable]'\
   '-e[Set SOL escape character]:char:'\
   '-f[Read remote session password from file]:file:'\
   '-H[Remote host name for LAN interface]:hostname:'\
   '-h[This help]'\
-  '-I[Interface to use]:interface:{ _describe interface ipmitool_interface }'\
+  '-I[Interface to use]:interface:->ipmitool_interface'\
   '-K[Read kgkey from IPMI_KGKEY environment variable]'\
   '-k[Use Kg key for IPMIv2 authentication]:key:'\
-  '-L[Remote session privilege level default=ADMINISTRATOR]:level:'\
+  '-L[Remote session privilege level default=ADMINISTRATOR]:level:(ADMINISTRATOR CALLBACK OPERATOR USER)'\
   '-l[Set destination lun for raw commands]:lun:'\
-  '-m[Set local IPMB address]:address:'\
+  '-m[Set local IPMB address]:address:( 0x20 )'\
   '-N[Specify timeout for lan default=2 / lanplus default=1 interface]:seconds:'\
-  '-o[Setup for OEM (use list to see available OEM types)]:oemtype:'\
-  '-O[Use file for OEM SEL event descriptions]:seloem:'\
+  '-o[Setup for OEM]:oem_type:->oemtype'\
+  '-O[Use file for OEM SEL event descriptions]:seloem:_files'\
   '-p[Remote RMCP port default=623]:port:'\
   '-P[Remote session password]:password:'\
   '-R[Set the number of retries for lan/lanplus interface default=4]:retry:'\
-  '-S[Use local file for remote SDR cache]:sdr:'\
+  '-S[Use local file for remote SDR cache]:sdr:_files'\
   '-t[Bridge request to remote target address]:address:'\
   '-T[Set transit address for bridge request (dual bridge)]:address:'\
   '-U[Remote session username]:username:'\
@@ -87,3 +77,31 @@ _arguments '-4[Use only IPv4]'\
   '-C[ciphersuite Cipher suite to be used by lanplus interface]:cipher:'\
   ':ipmitool command:{ _describe command ipmitool_commands }'
 
+case $state in
+  oemtype)
+    _oemtype=(
+     'supermicro:Supermicro IPMIv1.5 BMC with OEM LAN authentication support'
+     'intelwv2:Intel SE7501WV2 IPMIv1.5 BMC with extra LAN communication support'
+     'intelplus:Intel IPMI 2.0 BMC with RMCP+ communication support'
+     'icts:IPMI 2.0 ICTS compliance support'
+     'ibm:IBM OEM support'
+     'i82571spt:Intel 82571 MAC with integrated RMCP+ support in super pass-through mode'
+     'kontron:Kontron OEM big buffer support'
+    )
+    _describe 'oem_type' _oemtype && return 0
+    ;;
+  interface)
+    ipmitool_interface=(
+      'free:FreeIPMI IPMI Interface'
+      'imb:Intel IMB Interface'
+      'lan:IPMI v1.5 LAN Interface'
+      'lanplus:IPMI v2.0 RMCP+ LAN Interface'
+      'open:Linux OpenIPMI Interface default'
+      'serial-basic:Serial Interface, Basic Mode'
+      'serial-terminal:Serial Interface, Terminal Mode'
+      'usb:IPMI USB Interface OEM Interface for AMI Devices'
+    )
+    _describe 'ipmitool interface' ipmitool_interface && return 0
+esac
+
+# vim: set ts=2 sw=2 tw=2 expandtab foldenable foldmethod=syntax foldclose=all :
