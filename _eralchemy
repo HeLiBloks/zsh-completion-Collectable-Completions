@@ -20,11 +20,31 @@ sqlalchemy_string=(
   'sqlite\:\/\/\/:sqlite\:\/\/\/databasename.\[db\|sqlite\]'
 )
 
-_arguments '-i[sqlalchemy connection string \| markdownfile.er ]:sqlalchemy connection string:{ _describe "sqlalchemy connection string" sqlalchemy_string  }'\
+_arguments '-i[sqlalchemy connection string \| markdownfile.er ]:sqlalchemy connection string:->sqlalchemy'\
   '-s[db schema to use]:schema:'\
-  '-x[exclude tables]:tables:'\
-  '-o[output \[.er for markdown | .pdf\] ]:schema:_files'\
-  '*:file:_files'
+  '(--exclude-tables -x)'{--exclude-tables,-x}'[Name of tables not to be displayed]:exclude-tables:'\
+  '--exclude-columns[Name of columns not to be displayed \(for all tables\)]:exclude-columns:'\
+  '--include-tables[Name of tables to be displayed alone]:include-tables:'\
+  '--include-columns[Name of columns to be displayed alone \(for all tables\)]:include-columns:'\
+  '-o[output \[.er for markdown | .pdf\] ]:schema:_files' && return 0
 
+case $state in
+  sqlalchemy)
+    case $PREFIX in
+      '')
+        local dbs
+        dbs='sqlite:/// mysql:// psql:// mssql://'
+        dbs=( ${(fq)dbs} )
+        compadd -x 'sqlalchemy connection string' -A dbs && return 0
+        ;;
+      [a-z]*:\/\/)
+        _users && return 0
+        ;;
+      [a-z]*:\/\/?[a-z]*:)
+        _message 'password'
+        ;;
+    esac
+    ;;
+esac
 
 # vim: set ts=2 sw=2 tw=0 expandtab foldenable foldmethod=manual foldclose=all :
