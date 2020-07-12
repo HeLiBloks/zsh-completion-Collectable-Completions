@@ -53,7 +53,8 @@ function skip(    str){
 function cleanDescr(    desc){
     # dont break prinf(), remove % signs
     gsub(/[%]/,"percent", desc);
-    gsub(/(\s[tT]he\s?)|[[;:'*><~|]|[]]/," ",desc)
+    # TODO: regexes in the description breaks this script
+    gsub(/(\s[tT]he\s?)|[[;:'*><~|]|[])(]/," ",desc)
     gsub(/\s{2,}/," ",desc)
     gsub(/[\s,.]$/,"",desc)
     return desc
