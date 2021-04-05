@@ -1,0 +1,68 @@
+#compdef ausearch
+
+
+_arguments -s  '(-e --exit)'{-e,--exit}'[Exit code or errno search based on syscall exit code]:exit-code-or-errno:'\
+  '(-ge --gid-effective)'{-ge,--gid-effective}'[Search based on Effective]:effective:->groupid'\
+  '(-gi --gid)'{-gi,--gid}'[Search based on group id]:Group:->groupid'\
+  '(-ga --gid-all)'{-ga,--gid-all}'[effective group ID or group ID matching given group ID]:all:->groupid'\
+  '(-hn --host)'{-hn,--host}'[search based on remote host name]:Host:_hosts'\
+  '(-if --input)'{-if,--input}'[Input File name use this file instead of current log]:Input:_files'\
+  '(-i --interpret)'{-i,--interpret}'[Interpret numeric entities into text.]'\
+  '(-l --line-buffered)'{-l,--line-buffered}'[Flush output on every line]'\
+  '(-n --node)'{-n,--node}'[Node name search based on machine s name]:Node:_hosts'\
+  '(-p --pid)'{-p,--pid}'[Process id search based on process id]:pid:'\
+  '(-r --raw)'{-r,--raw}'[output is completely unformatted]'\
+  '(-se --context)'{-se,--context}'[SE Linux context search based on either subject or]:SE Linux Context:->scontext'\
+  '(-sv --success)'{-sv,--success}'[Success Value search based on syscall or event]:Success:(yes no )'\
+  '(-su --subject)'{-su,--subject}'[Search for event with scontext subject matching string]:SE:->scontext'\
+  '(-sc --syscall)'{-sc,--syscall}'[Search for an event matching given syscall]:syscall:->syscall'\
+  '(-m --message)'{-m,--message}'[Search for event matching message type. also known as record types]:record type:->message'\
+  '(-tm --terminal)'{-tm,--terminal}'[TerMinal search based on terminal]:terminal:'\
+  '(-ue --uid-effective)'{-ue,--uid-effective}'[search based on Effective]:uid effective:->userid'\
+  '(-ui --uid)'{-ui,--uid}'[search based on user id]:uid:->userid'\
+  '(-ts --start)'{-ts,--start}'[start time]:starttime:(now  recent  today  yesterday  this-week  week-ago  this-month  this-year)'\
+  '(-te --end)'{-te,--end}'[end time]:end:(now  recent  today  yesterday  this-week  week-ago  this-month  this-year)'\
+  '(-uu --uuid)'{-uu,--uuid}'[search for events related to virtual guest uuid]:guest:->userid'\
+  '(-vm --vm-name)'{-vm,--vm-name}'[machine with name]:guest:_hosts'\
+  '(-x --executable)'{-x,--executable}'[search based on executable name]:executable:->executable'\
+  '(-a --event)'{-a,--event}'[search for event by event id]:event id:'\
+  '--arch[Search based on CPU architecture]:CPU:(b64 b32)'\
+  '--checkpoint[Checkpoint file search from last complete event]:checkpoint:_files'\
+  '--format[Raw default interpret csv text results format option]:format:(raw default interpret csv text)'\
+  '--extra-keys[for csv, add a final column with key information]'\
+  '(-k --key)'{-k,--key}'[Search for an event based on given key string]:key:'\
+  '--extra-labels[for format mode csv, option will add columns of information about subject]'\
+  '(-c --comm)'{-c,--comm}'[Search for an event based on given comm name. comm name is executable s name from task structure]:comm:'\
+  '--extra-time[for csv,add columns about broken down time to make subsetting easier]'\
+  '--just-one[Emit just one event]'\
+  '--session[Login session id search based on login session id]:login id:'\
+  '--escape[If the output is escaped]:escape type:(raw shell shell_quote tty)' && return 0
+
+case $state in
+  groupid)
+    local groupids=( ${${(f)"$(_call_program groupid getent group 2>/dev/null)"//:/ }/ /:} )
+    _describe 'groupids' groupids
+    ;;
+  userid)
+    userids=( ${${(f)"$(_call_program passwd getent passwd 2>/dev/null)"//:/ }/ /:} )
+    _describe 'userids' userids
+    ;;
+  executable)
+    local executables="$(print -rC1 -- ${(ko)commands} 2>/dev/null)"
+    compadd -- $executables
+    ;;
+  syscall)
+    local syscalls=( ${${(f)${"$(_call_program syscall ausyscall --dump | tr '	' ":" )"}}} )
+    shift syscalls
+    _describe syscall syscalls
+    ;;
+  scontext)
+    local scontexts=( $(_call_program fcontext semanage fcontext -l 2>/dev/null | awk '/^\// && $2!="=" {print $4":"$1,$2,$3}' ))
+    _describe scontext scontexts
+    ;;
+  message)
+    local messages=( ${(@s/ /)${"$(_call_program ausearchm ausearch -m 2>/dev/stdout 1>/dev/null )"##*: }} )
+    _values -s , message ${messages[@]}
+    ;;
+esac
+
