@@ -1,0 +1,61 @@
+#compdef aureport
+# zsh completion for the aureport command line application
+# Copyright © 2021 Henrik Lindgren
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, see <http://www.gnu.org/licenses/>.
+
+
+_arguments -s  '(-au --auth)'{-au,--auth}'[Report about authentication attempt]'\
+  '(-c --config)'{-c,--config}'[Report about config change]'\
+  '(-cr --crypto)'{-cr,--crypto}'[Report about crypto events]'\
+  '(-e --event)'{-e,--event}'[Report about events]'\
+  '(-f --file)'{-f,--file}'[Report about files and af_unix socket]'\
+  '(-h --host)'{-h,--host}'[Report about host]:host:'\
+  '(-if --input)'{-if,--input}'[Use given file or directory instead of logs]:file:_files'\
+  '(-i --interpret)'{-i,--interpret}'[Interpret numeric entities into text]'\
+  '(-k --key)'{-k,--key}'[Report about audit rule key]:key:->auditkey'\
+  '(-m --mods)'{-m,--mods}'[Report about account modification]'\
+  '(-n --anomaly)'{-n,--anomaly}'[Report about anomaly events]'\
+  '(-nc --no-config)'{-nc,--no-config}'[Do not include CONFIG_CHANGE event]'\
+  '(-p --pid)'{-p,--pid}'[Report about processes]:pid:'\
+  '(-s --syscall)'{-s,--syscall}'[Report about syscall]:syscall:->syscall'\
+  '(-te --end)'{-te,--end}'[Search for events with time stamps equal to or before given end time. format of end time depends on your locale. If date i]:end:'\
+  '(-tm --terminal)'{-tm,--terminal}'[Report about terminal]'\
+  '(-ts --start)'{-ts,--start}'[-ts, --start start-date start-time ]:start:'\
+  '(-u --user)'{-u,--user}'[Report about user]:user:_user_expand'\
+  '(-x --executable)'{-x,--executable}'[Report about executable]:executable:'\
+  '--comm[Report about executable name]:Report:'\
+  '--failed[Only select failed events for processing in the reports]'\
+  '--input-logs[Use log file location from auditd.conf as input for analysis. Needed if using aureport from cron job]'\
+  '--summary[Run summary report that gives a total of elements of main report. Not all reports have a summary]'\
+  '--tty[]:Terminal report:'\
+  '--virt[]:Virt report:'\
+  '*:file:_files' && return 0
+
+# TODO: migrate _aureport to _ausearch
+case $state in
+  auditkey )
+    local auditkeys="execve"
+    _describe keys auditkeys
+    ;;
+  syscall)
+    local syscalls=( ${${(f)${"$(_call_program syscall ausyscall --dump | tr '	' ":" )"}}} )
+    shift syscalls
+    _describe syscall syscalls
+    ;;
+  executable)
+    local executables="$(print -rC1 -- ${(ko)commands} 2>/dev/null)"
+    compadd -- $executables
+    ;;
+esac
