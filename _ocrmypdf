@@ -1,37 +1,42 @@
 #compdef ocrmypdf
 
 
-_arguments -s '--author[set document author]:author:'\
-  {-c,--clean}'[clean pages from scanning artifacts before performing]'\
-  {-d,--deskew}'[deskew each page before performing OCR]'\
-  {-f,--force-ocr}'[rasterize any fonts or vector objects on each page]'\
-  '--flowchart[Dont run any commands; just print pipeline as flowchart]'\
-  {-g,--debug-rendering}'[render each page twice with debug information on]'\
-  {-h,--help}'[show this help message and exit]'\
-  '--help[display help]'\
-  {-i,--clean-final}'[clean page as above, and incorporate the cleaned image]'\
-  '--image-dpi[for input image instead of PDF, use this DPI instead]'\
-  {-j,--jobs}'[Use up to N CPU cores simultaneously (default: use]'\
-  {-k,--keep-temporary-files}'[keep temporary files (helpful for debugging)]'\
-  '--keywords[set document keywords]'\
-  {-l,--language}'[Language(s) of the file to be OCRed (see tesseract]'\
-  '--list-langs[all language packs installed in your]'\
-  {-n,--just}'[_print      Dont actually run any commands; just print the]'\
-  '--output-type[pdf}]'\
-  '--output-type[which converts the PDF to a standardized PDF/A-2b.  This]'\
-  '--oversample[oversample images to at least the specified DPI, to]'\
-  '--pdf-renderer[tesseract,hocr,tess4}]:renderer:(tesseract hocr sandwich)'\
-  {-r,--rotate-pages}'[automatically rotate pages based on detected text]'\
-  '--remove-background[attempt to remove background from gray or color pages]'\
-  '--rotate-pages-threshold[only rotate pages when confidence is above this value]'\
-  {-s,--skip-text}'[skip OCR on any pages that already contain text]'\
-  '--skip-big[skip OCR on pages larger than specified]'\
-  '--subject[set document subject description]:subject:'\
-  '--tesseract-config[additional Tesseract configuration files]:files:_files'\
-  '--tesseract-oem[set Tesseract 4.0 OCR engine mode: 0 - original]:oem mode:'\
-  '--tesseract-pagesegmode[set Tesseract page segmentation mode (see tesseract]'\
-  '--tesseract-timeout[give up on OCR after the timeout, but copy the]'\
-  '--title[set document title (place multiple words in quotes)]:document title:'\
-  {--verbose,-v}'[Print more verbose messages]:nr:'\
-  '--version[show programs version number and exit]'\
-  '*:filename:_files'
+_arguments '(-1 --output-type)'{-1,--output-type}'[Choose output type. pdfa creates a PDF/A-2b]:pdfa:( pdfa pdf pdfa-1 pdfa-2 pdfa-3 )'\
+  '(-f --force-ocr)'{-f,--force-ocr}'[force ocr on vectore pages, and save rastered output]'\
+  '(-i --clean-final)'{-i,--clean-final}'[clean page, and incorporate the cleaned image]'\
+  '(-j --jobs)'{-j,--jobs}'[Use up to N CPU cores simultaneously (default: use]:cpu cores:'\
+  '(-k --keep-temporary-files)'{-k,--keep-temporary-files}'[Keep temporary files helpful for debugging ]'\
+  '(-O --optimize)'{-O,--optimize}'[Control how PDF is optimized after processing 0 - 3]:optimization:( 0 1 2 3 )'\
+  '(-r --rotate-pages)'{-r,--rotate-pages}'[rotate pages ]:Automatically:'\
+  '(-s --skip-text)'{-s,--skip-text}'[Skip OCR on any pages that already contain text, but]'\
+  '(-unpaper-args --clean)'{-unpaper-args,--clean}'[double ]:Requires:'\
+  '(-v --verbose)'{-v,--verbose}'[verbosity]:VERBOSE:'\
+  '(: - 1)--version[show version]'\
+  '--author[Set document author]:AUTHOR:_users'\
+  '--fast-web-view[Add preview images for web view]:threshold in MB:'\
+  '--pdfa-image-compression[]:compression:(auto jpeg lossless)'\
+  '--pdf-renderer[OCR PDF renderer]:renderer:(auto hocr sandwich hocrdebug)'\
+  '--image-dpi[DPI of file s]:DPI:'\
+  '--jbig2-lossy[suitable for some use cases]'\
+  '--jpeg-quality[Control how PDF is optimized after processing]:Qualiy:(0 1 2 3)'\
+  '--keywords[Set document keyword]:KEYWORDS:'\
+  '--max-image-mpixels[Set maximum number of pixels to unpack before treating]:MPixels:'\
+  '--oversample[improve OCR results slightly]:DPI:'\
+  '--pages[limit ocr to pages separated by , or - for range]:PAGES:'\
+  '--plugin[ocrmypdf plugins to import]:PLUGINS:_files'\
+  '--png-quality[Adjust PNG quality level to use when quantizing PNGs]:Quality:(0 1 2 3 4)'\
+  '--redo-ocr[files that were previously OCRed with OCRmyPDF or]:Attempt:'\
+  '--remove-background[setting it to white]:Attempt:'\
+  '--remove-vectors[so that y will not be included in OCR. This can]:EXPERIMENTAL:'\
+  '--rotate-pages-threshold[Only rotate pages when confidence is above this value]:CONFIDENCE:'\
+  '--sidecar[Generate sidecar text files that contain the same text recognized by Tesseract]:FILE:_files'\
+  '--skip-big[skip OCR on pages larger than specified Megapixels]:megapixels:(300 600 1200)'\
+  '--tesseract-config[Additional Tesseract configuration files]:CFG:_files'\
+  '--tesseract-oem[Set Tesseract 4.0 OCR engine mode 0 - original]:MODE:( 0 1 2 3 )'\
+  '--tesseract-timeout[Give up on OCR after timeout, but copy ]:SECONDS:'\
+  '--threshold[EXPERIMENTAL. Threshold image to 1bpp before sending]'\
+  '--unpaper-args[A quoted string of arguments to pass to unpaper]:UNPAPER:'\
+  '--user-patterns[Tesseract user patterns file]:user patterns file:_files'\
+  '--user-words[Specify location of Tesseract user words file]:FILE:_files'\
+  '1:File to ocr:_files' '2:output pdf file:_files' && return 0
+
