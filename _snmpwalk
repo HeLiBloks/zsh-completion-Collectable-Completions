@@ -1,4 +1,5 @@
-#compdef snmp{bulkwalk,delta,df,get,getnext,netstat,set,status,table,test,trap,usm,walk}
+#compdef snmpwalk
+# #compdef snmpwalk snmp{bulkwalk,delta,df,get,getnext,netstat,set,status,table,test,trap,usm,walk}
 # Completion for snmp* cmd. Stolen from:
 #    2006 Andrew J Cosgriff
 #    http://polydistortion.net/
@@ -45,7 +46,7 @@ _snmp_get_mibs () {
 local context state line
 typeset -A opt_args
 
-_arguments -A  $_snmpnetstat\
+_arguments $_snmpnetstat\
   '(-v1 -v2c )-a[set authentication protocol]:protocol:(MD5 SHA)' \
   '(-v1 -v2c )-A[set authentication protocol pass phrase]:passphrase:' \
   '( -v3 )-c[set community string]:community string:( private public )' \
@@ -174,8 +175,8 @@ return 0
 
 # Local Variables:
 # mode: Shell-Script
-# sh-indentation: 4
+# sh-indentation: 2
 # indent-tabs-mode: t
 # sh-basic-offset: 4
 # End:
-#  vim: set ts=2 sw=2 tw=0 expandtab foldenable foldmethod=manual foldclose=all :
+#  vim: set ts=2 sw=2 tw=0 expandtab :
