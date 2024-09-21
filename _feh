@@ -1,0 +1,82 @@
+#compdef feh
+
+
+_arguments -s  '(-a --alpha)'{-a,--alpha}'[When drawing thumbnails onto background, set ir transparency level to int 0 - 255 ]:int:'\
+  '(-action9 --action1)'{-action9,--action1}'[Extra actions which can be set and triggered using appropriate number key]:flag:'\
+  '(-b --bg)'{-b,--bg}'[-b, --bg file tran]:file:_files'\
+  '(-bg-fill --auto-zoom)'{-bg-fill,--auto-zoom}'[--auto-zoom, using fill makes feh zoom image like --bg-fill mode]:using:'\
+  '(-C --fontpath)'{-C,--fontpath}'[Specify path as extra directory in which to search for fonts can be used multiple times to add mul‐]:path:_files -/'\
+  '(-e --font)'{-e,--font}'[Set global font. Should be a truetype font, resident in current directory or font direc‐]:font:'\
+  '(-F --fullscreen)'{-F,--fullscreen}'[Make window fullscreen. Note that in this mode, large images will always be scaled down to fit]'\
+  '(-G --draw-actions)'{-G,--draw-actions}'[Draw defined actions and what y do at top-left of image]'\
+  '(-g --geometry)'{-g,--geometry}'[Use a fixed window size as specified in X-style geometry string, e.g. 640x480. An optional +x+y]:width:'\
+  '(-H --limit-height)'{-H,--limit-height}'[Limit height of montage]:pixels:'\
+  '(-height --thumb-width)'{-height,--thumb-width}'[This will prevent any empty space in final montage]:width:'\
+  '(-i --index)'{-i,--index}'[Enable Index mode. Index mode is similar to montage mode, and accepts same options. It create]'\
+  '(-K --caption-path)'{-K,--caption-path}'[Path to directory containing image captions. This turns on caption viewing, and if captions are]:path:_files -/'\
+  '(-k --keep-http)'{-k,--keep-http}'[When viewing files using HTTP, feh normally deletes local copies after viewing, or, if caching]'\
+  '(-M --menu-font)'{-M,--menu-font}'[Use font truetype, with size, like "yudit/12" as menu font]:font:'\
+  '(-m --montage)'{-m,--montage}'[Enable montage mode. Montage mode creates a new image consisting of a grid of thumbnails of im‐]'\
+  '(-n --reverse)'{-n,--reverse}'[Reverse sort order. Use this to invert order of filelist. E.g. to sort in reverse]'\
+  '(-o --output)'{-o,--output}'[Save created montage to file]:file:_files'\
+  '(-P --cache-thumbnails)'{-P,--cache-thumbnails}'[Enable thumbnail caching. Thumbnails are saved in $XDG_CACHE_HOME/thumbnails, which defaults to]'\
+  '(-p --preload)'{-p,--preload}'[Preload images. This doesn t mean hold m in RAM, it means run through m and eliminate unload‐]'\
+  '(-q --quiet)'{-q,--quiet}'[Don t report non-fatal errors for failed loads. Verbose and quiet modes are not mutually exclusive]'\
+  '(-R --reload)'{-R,--reload}'[Reload filelist and current image after int seconds. Useful for viewing HTTP webcams or frequently]:int:'\
+  '(-S --sort)'{-S,--sort}'[Sort file list according to image parameters]:sort:(name none filename)'\
+  '(-s --stretch)'{-s,--stretch}'[Normally, if an image is smaller than specified thumbnail size, it will not be enlarged. If]'\
+  '(-T --theme)'{-T,--theme}'[Load options from config file with name me - see “THEMES CONFIG SYNTAX” for more info. Note that]:theme:'\
+  '(-t --thumbnails)'{-t,--thumbnails}'[Same as Index mode, but thumbnails are clickable image launchers. Note that --fullscreen and]'\
+  '(-thumb-width --thumb-height)'{-thumb-width,--thumb-height}'[]:the:'\
+  '(-transparent --draw-filename)'{-transparent,--draw-filename}'[their readability]:Show:'\
+  '(-U --loadable)'{-U,--loadable}'[Don t display images. Just print out ir names if imlib2 can successfully load m. Return]'\
+  '(-u --unloadable)'{-u,--unloadable}'[Don t display images. Just print out ir names if imlib2 can NOT successfully load m. Return]'\
+  '(-V --verbose)'{-V,--verbose}'[output useful information, progress bars, etc]'\
+  '(-w --multiwindow)'{-w,--multiwindow}'[Disable slideshow mode. With this setting, instead of opening multiple files in slideshow mode]'\
+  '(-X --ignore-aspect)'{-X,--ignore-aspect}'[By default, montage thumbnails will retain ir aspect ratios, while fitting into thumb-]'\
+  '(-Y --hide-pointer)'{-Y,--hide-pointer}'[Hide pointer useful for slideshows ]'\
+  '(-z --randomize)'{-z,--randomize}'[When viewing multiple files in a slideshow, randomize file list before displaying. list i]'\
+  '(: - 1)--version-sort[When combined with --sort name, --sort filename, or --sort dirname use natural sorting for file and]'\
+  '--action[run for each unloadable file]:false:'\
+  '--auto-rotate[workaround, do not use --auto-rotate on systems with Imlib2 version 1.7.5 or later]:option:'\
+  '--bg-center[Center file on background. If it is too small, it will be surrounded by a border as speci‐]'\
+  '--bg-fill[Like --bg-scale, but preserves aspect ratio by zooming image until it fits. Either a horizontal]'\
+  '--bg-max[Like --bg-fill, but scale image to maximum size that fits screen with borders on one]'\
+  '--bg-scale[Fit file into background without repeating it, cutting off stuff or using borders. But ]'\
+  '--bg-tile[Tile repeat image in case it is too small for screen]'\
+  '--cache-size[Set imlib2 in-memory cache to size MiB. A higher cache size can significantly improve performance]:size:'\
+  '--class[Set X11 class hint to class. Default feh]:class:'\
+  '--conversion-timeout[giflib 5.1.1, or upgrade to giflib 5.1.4]:5:'\
+  '--edit[by default change underlying file and not just its displayed content]:Enable:'\
+  '--force-aliasing[Disable anti-aliasing for zooming, background setting etc]'\
+  '--image-bg[]:side:'\
+  '--index-info[text]:SPECIFIERS:'\
+  '--info[Execute command_line and display its output in bottom left corner of image. Can be used to]:flag:'\
+  '--insecure[When viewing files with HTTPS, this option disables all certificate checks. It allows images on]'\
+  '--keep-zoom-vp[When switching images, keep zoom and viewport settings zoom level and X, Y offsets ]'\
+  '--max-dimension[Only show images with width = width and height = height. If you only care about one parameter]:width:'\
+  '--no-conversion-cache[When loading images via HTTP, ImageMagick or dcraw, feh will only load/convert m once and re-use]'\
+  '--no-jump-on-resort[Don t jump to first image after resorting filelist]'\
+  '--no-recursive[Don t recursively expand any directories. This is default, but this option is useful to over‐]'\
+  '--no-screen-clip[By default, window sizes are limited to screen size. With this option, windows will have ]'\
+  '--no-xinerama[ optional feature, enabled in this build Disable Xinerama support]'\
+  '--on-last-slide[--on-last-slide hold quit resume]:hold:'\
+  '--output-dir[]:if:'\
+  '--recursive[]:ride:'\
+  '--scale-down[window slightly too]:does:'\
+  '--scroll-step[Scroll count pixels whenever scroll_up, scroll_down, scroll_left or scroll_right is pressed. Note]:count:'\
+  '--slideshow-delay[]'\
+  '--start-at[Start filelist at filename. If no other files or filelists were specified on command line]:filename:_files'\
+  '--thumb-title[Set title for windows opened from thumbnail mode. See also “FORMAT SPECIFIERS”]:string:'\
+  '--title-font[Set font to print a title on index, if no font is specified, no title will be printed]:font:'\
+  '--title[-^, --title title]:title:'\
+  '--window-id[Draw to an existing X11 window by its ID windowid. This option is intended for use with software]:windowid:'\
+  '--xinerama-index[]:to:'\
+  '--zoom-step[Zoom images in and out by percent default 25 when using zoom keys and buttons]:percent:'\
+  '--zoom[Zoom images by percent when in full screen mode or when window geometry is fixed. When combined]:percent:'\
+  '-1[in paused mode]:tions:'\
+  '-negative[A positive value specifies after how many seconds conversion attempts should be aborted, zero cause]:can:'\
+  '-nSwidth[]:width:'\
+  '-randomized[]:re:'\
+  '-signed[]:sites:'\
+  '*:file:_files' && return 0
