@@ -1,0 +1,180 @@
+#compdef rofi
+
+_arguments '-no-config[Do not load configuration, use default values]'\
+  '(-v -version)'{-v,-version}'[Print the version number and exit]'\
+  '-a[List of row indexes to mark active]'\
+  '-async-pre-read[Read several entries blocking before switching to async mode]:number:'\
+  '-auto-select[Enable auto select mode]'\
+  '-bw[Border width]'\
+  '-cache-dir[Directory where history and temporary files are stored]:string:'\
+  '-case-sensitive[Set case-sensitivity]'\
+  '-click-to-exit[Click outside the window to exit]'\
+  '-color-active[Color scheme for active row]:string:'\
+  '-color-normal[Color scheme for normal row]:string:'\
+  '-color-urgent[Color scheme for urgent row]:string:'\
+  '-color-window[Color scheme window]:string:'\
+  '-columns[Number of columns]'\
+  '-combi-hide-mode-prefix[Hide the prefix mode prefix on the combi view]'\
+  '-combi-modi[Set the modi to combine in combi mode]:string:'\
+  '-cycle[Cycle through the results list]'\
+  '-disable-history[Disable history in run\/ssh]'\
+  '-display-combi[The display name of this browser]:string:'\
+  '-display-drun[The display name of this browser]:string:'\
+  '-display-file-browser[The display name of this browser]:string:'\
+  '-display-keys[The display name of this browser]:string:'\
+  '-display-run[The display name of this browser]:string:'\
+  '-display-ssh[The display name of this browser]:string:'\
+  '-display-window[The display name of this browser]:string:'\
+  '-display-windowcd[The display name of this browser]:string:'\
+  '-display[X server to contact]:x-display:'\
+  '-dmenu[Start in dmenu mode]'\
+  '-dpi[DPI]:dpi:'\
+  '-drun-categories[Only show Desktop entry from these categories]:string:'\
+  '-drun-display-format[DRUN format string Supports]:string:(generic name comment exec categories)'\
+  '-drun-match-fields[Desktop entry fields to match in drun]:string:'\
+  '-drun-reload-desktop-cache[reload the cache with desktop file content]'\
+  '-drun-show-actions[Desktop entry show actions]'\
+  '-drun-use-desktop-cache[build and use a cache with desktop file content]'\
+  '-dump-config[Dump the current configuration in rasi format and exit]'\
+  '-dump-theme[Dump the current theme in rasi format and exit]'\
+  '-dump-xresources[Dump the current configuration in Xresources format and exit]'\
+  '-e[a dialog displaying the passed message and exit]:string:'\
+  '-eh[Row height (in chars)]:number:'\
+  '-filter[Pre-set filter]:string:'\
+  '-fixed-num-lines[Always show number of lines]:lines:'\
+  '-font[Font to use]:font:'\
+  '-format[Output format string]:string:'\
+  '-fullscreen[Fullscreen]'\
+  '-i[Set filter to be case insensitive]'\
+  '-icon-theme[Theme to use to look for icons]:string:'\
+  '-ignored-prefixes[Programs ignored for history]:string:'\
+  '-input[Read input from file instead from standard input]:file:_files'\
+  '-kb-accept-alt[Use alternate accept command]:string:'\
+  '-kb-accept-custom[Use entered text as command (in ssh/run modi)]:string:'\
+  '-kb-accept-entry[Accept entry]:string:'\
+  '-kb-cancel[Quit rofi]:string:'\
+  '-kb-clear-line[Clear input line]:string:'\
+  '-kb-custom-10[Custom keybinding 10]:string:'\
+  '-kb-custom-11[Custom keybinding 11]:string:'\
+  '-kb-custom-12[Custom keybinding 12]:string:'\
+  '-kb-custom-13[Custom keybinding 13]:string:'\
+  '-kb-custom-14[Custom keybinding 14]:string:'\
+  '-kb-custom-15[Custom keybinding 15]:string:'\
+  '-kb-custom-16[Custom keybinding 16]:string:'\
+  '-kb-custom-17[Custom keybinding 17]:string:'\
+  '-kb-custom-18[Custom keybinding 18]:string:'\
+  '-kb-custom-19[Custom Keybinding 19]:string:'\
+  '-kb-custom-1[Custom keybinding 1]:string:'\
+  '-kb-custom-2[Custom keybinding 2]:string:'\
+  '-kb-custom-3[Custom keybinding 3]:string:'\
+  '-kb-custom-4[Custom keybinding 4]:string:'\
+  '-kb-custom-5[Custom Keybinding 5]:string:'\
+  '-kb-custom-6[Custom keybinding 6]:string:'\
+  '-kb-custom-7[Custom Keybinding 7]:string:'\
+  '-kb-custom-8[Custom keybinding 8]:string:'\
+  '-kb-custom-9[Custom keybinding 9]:string:'\
+  '-kb-delete-entry[Delete entry from history]:string:'\
+  '-kb-ellipsize[Toggle between ellipsize modes for displayed data]:string:'\
+  '-kb-mode-next[Switch to the next mode]:string:'\
+  '-kb-mode-previous[Switch to the previous mode]:string:'\
+  '-kb-move-char-back[Move back one char]:string:'\
+  '-kb-move-char-forward[Move forward one char]:string:'\
+  '-kb-move-end[End of line]:string:'\
+  '-kb-move-front[Beginning of line]:string:'\
+  '-kb-move-word-back[Move back one word]:string:'\
+  '-kb-move-word-forward[Move forward one word]:string:'\
+  '-kb-page-next[Go to the next page]:string:'\
+  '-kb-page-prev[Go to the previous page]:string:'\
+  '-kb-primary-paste[Paste primary selection]:string:'\
+  '-kb-remove-char-back[Delete previous char]:string:'\
+  '-kb-remove-char-forward[Delete next char]:string:'\
+  '-kb-remove-to-eol[Delete till the end of line]:string:'\
+  '-kb-remove-to-sol[Delete till the start of line]:string:'\
+  '-kb-remove-word-back[Delete previous word]:string:'\
+  '-kb-remove-word-forward[Delete next word]:string:'\
+  '-kb-row-down[Select next entry]:string:'\
+  '-kb-row-first[Go to the first entry]:string:'\
+  '-kb-row-last[Go to the last entry]:string:'\
+  '-kb-row-left[Go to the previous column]:string:'\
+  '-kb-row-right[Go to the next column]:string:'\
+  '-kb-row-select[Set selected item as input text]:string:'\
+  '-kb-row-tab[Go to next row, if one left, accept it, if no left next mode]:string:'\
+  '-kb-row-up[Select previous entry]:string:'\
+  '-kb-screenshot[Take a screenshot of the rofi window]:string:'\
+  '-kb-secondary-paste[Paste clipboard]:string:'\
+  '-kb-select-10[Select row 10]:string:'\
+  '-kb-select-1[Select row 1]:string:'\
+  '-kb-select-2[Select row 2]:string:'\
+  '-kb-select-3[Select row 3]:string:'\
+  '-kb-select-4[Select row 4]:string:'\
+  '-kb-select-5[Select row 5]:string:'\
+  '-kb-select-6[Select row 6]:string:'\
+  '-kb-select-7[Select row 7]:string:'\
+  '-kb-select-8[Select row 8]:string:'\
+  '-kb-select-9[Select row 9]:string:'\
+  '-kb-toggle-case-sensitivity[Toggle case sensitivity]:string:'\
+  '-kb-toggle-sort[Toggle sort]:string:'\
+  '-keep-right[Set ellipsize to end]'\
+  '-l[Number of rows to display]:nr of displays:'\
+  '-lines[Number of lines]'\
+  '-location[Location on screen]'\
+  '-m[Monitor id to show on]:string:'\
+  '-markup-rows[Allow and render pango markup as input data]'\
+  '-markup[Enable pango markup where possible]'\
+  '-matching-negate-char[Set the character used to negate the matching]:char:'\
+  '-matching[Set the matching algorithm (normal, regex, glob, fuzzy)]:string:'\
+  '-max-history-size[Max history size (WARNING: can cause slowdowns when set to high)]:number:'\
+  '-me-accept-custom[Accept hovered row with custom action Control+MouseDPrimary (Default)]:string:'\
+  '-me-accept-entry[Accept hovered row MouseDPrimary (Default)]:string:'\
+  '-me-select-entry[Select hovered row]:string:'\
+  '-mesg[a small user message under the prompt]'\
+  '-ml-row-down[Select next entry]:string:'\
+  '-ml-row-left[Go to the previous column]:string:'\
+  '-ml-row-right[Go to the next column]:string:'\
+  '-ml-row-up[Select previous entry]:string:'\
+  '-modi[modi enabled]:modi:(window run ssh)'\
+  '-no-custom[Dont accept custom entry, allow no match]'\
+  '-no-lazy-grab[Disable lazy grab that, when fail to grab keyboard, does not block but retry later]'\
+  '-no-plugins[Disable loading of external plugins]'\
+  '-normal-window[Behave as a normal window (experimental)]'\
+  '-normalize-match[Normalize string when matching implies -no-show-match]'\
+  '-only-match[Force selection to be given entry, disallow no match]'\
+  '-p[Prompt to display left of entry field]:string:'\
+  '-padding[Padding]'\
+  '-parse-hosts[Parse hosts file for ssh mode]'\
+  '-parse-known-hosts[Parse known_hosts file for ssh mode]'\
+  '-password[Do not show what the user inputs Show instead]'\
+  '-pid[Pidfile location]:pid file:_files'\
+  '-run-command[Run command to execute]:command:'\
+  '-run-list-command[Command to get extra run targets]:command:'\
+  '-run-shell-command[Run command to execute that runs in shell]:command:'\
+  '-scroll-method[Scrolling method]:method:(0 1)'\
+  '-select[Select the first row that matches]:string:'\
+  '-selected-row[Select row]:row:'\
+  '-sep[Element separator]:char:'\
+  '-show the mode and exit The mode has to be enabled]:mode:( windowcd drun combi keys file-browser)'\
+  '-show-icons[Whether to load and show icons]'\
+  '-show-match[Indicate how it match by underlining it]'\
+  '-sidebar-mode[Enable sidebar-mode]'\
+  '-sort[Use sorting]'\
+  '-sorting-method[Choose the strategy used for sorting: normal (levenshtein) or fzf]:string:(fzf levenshtein)'\
+  '-ssh-client[Ssh client to use]:ssh client:(ssh)'\
+  '-ssh-command[Ssh command to execute]:string:'\
+  '-sync[Force dmenu to first read all input data, then show dialog]'\
+  '-theme[New style theme file]:string:'\
+  '-threads[Threads to use for string matching]:number:'\
+  '-tokenize[Tokenize input string]'\
+  '-u[List of row indexes to mark urgent]'\
+  '-upgrade-config[Upgrade the old-style configuration file in the new rasi format and exit]'\
+  '-w[Position over window with X11 windowid]:windowid:'\
+  '-width[Window width]'\
+  '-window-command[Command to executed when -kb-accept-alt binding is hit on selected window ]:command:'\
+  '-window-format[Window Format w (desktop name), t (title), n (name), r (role), c (class)]:string:'\
+  '-window-match-fields[Window fields to match in window mode]:string:'\
+  '-window-thumbnail[Show window thumbnail as icon in window switcher]'\
+  '-window-title[Set the dmenu window title]:title:'\
+  '-xoffset[X-offset relative to location]:offset:'\
+  '-yoffset[Y-offset relative to location]:offset:'\
+  '-terminal[Terminal to use]:terminal:( rofi-sensible-terminal )'\
+  '-drun-url-launcher[Command to open an Desktop Entry that is a Link]:string:'
+

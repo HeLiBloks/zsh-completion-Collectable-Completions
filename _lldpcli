@@ -1,0 +1,15 @@
+#compdef lldpcli lldpctl
+
+if [[ $service == lldpctl ]]; then
+    _arguments -s '-d[Enable more debugging information]'\
+      '-u[Unix-domain socket used for communication]:socket:'\
+      '-f[Output format]:format:(plain  keyvalue  json  json0  xml)'\
+      '-c[Read the provided configuration file]:conf file:_files'\
+      ':interface:_net_interfaces' && return 0
+else
+    _arguments -s '-d[Enable more debugging information]'\
+      '-u[Unix-domain socket used for communication with lldpd(8).]:socket:_files'\
+      '-f[Output format]:format:(plain  keyvalue  json  json0  xml)'\
+      '-c[Read the provided configuration file.]:conf file:_files'\
+      ':command:' && return 0
+fi

@@ -1,0 +1,128 @@
+#compdef compton
+
+
+_arguments '(-id --benchmark-wid)'{-id,--benchmark-wid=}'[Specify window ID to repaint in benchmark mode. If omitted or is 0, whole screen is repainted]:window:->windowid'\
+  '(-b --daemon)'{-b,--daemon}'[Daemonize process. Causes issues with certain (badly-written) drivers]'\
+  '--vsync=[VSync method]:vsync:->vsync'\
+  '--unredir-if-possible-exclude[Conditions of windows that shouldnt be considered full-screen]:condition:->conditions'\
+  '--active-opacity=[specify active windows opacity]:opacity:( 0.9 0.8 0.95 )'\
+  '--alpha-step=[--alpha-step val X Render backend Step for pregenerating alpha pictures]:val:'\
+  '--backend=[backend Choose render backend]:backend:->backend'\
+  '(-b --daemon)--benchmark[Benchmark mode. Repeatedly paint until reaching the specified cycles]:cycles:'\
+  '--blur-background-exclude[Exclude conditions for background blur]:condition:->conditions'\
+  '--blur-background-fixed[Use fixed blur strength instead of adjusting according to window opacity]'\
+  '--blur-background-frame[Blur background of windows when window frame is not opaque. Implies --blur-background. Bad in performance. switch name]'\
+  '--blur-background[Blur background of semi-transparent / ARGB windows. Bad in performance. switch name may change without prior]'\
+  '--blur-kern[Specify blur convolution kernel, with following format WIDTH,HEIGHT,ELE1,ELE2,ELE3,ELE4,ELE5,..]:width:height:element1'\
+  '--config[loading configuration file]:path:_files'\
+  '--dbe[Enable DBE painting mode, intended to use with VSync to hopefully eliminate tearing]'\
+  '--detect-client-leader[Use WM_CLIENT_LEADER to group windows, and consider windows in same group focused at same time. WM_TRANSIENT_FOR ha]'\
+  '--detect-client-opacity[detect windows opacity]'\
+  '--detect-rounded-corners[Try to detect windows with rounded corners and dont consider m shaped windows]'\
+  '--detect-transient[transient]:higher:'\
+  '--fade-exclude[exclude condition]:condition:->conditions'\
+  '--focus-exclude[exclude considered focused]:condition:->conditions'\
+  '--force-win-blend[Force all windows to be painted with blending. Useful if you have a --glx-fshader-win that could turn opaque pixels transparent]'\
+  '--glx-copy-from-front[GLX backend Copy unmodified regions from front buffer instead of redrawing m all. My tests with nvidia-drivers show a 5percent decrease]'\
+  '--glx-fshader-win[--glx-fshader-win shader GLX backend Use specified GLSL fragment shader for rendering window]:shader:'\
+  '--glx-no-rebind-pixmap[GLX backend Avoid rebinding pixmap on window damage. Probably could improve performance on rapid window content changes, but i]'\
+  '--glx-swap-method=[GLX buffer swap method]:glx_swap_method:->glx_swap_method'\
+  '--glx-no-stencil[GLX backend Avoid using stencil buffer. Might cause issues when rendering transparent content. My tests show a 15percent performance]'\
+  '--glx-use-copysubbuffermesa[Use MESA_copy_sub_buffer to do partial screen update]'\
+  '--glx-use-gpushader4[Use GL_EXT_gpu_shader4 for some optimization on blur GLSL code]'\
+  '--inactive-dim[Dim inactive windows. 0.0 - 1.0, defaults to 0 ]:value:( 0.0 0.1 0.2 0.5 0.9 1.0 )'\
+  '--invert-color-include[inverted color. Resource-hogging, and is not well tested]:condition:->conditions'\
+  '--mark-ovredir-focused[Mark windows that have no WM frame as active]'\
+  '--mark-wmwin-focused[Try to detect WM windows and mark m as active]'\
+  '--no-fading-destroyed-argb[Do not fade destroyed ARGB windows with WM frame. Workaround of bugs in Openbox, Fluxbox, etc]'\
+  '--no-fading-openclose[Do not fade on window open/close]'\
+  '--opacity-rule[Specify a list of opacity rules, in format "PERCENT PATTERN"]:opacity percent::opacity pattern:'\
+  '--paint-on-overlay[Painting on X Composite overlay window]'\
+  '--refresh-rate[Specify refresh rate of screen. If not specified or 0, compton will try detecting this with X RandR extension]:val:'\
+  '--resize-damage[integer Resize damaged region by a specific number of pixels. A positive]:integer:'\
+  '--respect-prop-shadow[Respect _COMPTON_SHADOW. This a prototype-level feature, which you must not rely on]'\
+  '--shadow-blue[value Blue color value of shadow 0.0 - 1.0, defaults to 0 ]:value:(0.0 0.1 1.0)'\
+  '--shadow-exclude[list of conditions of windows that should have no shadow]:condition:->conditions'\
+  '--shadow-green[Value Green color value of shadow 0.0 - 1.0, defaults to 0]:value:'\
+  '--shadow-red[Value Red color value of shadow 0.0 - 1.0, defaults to 0 ]:value:'\
+  '--show-all-xerrors[Show all X errors for debugging]'\
+  '--sw-opti[Limit compton to repaint at most once every 1 / refresh_rate second to boost performance]'\
+  '--unredir-if-possible-delay[Defaults to 0]:ms:(0 10 50 100)'\
+  '--vsync-aggressive[Attempt to send painting request before VBlank and do XFlush during VBlank]'\
+  '--write-pid-path[--write-pid-path path Write process ID to a file]:path:_files'\
+  '--xinerama-shadow-crop[Crop shadow of a window fully on a particular Xinerama screen to screen]'\
+  '--xrender-sync-fence[Additionally use X Sync fence to sync clients draw calls. Needed on nvidia-drivers with GLX backend for some users]'\
+  '--dbus[Enable remote control via D-Bus. See the D-BUS API section below for more details]'\
+  '-c[Enabled client-side shadows on windows]'\
+  '-d[Display to be managed]:display:_x_display'\
+  '(-D --fade-delta)'{-D,--fade-delta=}'[time between steps in fade step, in ms (> 0, defaults to 10)]:ms:(4 10 20 30)'\
+  '(-e --frame-opacity)'{-e,--frame-opacity=}'[Opacity of window titlebars and borders 0.1 - 1.0 ]:opacity:(0.1 0.3 0.8 1.0)'\
+  '(-G --no-dnd-shadow)'{-G,--no-dnd-shadow}'[Dont draw shadows on drag-and-drop windows]'\
+  '(-i --inactive-opacity)'{-i,--inactive-opacity=}'[Opacity of inactive windows. 0.1 - 1.0 ]:opacity:'\
+  '(-I --fade-in-step)'{-I,--fade-in-step=}'[Opacity change between steps while fading in. (0.01 - 1.0, defaults to 0.028)]:OPACITY_STEP:(0.01 0.028)'\
+  '(-m --menu-opacity)'{-m,--menu-opacity=}'[Default opacity for dropdown menus and popup menus. (0.0 - 1.0, defaults to 1.0)]:opacity:'\
+  '(-O --fade-out-step)'{-O,--fade-out-step=}'[Opacity change between steps while fading out (0.01 - 1.0, defaults to 0.028)]:OPACITY_STEP:(0.01 0.028)'\
+  '(-o --shadow-opacity)'{-o,--shadow-opacity=}'[opacity of shadows. (0.0 - 1.0, defaults to 0.75)]:radius:(1 2 3 4 10 12)'\
+  '(-l --shadow-offset-x)'{-l,--shadow-offset-x=}'[left offset for shadows, in pixels. (defaults to -15)]:OFFSET:(-15 -10 -1)'\
+  '(-t --shadow-offset-y)'{-t,--shadow-offset-y=}'[top offset for shadows, in pixels. (defaults to -15)]:OFFSET:(-15 -10 -1)'\
+  '(-r --shadow-radius)'{-r,--shadow-radius=}'[blur radius for shadows, in pixels. (defaults to 12)]:radius:(1 2 3 4 10 12)'\
+  '-S[Enable synchronous X operation (for debugging)]'\
+  '--shadow-exclude-reg[Specify X geometry describing region in which shadow shouldt be painted]:x geometry:( x10+0-0 )'\
+  '--show-all-xerrors[Show all X errors (for debugging)]'\
+  '-z[Zero part of shadow s mask behind window]' && return 0
+
+
+case $state in
+    vsync)
+        local vsync
+        vsync=(
+            'none:No VSync'
+            'drm:VSync with DRM_IOCTL_WAIT_VBLANK. May only work on some (DRI-based) drivers'
+            'opengl:Try to VSync with SGI_video_sync OpenGL extension. Only work on some drivers'
+            'opengl-oml:Try to VSync with OML_sync_control OpenGL extension. Only work on some drivers'
+            'opengl-swc:Try to VSync with SGI_swap_control OpenGL extension. For GLX backend'
+            'opengl-mswc:Try to VSync with MESA_swap_control OpenGL extension'
+        )
+        _describe vsync vsync;
+    ;;
+    backend)
+        local backends
+        backends=(
+            'xrender:perform rendering operations with X Render extension'
+            'glx performs:perform rendering operations with OpenGL'
+            'xr_glx_hybrid:render updated screen contents with X Render and present it on screen with GLX'
+        )
+        _describe backend backends;
+    ;;
+    conditions)
+        local conditions
+        conditions=(
+            override_redirect
+            window_type
+            '_NET_WM_WINDOW_TYPE@:a *= "MENU"'
+           'name *?= "Firefox"'
+           'name ~= "Firefox$"'
+           '_NET_FRAME_EXTENTS@[2]:32c < 20 || !_NET_FRAME_EXTENTS@:32c'
+            )
+        compadd -A conditions;
+    ;;
+    glx_swap_method)
+        local glx_swap_method
+        glx_swap_method=(
+            '0:undefined, Default slowest and safest'
+            '1:copy, fastest'
+            '2:exchange'
+            {3..6}':gradually slower but safer'
+            '-1:buffer-age, auto detect using GLX_EXT_buffer_age'
+        )
+        _describe glx_swap_method glx_swap_method;
+    ;;
+    windowid)
+        local windowids
+        [[ ! -x /usr/bin/wmctrl ]] && return 0
+        windowids=( ${(q)${(f)"$(_call_program wmctrl_id wmctrl -l 2>/dev/null)"}/ /:} '0:repaint whole screen' )
+        _describe windowid windowids
+    ;;
+esac
+
+

@@ -1,0 +1,28 @@
+#compdef lldptool
+
+
+_arguments -s  '-c[used with get TLV command to specify]:argument:'\
+  '-d[use to delete specified argument from]'\
+  '-g[destination agent (may be one of) ]:bridge scope:(nearest_bridge nearest_customer_bridge nearest_nontpmr_bridge)'\
+  '-h[show command usage information]:help:'\
+  '-i[network interface]:ifname:_net_interfaces'\
+  '-l[get LLDP parameters for ifname]:getldp:'\
+  '-L[set LLDP parameter for ifname]:setldp:'\
+  '-n["neighbor" option for command]'\
+  '-p[ping lldpad and query pid of lldpad]:ping:'\
+  '-R[show only raw message]'\
+  '-r[show raw message]'\
+  '-S[get LLDP statistics for ifname]:stats:'\
+  '-t[get TLVs from ifname]:getlv:'\
+  '-T[set arg for tlvid to value]:setlv id:'\
+  '-v[show version]:version:'\
+  '-V[TLV identifier]:tlvid:->tlvid' && return 0
+
+case $state in
+    tlvid )
+        local tlvid
+        tlvid=( ${(q)${${(f)"$(lldptool --help)"##*TLV identifiers:}//       /}#   } )
+        _describe 'tlvid' tlvid
+        ;;
+esac
+# TLV identifiers:

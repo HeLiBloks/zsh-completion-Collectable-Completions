@@ -1,0 +1,17 @@
+#compdef i3-save-tree i3status
+
+
+case $service in
+    i3-save-tree)
+        local i3options
+        i3options='--output[Specifies output that should be dumped, e.g. LVDS-1]:output name:'\
+            '--workspace[Specifies workspace that should be dumped, e.g. 1. This can]:workspace:(1 2 3 4 5 6 7)'
+    ;;
+    i3status)
+        local i3options
+        i3options='-c[configfile]:file:_files'
+    ;;
+esac
+
+_arguments $i3options
+

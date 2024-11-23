@@ -1,0 +1,41 @@
+#compdef rkhunter
+
+
+_arguments -s  '(-c --check)'{-c,--check}'[Check local system]'\
+  '(-C --config-check)'{-C,--config-check}'[Check configuration file(s), n exit]'\
+  '(-color-set2 --cs2)'{-color-set2,--cs2}'[Use second color set for output]'\
+  '(-keypress --sk)'{-keypress,--sk}'[Don t wait for a keypress after each test]:ip:'\
+  '(-l --logfile)'{-l,--logfile}'[Write to a logfile]:file:_files'\
+  '(-no-mail-on-warning --nomow)'{-no-mail-on-warning,--nomow}'[Do not send a message if warnings occur]'\
+  '(-no-verbose-logging --novl)'{-no-verbose-logging,--novl}'[No verbose logging]'\
+  '(-nosummary --ns)'{-nosummary,--ns}'[Do not show summary of check result]'\
+  '(-q --quiet)'{-q,--quiet}'[Quiet mode (no output at all)]'\
+  '(-report-warnings-only --rwo)'{-report-warnings-only,--rwo}'[Show only warning message]'\
+  '(-verbose-logging --vl)'{-verbose-logging,--vl}'[Use verbose logging (on by default)]'\
+  '(-x --autox)'{-x,--autox}'[Automatically detect if X is in use]'\
+  '(-X --no-autox)'{-X,--no-autox}'[Do not automatically detect if X is in use]'\
+  '(: - 1)'{-h,--help}'[Display this help menu, n exit]'\
+  '(: - 1)'{-V,--version}'[Display version number, n exit]'\
+  '(: - 1)--versioncheck[Check for latest version of program]'\
+  '--append-log[Append to logfile, do not overwrite]'\
+  '--bindir[Use specified command directorie]:directory:_files -/'\
+  '--configfile[Use specified configuration file]:file:_files'\
+  '--cronjob[Run as a cron job]'\
+  '--dbdir[Use specified database directory]:directory:_files -/'\
+  '--debug[Debug mode]'\
+  '--disable[Disable specific test]:test:'\
+  '--display-logfile[Display logfile at end]'\
+  '--enable[ test , test ... Enable specific test]'\
+  '--lang[Specify language to use]:uage:'\
+  '--list[List available test names, languages]:tests:'\
+  '--noappend-log[Do not append to logfile, overwrite it]'\
+  '--nocf[Do not use configuration file entrie]'\
+  '--nocolors[Use black and white output]'\
+  '--nolog[Do not write to a logfile]'\
+  '--pkgmgr[Use specified package manager to obtain]:RPM:'\
+  '--summary[Show summary of system check result]'\
+  '--syslog[Log check start and finish times to syslog]:facility:'\
+  '--tmpdir[Use specified temporary directory]:directory:_files -/'\
+  '--unlock[Unlock (remove) lock file]'\
+  '--update[Check for updates to database file]'\
+  '*:file:_files' && return 0

@@ -1,0 +1,9 @@
+#compdef platformio pio
+
+[[ -z "$_PLATFORMIO_COMPLETE" ]] && (){
+  autoload bashcompinit && bashcompinit
+  eval "$(_PLATFORMIO_COMPLETE=source platformio)" 2> /dev/null
+  eval "$(_PLATFORMIO_COMPLETE=source pio)" 2> /dev/null
+  unfunction _platformio 2> /dev/null
+}
+return 1

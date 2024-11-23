@@ -1,0 +1,42 @@
+#compdef i3-msg
+
+
+_arguments '(-q --quiet)'{-q,--quiet}'[Only send ipc message and suppress output of response]'\
+  '(: - 1)'{-h,--help}'[Display a short help-message and exit]'\
+  '(: - 1)'{-v,--version}'[Display version]'\
+  '-msg[If both fail, it will try to get socket information from root window and]:i3:'\
+  '-t[type of ipc message]:type:->types'\
+  '(-m --monitor)'{-m,--monitor}'[Instead of exiting right after receiving the first subscribed event, wait indefinitely for all of them]'\
+  '(-s --socket)'{-s,--socket}'[socket path]:socket:_files'\
+  ':ipc message:->msg'
+
+case $state in
+  types)
+    local i3commands
+    i3commands=(
+      'command:The payload of the message is a command for i3 \(like the commands you can bind to keys in the configuration file\) and will be executed directly after receiving it'
+      'get_workspaces:Gets the current workspaces. The reply will be a JSON-encoded list of workspaces'
+      'get_outputs:Gets the current outputs. The reply will be a JSON-encoded list of outputs \(see the reply section of docs/ipc'
+      'get_tree:Gets the layout tree. i3 uses a tree as data structure which includes every container. The reply will be the JSON-encoded tree'
+      'get_marks:Gets a list of marks \(identifiers for containers to easily jump to them later\). The reply will be a JSON-encoded list of window marks'
+      'get_bar_config:Gets the configuration \(as JSON map\) of the workspace bar with the given ID. If no ID is provided, an array with all configured bar IDs is returned instead'
+      'get_binding_modes:Gets a list of configured binding modes'
+      'get_version:Gets the version of i3. The reply will be a JSON-encoded dictionary with the major, minor, patch and human-readable version'
+      'get_config:Gets the currently loaded i3 configuration'
+      'send_tick:Sends a tick to all IPC connections which subscribe to tick events'
+      'subscribe:The payload of the message describes the events to subscribe to'
+    )
+   _describe i3types i3commands
+  ;;
+  msg)
+    local i3msg
+    i3msg=(
+        reload
+        restart
+        "border 1pixel"
+        "border normal"
+        )
+    compadd -a i3msg
+  ;;
+esac
+

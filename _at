@@ -1,0 +1,18 @@
+#compdef at at batch atq atrm
+
+
+_arguments -s  '-b[is an alias for batch]'\
+  '-c[cats jobs listed on command line to standard output]:cats:'\
+  '-d[Is an alias for atrm]'\
+  '-f[-f file Reads job from file rather than standard input]:file:_files'\
+  '-l[Is an alias for atq]'\
+  '-M[Is an alias for atrm.]'\
+  '-m[Send mail to the user when the job has completed even if there was no output]'\
+  '-o[strftime-like time format used for job list]:fmt:'\
+  '-q[uses specified queue. A queue designation consists of a single letter valid queue designations range from a to z and A to Z. a queue is default for at and b queue for batch. Queues with higher let‐]:queue:'\
+  '-r[Is an alias for atrm]'\
+  '-t[time run job at time, given in format CC YY MMDDhhmm .ss ]:CC YY MMDDhhmm .ss:'\
+  '-u[Sends mail to username rather than current user]:username:'\
+  '-V[prints the version number to standard error and exit successfully]'\
+  '-v[Shows time job will be executed before reading job]'\
+  '*:file:_files' && return 0
