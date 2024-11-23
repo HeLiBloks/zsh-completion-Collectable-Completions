@@ -14,3 +14,6 @@ compile:
 
 clean:
 	rm -f compiled tags
+
+install_compgenz:
+	sudo install -m 0755 -o root -g root script/compgenz /usr/local/bin/
