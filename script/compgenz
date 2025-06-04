@@ -30,10 +30,10 @@ BEGIN {
 # LOpt: long option
 # returns: string formated alike "(-s --longopt)" or "(1 : -)"
 function classify_brace(    SOpt,    LOpt){
-    if (LOpt ~ /--?help/ || sOpt ~ /-help/ || LOpt ~ /--?version/) {
+    if (LOpt ~ /--?help/ || SOpt ~ /-help/ || LOpt ~ /--?version/) {
         return "(: - 1)"
     } else if (SOpt !="" && LOpt !="") {
-    return sprintf("(%s %s)",ShortOption[0],LongOption[0])
+        return sprintf("(%s %s)", SOpt, LOpt)
     } else {  return "" }
 }
 
