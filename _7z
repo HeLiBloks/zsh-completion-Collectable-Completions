@@ -49,7 +49,7 @@ arguments=(
 
 setopt EXTENDED_GLOB
 
-case $word[1] in
+case $words[1] in
   ^b)
     arguments+=(
       '-ai[Include archives]'
