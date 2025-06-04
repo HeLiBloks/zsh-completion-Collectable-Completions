@@ -17,3 +17,6 @@ clean:
 
 install_compgenz:
 	sudo install -m 0755 -o root -g root script/compgenz /usr/local/bin/
+
+test:
+	bats tests/test_compgenz.bats
