@@ -11,3 +11,7 @@ some completion files might originate from sources I lost track of, contact me i
 
 ## dynamicly generate a completion file for an executable
 ```executable --help | script/compgenz executable > _executable```
+
+## License
+This project is licensed under the terms of the [GNU General Public License version 3](LICENSE).
+
