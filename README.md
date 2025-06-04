@@ -9,7 +9,7 @@ some completion files might originate from sources I lost track of, contact me i
 ## to install
 ```echo "fpath=($PWD/ \$fpath)">> ~/.zshrc```
 
-## dynamicly generate a completion file for an executable
+## dynamically generate a completion file for an executable
 ```executable --help | script/compgenz executable > _executable```
 
 ## License
