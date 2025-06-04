@@ -1,4 +1,4 @@
-#compdef compton
+#compdef compton picom
 
 
 _arguments '(-id --benchmark-wid)'{-id,--benchmark-wid=}'[Specify window ID to repaint in benchmark mode. If omitted or is 0, whole screen is repainted]:window:->windowid'\
